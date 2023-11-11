@@ -1,0 +1,11 @@
+[
+  {
+    "roomID": 5,
+    "name":"CTRL+ALT+DEL",
+    "desc": "A monster capable of consuming data",
+    "isDead": false,
+    "HP": 85.0,
+    "DEF": 10.0,
+    "ATK": 30.0
+  }
+  ]

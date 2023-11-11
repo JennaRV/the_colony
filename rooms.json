@@ -1,0 +1,51 @@
+[
+  {
+    "room_num": 1,
+    "room_name": "Home",
+    "desc": ["This is your home.",
+            "I got to rest up before adventuring. Crazy stuff out there."],
+    "visit": false,
+    "nav_tab": [2,3,0,0]
+  },
+  {
+    "room_num": 2,
+    "room_name": "Prisoners' Den",
+    "desc": ["This is the prisoners' den, home to the most vicious criminals. ",
+              "It's quite dark, and the haunting voices echo across this area."],
+    "visit": false,
+    "nav_tab": [0,0,1,0]
+  },
+  {
+    "room_num": 3,
+    "room_name": "Nocuous Forest",
+    "desc": ["Probably some people's definition of their worse nightmares. ",
+            "From pesky insects to death-seeking snakes, this forest has got them all. "],
+    "visit": false,
+    "nav_tab": [0,4,0,1]
+  },
+  {
+    "room_num": 4,
+    "room_name": "Whispering Abyss",
+    "desc": ["This place is where all the depressed people's lingering souls dangle. ",
+      "Expect some of your favorite artists to be in here."],
+    "visit": false,
+    "nav_tab": [0,5,6,3]
+  },
+  {
+    "room_num": 5,
+    "room_name": "Papa's Harmonical Factory",
+    "desc": ["If you like being escaping into a realm of music, then this is the place for you. ",
+      "From classical Beethoven to Rock n' Roll to Electronic to Mumbling-- I think you get the idea. "],
+    "visit": false,
+    "nav_tab": [0,0,0,4]
+  },
+  {
+    "room_num": 6,
+    "room_name": "Flesh-Eating Canyon",
+    "desc": ["Franklin said, \"I have met the enemy, and it is the eyes of other people.\"",
+            "Welcome to the place where the government went haywire and created zombie apocalypse, ",
+            "but still has the audacity to send us to jail for tax evasion. "],
+    "visit": false,
+    "nav_tab": [4,0,0,0]
+  }
+]

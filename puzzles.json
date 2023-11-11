@@ -1,0 +1,17 @@
+[
+  {
+    "roomID": 3,
+    "puzzleQ": "What time signature was the song 'My Wave' by Soundgarden played in?",
+    "puzzleA": "5/4",
+    "isSolved": false,
+    "numAttempts": 5
+  },
+  {
+    "roomID": 5,
+    "puzzleQ": "What type of engine has 6 cylinders in a single line?",
+    "puzzleA": "inline 6",
+    "isSolved": false,
+    "numAttempts": 2
+  }
+
+]

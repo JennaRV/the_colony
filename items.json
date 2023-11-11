@@ -1,0 +1,23 @@
+[
+{
+  "room_num": 2,
+  "item_id": "Physical",
+  "name": "Sword",
+  "description":"Adds damage to your attacks",
+  "stats": "10 ATK"
+},
+{
+  "room_num": 4,
+  "item_id": "Consumable",
+  "name": "Potion",
+  "description": "It heals you",
+  "stats": "30 HP"
+},
+{
+  "room_num": 6,
+  "item_id": "Physical",
+  "name": "Armor",
+  "description": "Reduces damage to incoming attacks.",
+  "stats": "15 DEF"
+}
+  ]
