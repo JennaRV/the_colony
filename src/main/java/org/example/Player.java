@@ -72,19 +72,22 @@ public class Player {
                     if (this.equipArr[0] == null) {
                         this.equipArr[0] = item;
                         this.def += mod;
+                        this.inventory.remove(item);
+                        System.out.println(this.equipArr[0] + " is equipped");
                     } else {
                         System.out.println("There is an armor already equipped.");
                     }
-                    break;  // Add break statement here
+                    break;
                 case "ATK":
                     if (this.equipArr[1] == null) {
                         this.equipArr[1] = item;
                         this.atk += mod;
                         this.inventory.remove(item);
+                        System.out.println(this.equipArr[1] + " is equipped");
                     } else {
                         System.out.println("There is a weapon already equipped");
                     }
-                    break;  // Add break statement here
+                    break;
             }
         } else {
             System.out.println("This item is not in your inventory");
@@ -97,6 +100,7 @@ public class Player {
             String[] splice = stats.split(" ");
             int mod = Integer.parseInt(splice[0]);
             this.hp += mod;
+            this.inventory.remove(item);
         }
         else{
             System.out.println("This item is not in your inventory");
