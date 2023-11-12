@@ -19,7 +19,7 @@ public class Room {
 
     private int room_num;
 
-   private String room_name;
+   private String[] room_name;
 
    private String[] desc;
 
@@ -28,13 +28,13 @@ public class Room {
    private ArrayList<AbstractItem> items= new ArrayList<>();
    private Puzzle puzzle;
    private Monster monster;
-
+git ad
 
     public Monster getMonster() {
         return monster;
     }
 
-    public Room(@JsonProperty("room_num") int room_num, @JsonProperty("room_name") String room_name,
+    public Room(@JsonProperty("room_num") int room_num, @JsonProperty("room_name") String[] room_name,
                 @JsonProperty("desc") String[] desc, @JsonProperty("visit") boolean visit,
                 @JsonProperty("nav_tab") int[] nav_tab) throws IOException {
        this.room_num = room_num;
@@ -160,9 +160,8 @@ public class Room {
         String itemInfo = (item != null) ? String.format("\nItem Info:\n%s", item.toString()) : "";
 
         return String.format("Room Number: %d\nRoom Name: %s\nRoom Description:\n%s",
-                room_num, room_name, String.join("\n", desc));
+                room_num, Arrays.toString(room_name), Arrays.toString(desc));
     }
-
 }
 
 
