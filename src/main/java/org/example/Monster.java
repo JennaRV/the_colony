@@ -8,7 +8,7 @@ public class Monster {
     private boolean isDead;
     private double HP, DEF, ATK;
 
-    public Monster(@JsonProperty("ID") String id ,@JsonProperty("name") String name, @JsonProperty("desc") String desc, @JsonProperty("isDead") boolean isDead,
+    public Monster(@JsonProperty("ID") String id,@JsonProperty("name") String name, @JsonProperty("desc") String desc, @JsonProperty("isDead") boolean isDead,
                    @JsonProperty("HP") double HP, @JsonProperty("DEF") double DEF, @JsonProperty("ATK") double ATK) {
         this.id = id;
         this.name = name;
@@ -18,7 +18,10 @@ public class Monster {
         this.DEF = DEF;
         this.ATK = ATK;
     }
-    public String getId() {return id;}
+
+    public String getId(){
+        return id;
+    }
     public String getName() {
         return name;
     }
