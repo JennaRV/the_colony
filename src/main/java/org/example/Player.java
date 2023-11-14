@@ -185,9 +185,25 @@ public class Player {
         }
     }
 
-    public ArrayList<Item> getInventory() {
-        return inventory;
+    public void getInventory() {
+        if (inventory.isEmpty()) {
+            System.out.println("Inventory was empty.");
+            return;
+        }
+        System.out.println(inventory.toString());
     }
+    public void exploreItem(String itemName) throws InvalidItemException {
+        Item item = map.getItem(itemName);
+        if (inventory.contains(item) || currentRoom.roomItems().contains(item)) {
+            item.getInformation();
+            if(item.getType().equalsIgnoreCase("Equipment")){
+
+            }
+        } else {
+            System.out.println("You can't inspect this item now.");
+        }
+    }
+
 
     public ArrayList<Equipment> getEquippedItems () {
         return this.equippedItems;

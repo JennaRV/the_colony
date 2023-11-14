@@ -50,33 +50,33 @@ public class Main {
             }
 
             //Monster mechs
-            if (p1.getCurrentRoom().getMonster() != null) {
-                System.out.println("There is a monster in this room: " + p1.getCurrentRoom().getMonster().getName());
-                String examine = scanner.nextLine();
-                Monster monster = p1.getCurrentRoom().getMonster();
-
-                if (examine.equalsIgnoreCase("examine monster")) {
-                    System.out.println(monster.toString());
-                    System.out.println("Type 'attack' to engage with the monster. Type 'ignore' to not fight (it wil still be removed)");
-                    String playerAction = scanner.nextLine();
-                    boolean playerTurn = true;
-                    while (!monster.isDead() ^ p1.getHp() <= 0) {
-                        if (playerTurn) {
-                            if (playerAction.equalsIgnoreCase("ignore")) {
-                                System.out.println("Monster will be ignored and no longer respawn");
-                                p1.getCurrentRoom().setMonster(null);
-                                break;
-                            } else {
-                                //handlePlayerTurn(p1, monster,itemMap,scanner);
-                            }
-
-                        } else {
-                            handleMonsterTurn(p1, monster,scanner);
-                        }
-                        playerTurn = !playerTurn;
-                    }
-                }
-            }
+//            if (p1.getCurrentRoom().getMonster() != null) {
+//                System.out.println("There is a monster in this room: " + p1.getCurrentRoom().getMonster().getName());
+//                String examine = scanner.nextLine();
+//                Monster monster = p1.getCurrentRoom().getMonster();
+//
+//                if (examine.equalsIgnoreCase("examine monster")) {
+//                    System.out.println(monster.toString());
+//                    System.out.println("Type 'attack' to engage with the monster. Type 'ignore' to not fight (it wil still be removed)");
+//                    String playerAction = scanner.nextLine();
+//                    boolean playerTurn = true;
+//                    while (!monster.isDead() ^ p1.getHp() <= 0) {
+//                        if (playerTurn) {
+//                            if (playerAction.equalsIgnoreCase("ignore")) {
+//                                System.out.println("Monster will be ignored and no longer respawn");
+//                                p1.getCurrentRoom().setMonster(null);
+//                                break;
+//                            } else {
+//                                //handlePlayerTurn(p1, monster,itemMap,scanner);
+//                            }
+//
+//                        } else {
+//                            handleMonsterTurn(p1, monster,scanner);
+//                        }
+//                        playerTurn = !playerTurn;
+//                    }
+//                }
+//            }
 
 
 
@@ -91,21 +91,8 @@ public class Main {
                 String itemName = String.join(" ", Arrays.copyOfRange(parts, 1, parts.length));
                 p1.pickupItem(itemName);
                 System.out.println(itemName + " has been picked up from the room and successfully added to the player inventory.");
-            } else if (parts[0].equalsIgnoreCase("drop") && parts.length > 1) {
-                String itemName = String.join(" ", Arrays.copyOfRange(parts, 1, parts.length));
-                p1.dropItem(itemName);
-                System.out.println(itemName + " has been dropped successfully from the player inventory and placed in the room.");
-            } else if (parts[0].equalsIgnoreCase("equip") && parts.length > 1) {
-                String itemName = String.join(" ", Arrays.copyOfRange(parts, 1, parts.length));
-                p1.equip(itemName);
-            } else if (parts[0].equalsIgnoreCase("un-equip") && parts.length > 1) {
-                String itemName = String.join(" ", Arrays.copyOfRange(parts, 1, parts.length));
-                p1.unequip(itemName);
-            } else if (parts[0].equalsIgnoreCase("consume") && parts.length > 1) {
-                String itemName = String.join(" ", Arrays.copyOfRange(parts, 1, parts.length));
-                p1.consume(itemName);
-            } else if (parts[0].equalsIgnoreCase("i")) {
-                p1.getInventory();
+            }  else if (parts[0].equalsIgnoreCase("i")) {
+                handleInventory(p1,scanner);
             } else if (parts[0].equalsIgnoreCase("look")) {
                 p1.look();
             } else if (parts[0].equalsIgnoreCase("stats")) {
@@ -126,7 +113,9 @@ public class Main {
                 System.out.println("\n Ignore a monster: ignore");
                 System.out.println("\n Exit: can be used to exit the inventory or the game");
                 System.out.println("\n Restart: Restarts the game if the player loses to the monster.");
-            }  else if (parts[0].equalsIgnoreCase("exit")) {
+            }  else if (parts[0].equalsIgnoreCase("restart")) {
+                restart();
+            } else if (parts[0].equalsIgnoreCase("exit")) {
                 play = false;
             } else {
                 System.out.println("Invalid command!");
@@ -135,7 +124,7 @@ public class Main {
     }
 
 
-    public static void handlePlayerTurn(Player p, Monster m,Map<String, Item> itemMap, Scanner scanner){
+    public static void handlePlayerTurn(Player p, Monster m, Scanner scanner) throws InvalidItemException {
         System.out.println("Player's turn: Type 'attack' to attack, 'inventory' to access inventory");
         String engage=scanner.nextLine();
         switch (engage.toLowerCase()) {
@@ -150,12 +139,12 @@ public class Main {
                     p.getCurrentRoom().setMonster(null);
                 }
             }
-            case "i" -> handleInventory(p, scanner, itemMap);
+            case "i" -> handleInventory(p, scanner);
             default -> System.out.println("Invalid command");
         }
 
     }
-    public static void handleMonsterTurn(Player p, Monster m,Scanner scanner) throws IOException {
+    public static void handleMonsterTurn(Player p, Monster m,Scanner scanner) throws IOException, InvalidItemException, InvalidRoomException, InvalidPuzzleException {
         double monsterThreshold = 0.35;
         Random random = new Random();
         double randomValue = random.nextDouble();
@@ -179,109 +168,41 @@ public class Main {
 
         }
     }
-    public static void handleInventory(Player p1, Scanner scanner, Map<String, Item> itemMap) {
+    public static void handleInventory(Player p1, Scanner scanner) throws InvalidItemException {
         boolean inInventory = true;
-        if(!p1.getInventory().isEmpty()) {
-            for (Item i : p1.getInventory()) {
-                itemMap.put(i.getName(),i);
-                System.out.println(i.getName());
-            }
-        }
-        else {
-            System.out.println("Inventory is empty");
-        }
+
+        p1.getInventory();
 
         while (inInventory) {
             String input = scanner.nextLine().toLowerCase();
-            String[] parts1 = input.split(" ");
-            String commandType = parts1[0];
+            String command = input;
+            String[] parts = command.split(" ");
 
-            if (parts1.length > 1) {
-                String parameterName = parts1[1];
-                switch (commandType) {
-                    case "explore" -> {
-                        Item exploreItem = itemMap.get(parameterName);
-                        if (exploreItem != null) {
-                            System.out.println(exploreItem.toString());
-                        } else {
-                            System.out.println("Item does not exist in inventory.");
-                        }
-                    }
-                    case "drop" -> {
-                        AbstractItem dropItem = itemMap.get(parameterName);
-                        if (dropItem != null) {
-                            p1.drop(dropItem);
-                            System.out.println(dropItem.getName() + " has been dropped");
-                        } else {
-                            System.out.println("Item does not exist in inventory.");
-                        }
-                    }
-                    case "equip" -> {
-                        AbstractItem equipItem = getItemFromInventory(parameterName,itemMap);
-                        if (equipItem != null && equipItem instanceof Item) {
-                            p1.equip((Item) equipItem);
-                        } else {
-                            System.out.println("Cannot equip item");
-                        }
-                    }
-                    case "consume" -> {
-                        AbstractItem consumeItem = itemMap.get(parameterName);
-                        if (consumeItem != null) {
-                            if (consumeItem instanceof ConsumableItem) {
-                                p1.consume((ConsumableItem) consumeItem);
-                                System.out.println(consumeItem.getName() +" consumed");
-                            } else {
-                                System.out.println("Wrong item type");
-                            }
-                        } else {
-                            System.out.println("Cannot consume item");
-                        }
-                    }
-                    case "unequip" -> {
-                        AbstractItem unequipItem = getItemFromEquipped(p1, parameterName);
-                        if (unequipItem != null && unequipItem instanceof Item) {
-                            p1.unequip((Item) unequipItem);
-                            System.out.println(unequipItem.getName() + " is unequipped");
-                        } else {
-                            System.out.println("Cannot unequip item");
-                        }
-                    }
-                }
-            } else {
-                if ("equipped".equals(commandType)) {
-                    AbstractItem[] equipped = p1.getEquipArr();
-                    for (AbstractItem i : equipped) {
-                        if (i != null) {
-                            System.out.println("Equipped: " + i);
-                        }
-
-                    }
-                } else {
+            if (parts[0].equalsIgnoreCase("explore") && parts.length > 1) {
+                String itemName = String.join(" ", Arrays.copyOfRange(parts, 1, parts.length));
+                p1.exploreItem(itemName);
+            } else if (parts[0].equalsIgnoreCase("drop") && parts.length > 1) {
+                String itemName = String.join(" ", Arrays.copyOfRange(parts, 1, parts.length));
+                p1.dropItem(itemName);
+                System.out.println(itemName + " has been dropped successfully from the player inventory and placed in the room.");
+            } else if (parts[0].equalsIgnoreCase("equip") && parts.length > 1) {
+                String itemName = String.join(" ", Arrays.copyOfRange(parts, 1, parts.length));
+                p1.equip(itemName);
+            } else if (parts[0].equalsIgnoreCase("un-equip") && parts.length > 1) {
+                String itemName = String.join(" ", Arrays.copyOfRange(parts, 1, parts.length));
+                p1.unequip(itemName);
+            } else if (parts[0].equalsIgnoreCase("consume") && parts.length > 1) {
+                String itemName = String.join(" ", Arrays.copyOfRange(parts, 1, parts.length));
+                p1.consume(itemName);
+            } else if ((parts[0].equalsIgnoreCase("exit"))){
                     System.out.println("Exiting inventory");
                     inInventory = false;
-                }
+            } else {
+                System.out.println("Invalid command!");
             }
         }
     }
-    private static AbstractItem getItemFromInventory(String itemName, Map<String, AbstractItem> itemMap ) {
-        AbstractItem item= itemMap.get(itemName);
-        if(item!=null && item instanceof Item){
-            return item;
-        }
-        else{
-            return null;
-        }
-    }
-    private static AbstractItem getItemFromEquipped(Player p, String itemName) {
-        Item[] arr=p.getEquipArr();
-        for(Item i: arr){
-            if (i!=null && i.getName().equalsIgnoreCase(itemName)){
-                return i;
-            }
-        }
-        return null;
-    }
-    public static void restart() throws IOException {
+    public static void restart() throws IOException, InvalidItemException, InvalidRoomException, InvalidPuzzleException {
         Main game= new Main();
         game.Game();
     }

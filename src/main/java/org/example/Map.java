@@ -14,7 +14,7 @@ public class Map {
     private ArrayList<Puzzle> allPuzzles;
     private ArrayList<Monster> allMonster;
 
-    public Map() throws FileNotFoundException {
+    public Map(){
         allRooms = new ArrayList<>();
         readMap("rooms.json");
 

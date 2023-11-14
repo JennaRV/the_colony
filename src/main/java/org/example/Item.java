@@ -23,7 +23,7 @@ public abstract class Item {
         return name;
     }
 
-    public String getDescription() {
+    public String getInformation() {
         return description;
     }
     public String getType() {return type;}
@@ -47,7 +47,12 @@ class Equipment extends Item {
     }
 
     public String getSort() {return sort;}
-    public void setUseCount(int newUseCount) {this.useCount = useCount;}
+    public void setUseCount(int newUseCount) {this.useCount = newUseCount;}
+    @Override
+    public String getInformation() {
+        return  super.getInformation() + "\nHP: " + stats.get(0) + "\nDEF: " + stats.get(1) + "\nAMR: "
+                + stats.get(2) + "\nATK: " + stats.get(3);
+    }
 
     public double getHPModifier() {
         return stats.get(0);
@@ -62,7 +67,7 @@ class Equipment extends Item {
     }
 
     public double getAtkModifier() {
-        return stats.get(4);
+        return stats.get(3);
     }
 
 }
@@ -88,6 +93,10 @@ class ConsumableItem extends Item {
     public int getEffect() {return effect;}
     public String getRequired() {return required;}
 
+    @Override
+    public String getInformation() {
+        return super.getInformation() + "\n" + getSort() + ": " + getEffect();
+    }
 }
 
 class StaticItem extends Item {
