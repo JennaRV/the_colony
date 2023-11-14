@@ -29,15 +29,7 @@
     "ATK": 5.0,
     "drop": [
       {
-        "item_id": "A2",
-        "name": "Bandaids",
-        "desc": "A small, flexible medical dressings designed for covering and protecting minor cuts, scrapes, blisters,\nor other superficial wounds on the skin. Bandaids are used for healing.",
-        "type": "ConsumableItem",
-        "sort": "Healing",
-        "stats": "3 HP",
-        "limit":"None",
-        "required": "None",
-        "chance": 0.25
+        "item_id":["Bandaid"],
       }
     ],
     "specialEffects": [
@@ -68,71 +60,8 @@
     "ATK": 1.0,
     "drop": [
       {
-        "item_id": "A2",
-        "name": "Bandaids",
-        "desc": "A small, flexible medical dressings designed for covering and protecting minor cuts, scrapes, blisters,\nor other superficial wounds on the skin. Bandaids are used for healing.",
-        "type": "ConsumableItem",
-        "sort": "Healing",
-        "stats": "3 HP",
-        "limit":"None",
-        "required": "None",
-        "chance": 0.30
+        "item_id": ["Bandaid","Med-Kit","Armor Plate","Ammunition"]
       },
-      {
-        "item_id": "A5",
-        "name": "Med-kit",
-        "desc": "a collection of essential medical supplies and equipment designed to provide immediate and basic medical \ncare in the event of injuries, accidents, or emergencies.\nHeals more than a bandaid.",
-        "type" : "Consumable Item",
-        "sort" : "Healing",
-        "stats": "6 HP",
-        "limit" : "None",
-        "required": "None",
-        "chance": 0.05
-      },
-      {
-        "item_id": "A10",
-        "name": "Armor Plate",
-        "desc": "Armor plates are the ballistic or armor plates that may be placed inside the Plate Carrier. These plates are used to replenish armor.",
-        "type" : "Consumable Item",
-        "sort" : "Armor",
-        "stats": "20 AMR",
-        "limit" : "None",
-        "required": "Plate Carrier",
-        "chance": 0.05
-      },
-      {
-        "item_id": "Consumable",
-        "name": "Ammunition",
-        "desc": "Contains 10 rounds, used to reload the Pistol.",
-        "type" : "Consumable Item",
-        "sort" : "Bullet",
-        "stats": "10 ATK",
-        "limit" : "None",
-        "required": "Military Grade Pistol",
-        "chance": 0.06
-      },
-      {
-        "item_id": "Consumable",
-        "name": "Ammunition",
-        "desc": "Contains 10 rounds, used to reload the Pistol.",
-        "type" : "Consumable Item",
-        "sort" : "Bullet",
-        "stats": "10 ATK",
-        "limit" : "None",
-        "required": "Military Grade Pistol",
-        "chance": 0.06
-      },
-      {
-        "item_id": "Consumable",
-        "name": "Ammunition",
-        "desc": "Contains 10 rounds, used to reload the Pistol.",
-        "type" : "Consumable Item",
-        "sort" : "Bullet",
-        "stats": "10 ATK",
-        "limit" : "None",
-        "required": "Military Grade Pistol",
-        "chance": 0.06
-      }
 
     ],
     "specialEffects": [
