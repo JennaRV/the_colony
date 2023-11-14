@@ -14,27 +14,21 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class Room {
-
     private AbstractItem item;
-
     private int room_num;
-
-   private String room_name;
-
+   private String[] room_name;
    private String[] desc;
-
    private boolean visit;
    private int[] nav_tab;
-   private ArrayList<AbstractItem> items= new ArrayList<>();
+   private ArrayList<AbstractItem> items = new ArrayList<>();
    private Puzzle puzzle;
    private Monster monster;
-
 
     public Monster getMonster() {
         return monster;
     }
 
-    public Room(@JsonProperty("room_num") int room_num, @JsonProperty("room_name") String room_name,
+    public Room(@JsonProperty("room_num") int room_num, @JsonProperty("room_name") String[] room_name,
                 @JsonProperty("desc") String[] desc, @JsonProperty("visit") boolean visit,
                 @JsonProperty("nav_tab") int[] nav_tab) throws IOException {
        this.room_num = room_num;
@@ -66,8 +60,6 @@ public class Room {
             else{
                 newItem=null;
             }
-
-
        }
 
     //Assign a puzzle to a room
@@ -107,7 +99,6 @@ public class Room {
                 this.monster = null;
             }
         }
-
    }
 
     public int getRoom_num() {
@@ -125,8 +116,6 @@ public class Room {
     public int[] getNav_tab() {
         return nav_tab;
     }
-
-
 
     public boolean itemExists() {
         if (!this.items.isEmpty()){
@@ -160,9 +149,8 @@ public class Room {
         String itemInfo = (item != null) ? String.format("\nItem Info:\n%s", item.toString()) : "";
 
         return String.format("Room Number: %d\nRoom Name: %s\nRoom Description:\n%s",
-                room_num, room_name, String.join("\n", desc));
+                room_num, Arrays.toString(room_name), Arrays.toString(desc));
     }
-
 }
 
 
