@@ -199,7 +199,7 @@ public class Main {
                     System.out.println("\n Inventory: I");
                     System.out.println("\n Examine monster if there is a monster in the room: Examine Monster");
                     System.out.println("\n Pickup item: Pickup {item}");
-                    System.out.println("\n Explore a room: Explore");
+                    System.out.println("\n Look around a room: Look");
                     System.out.println("\n Explore an item: explore {item} (must be inside inventory)");
                     System.out.println("\n Equip an item: equip {item} (must be inside inventory)");
                     System.out.println("\n Drop an item: drop {item} (must be inside inventory)");
