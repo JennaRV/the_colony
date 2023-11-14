@@ -5,7 +5,10 @@
     "desc": ["This is your home.",
             "I got to rest up before adventuring. Crazy stuff out there."],
     "visit": false,
-    "nav_tab": [2,3,0,0]
+    "items" : ["A1","A5"],
+    "nav_tab": [2,3,0,0],
+    "puzzle" : "P1",
+    "Monster" : "None"
   },
   {
     "room_num": 2,
@@ -13,6 +16,7 @@
     "desc": ["This is the prisoners' den, home to the most vicious criminals. ",
               "It's quite dark, and the haunting voices echo across this area."],
     "visit": false,
+    "items" : ["A1"],
     "nav_tab": [0,0,1,0]
   },
   {
@@ -21,6 +25,7 @@
     "desc": ["Probably some people's definition of their worse nightmares. ",
             "From pesky insects to death-seeking snakes, this forest has got them all. "],
     "visit": false,
+    "items" : [],
     "nav_tab": [0,4,0,1]
   },
   {
@@ -29,6 +34,7 @@
     "desc": ["This place is where all the depressed people's lingering souls dangle. ",
       "Expect some of your favorite artists to be in here."],
     "visit": false,
+    "items" : [],
     "nav_tab": [0,5,6,3]
   },
   {
@@ -37,6 +43,7 @@
     "desc": ["If you like being escaping into a realm of music, then this is the place for you. ",
       "From classical Beethoven to Rock n' Roll to Electronic to Mumbling-- I think you get the idea. "],
     "visit": false,
+    "items" : ["A11","A12"],
     "nav_tab": [0,0,0,4]
   },
   {
@@ -46,6 +53,7 @@
             "Welcome to the place where the government went haywire and created zombie apocalypse, ",
             "but still has the audacity to send us to jail for tax evasion. "],
     "visit": false,
+    "items" : [],
     "nav_tab": [4,0,0,0]
   }
 ]

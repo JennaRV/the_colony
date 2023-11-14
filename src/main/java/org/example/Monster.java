@@ -3,12 +3,14 @@ package org.example;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 public class Monster {
+    private String id;
     private String name, desc;
     private boolean isDead;
     private double HP, DEF, ATK;
 
-    public Monster(@JsonProperty("name") String name, @JsonProperty("desc") String desc, @JsonProperty("isDead") boolean isDead,
+    public Monster(@JsonProperty("ID") String id ,@JsonProperty("name") String name, @JsonProperty("desc") String desc, @JsonProperty("isDead") boolean isDead,
                    @JsonProperty("HP") double HP, @JsonProperty("DEF") double DEF, @JsonProperty("ATK") double ATK) {
+        this.id = id;
         this.name = name;
         this.desc = desc;
         this.isDead = isDead;
@@ -16,7 +18,7 @@ public class Monster {
         this.DEF = DEF;
         this.ATK = ATK;
     }
-
+    public String getId() {return id;}
     public String getName() {
         return name;
     }

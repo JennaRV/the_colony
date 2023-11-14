@@ -1,23 +1,117 @@
 [
-{
-  "room_num": 2,
-  "item_id": "Physical",
-  "name": "Sword",
-  "description":"Adds damage to your attacks",
-  "stats": "10 ATK"
-},
-{
-  "room_num": 4,
-  "item_id": "Consumable",
-  "name": "Potion",
-  "description": "It heals you",
-  "stats": "30 HP"
-},
-{
-  "room_num": 6,
-  "item_id": "Physical",
-  "name": "Armor",
-  "description": "Reduces damage to incoming attacks.",
-  "stats": "15 DEF"
-}
-  ]
+  {
+    "id": "A1",
+    "name": "Survival Knife",
+    "description": "A versatile and durable cutting tool designed for use in various outdoor and survival situations. When equipped, it is used to fight monsters.",
+    "type" : "Equipment",
+    "sort" : "Weapon",
+    "stats" : [0,0,0,3],
+    "useCount": -1,
+    "isEquip": "False"
+  },
+  {
+    "id": "A2",
+    "name": "Band aids",
+    "description": "A small, flexible medical dressings designed for covering and protecting minor cuts, scrapes, blisters,or other superficial wounds on the skin. Bandaids are used for healing.",
+    "type" : "Consumable Item",
+    "sort" : "Healing",
+    "effect" : 3,
+    "limit" : "None",
+    "required": "None"
+  },
+  {
+    "id": "A3",
+    "name": "Military Grade Pistol",
+    "description": "A handgun that is designed and manufactured to meet the rigorous standards and requirements of military forces or law enforcement agencies. Used when equipped to shoot at monsters and has 10 shots in it.",
+    "type" : "Equipment",
+    "sort" : "Weapon",
+    "stats" : [0,0,0,10],
+    "useCount": 10,
+    "isEquip": "False"
+  },
+  {
+    "id": "A4",
+    "name": "Journal",
+    "description": "A personal written record of someone who onced occupied the living quarters. They mention their wife so many times that her name, Rosaline, has gotten stuck in your mind.",
+    "type" : "Static"
+  },
+  {
+    "id": "A5",
+    "name": "Med-kit",
+    "description": "A collection of essential medical supplies and equipment designed to provide immediate and basic medical care in the event of injuries, accidents, or emergencies.Heals more than a Band aids.",
+    "type" : "Consumable Item",
+    "sort" : "Healing",
+    "effect" : 6,
+    "limit" : "None",
+    "required": "None"
+  },
+  {
+    "id": "A6",
+    "name": "Biosample",
+    "description": "Blood sample of someone who onced occupied/lived in the colony. These blood samples were taken just in case someone in the colony needed a blood transfusion.",
+    "type" : "Static"
+  },
+  {
+    "id": "A7",
+    "name": "Flashlight",
+    "description": "A common tool used for illuminating dark or poorly lit areas and has a wide range of applications, including emergency situations.",
+    "type" : "Equipment",
+    "sort" : "Flashlight",
+    "stats" : [0,0,0,0],
+    "isEquip": "False"
+  },
+  {
+    "id": "A8",
+    "name": "Keycard",
+    "description": "Plastic card used to control access to secured areas or systems.",
+    "type" : "Static"
+  },
+  {
+    "id": "A9",
+    "name": "Plate Carrier",
+    "description": "Special type of armor designed to provide protection for people. These carriers are commonly used by military personnel, law enforcement officers, and security professionals. These carriers hold armor plates.",
+    "type" : "Equipment",
+    "sort" : "Gear",
+    "stats" : [0,3,0,0],
+    "useCount": -1,
+    "isEquip": "False"
+  },
+  {
+    "id": "A10",
+    "name": "Armor Plates",
+    "description": "Armor plates are the ballistic or armor plates that may be placed inside the Plate Carrier. These plates are used to replenish armor.",
+    "type" : "Consumable Item",
+    "sort" : "Armor",
+    "effect" : 20,
+    "limit" : "None",
+    "required": "Plate Carrier"
+  },
+  {
+    "id": "A11",
+    "name": "Alien Structure 1",
+    "description": "There are only a few markings on this structure, but these ones are very complex. While you examine the structure, the carvings seem to emit a glow, so faint it borders on imperceptible. You can’t be sure of what you saw, perhaps it was just a trick of the light.",
+    "type" : "Static"
+  },
+  {
+    "id": "A12",
+    "name": "Alien Structure 2",
+    "description": "Markings cover this entire structure.",
+    "type" : "Static"
+  },
+  {
+    "id": "A13",
+    "name": "Ammunition",
+    "description": "Contains 10 rounds, used to reload the Pistol.",
+    "type" : "Consumable Item",
+    "sort" : "Bullet",
+    "stats" : 10,
+    "limit" : "None",
+    "required": "Military Grade Pistol"
+  },
+  {
+    "id": "A14",
+    "name": "Keypad",
+    "description": "A standard 12-key number pad, with the numbers 0-9, a pound sign and a hashtag. Despite the keypad being relatively new, you can see very slight, almost imperceptible signs of wear on keys 2, 3, 4 and 5.",
+    "type" : "Static"
+  }
+]
