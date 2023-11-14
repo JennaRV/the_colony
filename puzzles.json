@@ -1,19 +1,59 @@
 [
   {
-    "puzzleName": "Puzzle 1",
-    "roomID": 3,
-    "puzzleQ": "What time signature was the song 'My Wave' by Soundgarden played in?",
-    "puzzleA": "5/4",
-    "isSolved": false,
-    "numAttempts": 5
-  },
-  {
-    "puzzleName": "Puzzle 2",
-    "roomID": 5,
-    "puzzleQ": "What type of engine has 6 cylinders in a single line?",
-    "puzzleA": "inline 6",
+    "puzzleName": "Emergency Shutdown Override",
+    "roomID": 1,
+    "puzzleQ": "To ensure your survival, you must figure out how to perform an emergency shutdown of the crashed reactor before it reaches a catastrophic failure.",
+    "puzzleA": "R,Y,B,R,G",
     "isSolved": false,
     "numAttempts": 2
+  },
+  {
+    "puzzleName": "Access Panel Override",
+    "roomID": 17,
+    "puzzleQ": "the reactor's warning lights change to a steady green, indicating a successful emergency shutdown. The imminent reactor failure is averted, ensuring your survival.\tListen to the warnings from the functional speakers; they may provide clues about the shutdown process.\tSolved: Changes R1 description, unlocks exit to R3.\n\nAfter 2 unsuccessful attempts: \nPlayer dies, special death message\n“The reactor exploded, killing you instantly.”\n",
+    "puzzleA": "use keycard",
+    "isSolved": false,
+    "numAttempts": null
+  },
+  {
+    "puzzleName": "Forgotten Alien Script",
+    "roomID": 5,
+    "puzzleQ": "To continue your journey and safely reach the outpost to the north, you need to decipher the meaning of the mysterious alien script that adorns some of the stone structures.\nThis script might hold clues to the history of the area or offer insights into your surroundings.\n",
+    "puzzleA": "look at A12, look at A13",
+    "isSolved": false,
+    "numAttempts": null
+  },
+  {
+    "puzzleName": "Identify Verification",
+    "roomID": 15,
+    "puzzleQ": "TWO PART PUZZLE",
+    "puzzleA": "Rosaline, use biosample",
+    "isSolved": false,
+    "numAttempts": null
+  },
+  {
+    "puzzleName": "Security Lockdown Ovrride",
+    "roomID": 11,
+    "puzzleQ": "Toward the back of the bunker, there’s a part that’s closed off. To proceed further into the bunker or access valuable resources stored within, you need to override the security lockdown that has been activated due to the signs of combat.\nTo do this, you must enter the correct sequence of codes by deciphering clues found within the bunker.\n",
+    "puzzleA": "5342",
+    "isSolved": false,
+    "numAttempts": null
+  },
+  {
+    "puzzleName": "Lurker's Guidance",
+    "roomID": 4,
+    "puzzleQ": "A creature watches you from the.edge of the forest. It appears to be observing you from a distance. It does not make any aggressive moves.",
+    "puzzleA": "drom non-weapon item",
+    "isSolved": false,
+    "numAttempts": 1
+  },
+  {
+    "puzzleName": "The Tenebrous Crystal Chamber",
+    "roomID": 20,
+    "puzzleQ": "In the depths of a derelict space mine, you come across a foreboding cave entrance, its walls glistening with ominous, bioluminescent crystals.\nTo proceed deeper into the mine, you must solve the puzzle of the Tenebrous Crystal Chamber.\n\nTo unlock the cave passage, you need to illuminate the correct sequence of crystals, avoiding the trap of the caliginous crystal chamber.\nEach crystal can be toggled on or off by typing the corresponding number between 1-5.\n\nCrystal Statuses:\nCrystal 1: Glowing\nCrystal 2: Off\nCrystal 3: Off\nCrystal 4: Glowing\nCrystal 5: Off\n",
+    "puzzleA": "all crystals off",
+    "isSolved": false,
+    "numAttempts": null
   }
 
 ]
