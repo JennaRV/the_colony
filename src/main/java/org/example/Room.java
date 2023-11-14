@@ -74,13 +74,14 @@ public class Room {
        JsonNode puzzleNode = objectMapper.readTree(new File("puzzles.json"));
        for(JsonNode node: puzzleNode){
            int roomID=node.get("roomID").asInt();
+           String puzzleName = node.get("puzzleName").asText();
            String puzzleQ=node.get("puzzleQ").asText();
            String puzzleA=node.get("puzzleA").asText();
            boolean isSolved=node.get("isSolved").asBoolean();
            int numAttempts=node.get("numAttempts").asInt();
 
            if(this.room_num==roomID){
-               this.puzzle=new Puzzle(puzzleQ,puzzleA,isSolved,numAttempts);
+               this.puzzle=new Puzzle(puzzleName, puzzleQ,puzzleA,isSolved,numAttempts);
                break;
            }
            else{

@@ -133,7 +133,7 @@ public class Main {
                     p1.moveRoom(roomMap,3);
                     System.out.println(p1.printString());
                     break;
-                case "explore":
+                case "look":
                     if(p1.getCurrentRoom().itemExists()) {
                         for (AbstractItem i : p1.getCurrentRoom().roomItems()) {
                             System.out.println(i.getName());
@@ -141,6 +141,14 @@ public class Main {
                     }
                     else {
                         System.out.println("[]");
+                    }
+                    if(p1.getCurrentRoom().getMonster() != null){
+                        System.out.println(p1.getCurrentRoom().getMonster());
+                    }
+                    if(p1.getCurrentRoom().getPuzzle() != null){
+                        if(!p1.getCurrentRoom().getPuzzle().isSolved()) {
+                            System.out.println(p1.getCurrentRoom().getPuzzle().getPuzzleName());
+                        }
                     }
                     break;
 
