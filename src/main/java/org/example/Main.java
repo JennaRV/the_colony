@@ -134,6 +134,20 @@ public class Main {
                     System.out.println(p1.printString());
                     break;
                 case "look": //Jenna
+                    System.out.println("Directions: ");
+                    if (p1.getCurrentRoom().getNav_tab()[0] != 0){
+                        System.out.print("North ");
+                    }
+                    if (p1.getCurrentRoom().getNav_tab()[1] != 0){
+                        System.out.print("South ");
+                    }
+                    if (p1.getCurrentRoom().getNav_tab()[2] != 0){
+                        System.out.print("East ");
+                    }
+                    if (p1.getCurrentRoom().getNav_tab()[3] != 0){
+                        System.out.print("West ");
+                    }
+                    System.out.println();
                     if(p1.getCurrentRoom().itemExists()) {
                         for (AbstractItem i : p1.getCurrentRoom().roomItems()) {
                             System.out.println(i.getName());
@@ -144,7 +158,7 @@ public class Main {
                     }
                     if(p1.getCurrentRoom().getMonster() != null){
                         if(!p1.getCurrentRoom().getMonster().isDead())
-                        System.out.println(p1.getCurrentRoom().getMonster().getName());
+                            System.out.println(p1.getCurrentRoom().getMonster().getName());
                     }
                     if(p1.getCurrentRoom().getPuzzle() != null){
                         if(!p1.getCurrentRoom().getPuzzle().isSolved()) {
