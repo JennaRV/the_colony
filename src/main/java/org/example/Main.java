@@ -117,6 +117,14 @@ public class Main {
                 restart();
             } else if (parts[0].equalsIgnoreCase("exit")) {
                 play = false;
+            } else if (parts[0].equalsIgnoreCase("n")) {
+                p1.moveNorth();
+            } else if (parts[0].equalsIgnoreCase("e")) {
+                p1.moveEast();
+            } else if (parts[0].equalsIgnoreCase("s")) {
+                p1.moveSouth();
+            } else if (parts[0].equalsIgnoreCase("w")) {
+                p1.moveWest();
             } else {
                 System.out.println("Invalid command!");
             }
