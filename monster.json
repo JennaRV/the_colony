@@ -1,11 +1,195 @@
 [
   {
-    "roomID": 5,
-    "name":"CTRL+ALT+DEL",
-    "desc": "A monster capable of consuming data",
+    "roomIDs": [22,23],
+    "name": "Shadow Lurker",
+    "desc": "It stands at a relatively diminutive height, barely reaching five feet, with hunched, spindly limbs covered \nin coarse, ebony tendrils reminiscent of shadowy vines. Its eyes are dull, lifeless orbs, lacking malevolence, \nand its form maintains a rudimentary, humanoid shape. It moves with a skulking gait, seemingly bound to servitude in an eerie realm.",
     "isDead": false,
-    "HP": 85.0,
-    "DEF": 10.0,
-    "ATK": 30.0
+    "HP": 40.0,
+    "DEF": 6.0,
+    "ATK": 7.0,
+    "drop": null,
+    "specialEffects": [
+      {
+        "type": "blockAction",
+        "chance": 10
+      },
+      {
+        "type": "noDamage",
+        "chance": 10
+      }
+    ]
+  },
+  {
+    "roomIDs": [3,9,10,11,15,16,17,18],
+    "name": "Lurker",
+    "desc": "It stands at a relatively diminutive height, barely reaching five feet, with hunched, spindly limbs covered \nin coarse, ebony tendrils reminiscent of shadowy vines. Its eyes are dull, lifeless orbs, lacking malevolence, \nand its form maintains a rudimentary, humanoid shape. It moves with a skulking gait, seemingly bound to servitude in an eerie realm.",
+    "isDead": false,
+    "HP": 15.0,
+    "DEF": 4.0,
+    "ATK": 5.0,
+    "drop": [
+      {
+        "item_id": "A2",
+        "name": "Bandaids",
+        "desc": "A small, flexible medical dressings designed for covering and protecting minor cuts, scrapes, blisters,\nor other superficial wounds on the skin. Bandaids are used for healing.",
+        "type": "ConsumableItem",
+        "sort": "Healing",
+        "stats": "3 HP",
+        "limit":"None",
+        "required": "None",
+        "chance": 0.25
+      }
+    ],
+    "specialEffects": [
+      {
+        "type": "halfDamage",
+        "chance": 10
+      }
+    ]
+  },
+  {
+    "roomIDs": [3,4,5,6,7,8],
+    "name": "Lurkstar",
+    "desc": "This creature resembles a unique blend of an ant-eater and a starfish. Its furry, star-shaped body features \ntentacle-like appendages, which it uses to feed on small creatures and plants by sucking them in. It's also \nequipped with a lightning-fast, prehensile tongue that can lunge forward with remarkable speed.",
+    "isDead": false,
+    "HP": 6.0,
+    "DEF": 0.0,
+    "ATK": 3.0,
+    "drop": null,
+    "specialEffects":null
+  },
+  {
+    "roomIDs": [9,10,11,12,13,15,16,17],
+    "name": "Human Grotesquerie",
+    "desc": "A humanoid mutation, once ordinary colonists, now embody the twisted horrors of the Lurkers' influence, standing \ngrotesquely distorted and malevolently driven to infect and expand their nightmarish legion.",
+    "isDead": false,
+    "HP": 6.0,
+    "DEF": 1.0,
+    "ATK": 1.0,
+    "drop": [
+      {
+        "item_id": "A2",
+        "name": "Bandaids",
+        "desc": "A small, flexible medical dressings designed for covering and protecting minor cuts, scrapes, blisters,\nor other superficial wounds on the skin. Bandaids are used for healing.",
+        "type": "ConsumableItem",
+        "sort": "Healing",
+        "stats": "3 HP",
+        "limit":"None",
+        "required": "None",
+        "chance": 0.30
+      },
+      {
+        "item_id": "A5",
+        "name": "Med-kit",
+        "desc": "a collection of essential medical supplies and equipment designed to provide immediate and basic medical \ncare in the event of injuries, accidents, or emergencies.\nHeals more than a bandaid.",
+        "type" : "Consumable Item",
+        "sort" : "Healing",
+        "stats": "6 HP",
+        "limit" : "None",
+        "required": "None",
+        "chance": 0.05
+      },
+      {
+        "item_id": "A10",
+        "name": "Armor Plate",
+        "desc": "Armor plates are the ballistic or armor plates that may be placed inside the Plate Carrier. These plates are used to replenish armor.",
+        "type" : "Consumable Item",
+        "sort" : "Armor",
+        "stats": "20 AMR",
+        "limit" : "None",
+        "required": "Plate Carrier",
+        "chance": 0.05
+      },
+      {
+        "item_id": "Consumable",
+        "name": "Ammunition",
+        "desc": "Contains 10 rounds, used to reload the Pistol.",
+        "type" : "Consumable Item",
+        "sort" : "Bullet",
+        "stats": "10 ATK",
+        "limit" : "None",
+        "required": "Military Grade Pistol",
+        "chance": 0.06
+      },
+      {
+        "item_id": "Consumable",
+        "name": "Ammunition",
+        "desc": "Contains 10 rounds, used to reload the Pistol.",
+        "type" : "Consumable Item",
+        "sort" : "Bullet",
+        "stats": "10 ATK",
+        "limit" : "None",
+        "required": "Military Grade Pistol",
+        "chance": 0.06
+      },
+      {
+        "item_id": "Consumable",
+        "name": "Ammunition",
+        "desc": "Contains 10 rounds, used to reload the Pistol.",
+        "type" : "Consumable Item",
+        "sort" : "Bullet",
+        "stats": "10 ATK",
+        "limit" : "None",
+        "required": "Military Grade Pistol",
+        "chance": 0.06
+      }
+
+    ],
+    "specialEffects": [
+      {
+        "type": "QuadrupleDamge",
+        "chance": 50
+      }
+    ]
+  },
+
+  {
+    "roomIDs": [3,4,5,6,7,8,9,10],
+    "name": "Animal Grotesquerie",
+    "desc": "A repulsive dog-like creature, a grotesque hybrid of a mangy coyote and a porcupine, exudes a putrid odor of \noffal and carrion. It charges forward, revealing a mouthful of human-like teeth, and attempts to \ntackle with its multi-foot-long spines, even launching quills from a distance.",
+    "isDead": false,
+    "HP": 6.0,
+    "DEF": 0.0,
+    "ATK": 3.0,
+    "drop": null,
+    "specialEffects": [
+      {
+        "type": "noWeapon",
+        "chance": 100
+      }
+    ]
+  },
+  {
+    "roomIDs": [20,21,22,23],
+    "name": "Cavern Miner",
+    "desc": "A grotesque subterranean dweller, this creature from an alien planet combines crustacean and arachnid features. \nStanding at about four feet tall on spindly, multi-jointed legs, \nit boasts an elongated, bioluminescent chitinous exoskeleton.",
+    "isDead": false,
+    "HP": 7.0,
+    "DEF": 2.0,
+    "ATK": 5.0,
+    "drop": null,
+    "specialEffects": [
+      {
+        "type": "noDamage",
+        "chance": 10
+      }
+    ]
+  },
+  {
+    "roomIDs": [3,4,5,6,7,8,20,21,22,23],
+    "name": "Stellarscreech",
+    "desc": "An alien bat-like creature found in the planet's caves, flaunts an impressive wingspan within the dark tunnels. \nIts membranous wings shimmer with an unearthly iridescence, complemented by midnight-blue fur and bioluminescent patterns.",
+    "isDead": false,
+    "HP": 2.0,
+    "DEF": 0.0,
+    "ATK": 1.0,
+    "drop": null,
+    "specialEffects": [
+      {
+        "type": "noDamage",
+        "chance": 10
+      }
+    ],
+
   }
-  ]
+]
