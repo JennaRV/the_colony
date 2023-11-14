@@ -14,21 +14,15 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class Room {
-
     private AbstractItem item;
-
     private int room_num;
-
    private String[] room_name;
-
    private String[] desc;
-
    private boolean visit;
    private int[] nav_tab;
-   private ArrayList<AbstractItem> items= new ArrayList<>();
+   private ArrayList<AbstractItem> items = new ArrayList<>();
    private Puzzle puzzle;
    private Monster monster;
-git ad
 
     public Monster getMonster() {
         return monster;
@@ -66,8 +60,6 @@ git ad
             else{
                 newItem=null;
             }
-
-
        }
 
     //Assign a puzzle to a room
@@ -107,7 +99,6 @@ git ad
                 this.monster = null;
             }
         }
-
    }
 
     public int getRoom_num() {
@@ -125,8 +116,6 @@ git ad
     public int[] getNav_tab() {
         return nav_tab;
     }
-
-
 
     public boolean itemExists() {
         if (!this.items.isEmpty()){
