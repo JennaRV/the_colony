@@ -1,9 +1,17 @@
 package org.example;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonSubTypes;
+import com.fasterxml.jackson.annotation.JsonTypeInfo;
+import com.fasterxml.jackson.annotation.JsonCreator;
 
 import java.util.ArrayList;
-
+@JsonTypeInfo(use = JsonTypeInfo.Id.NAME, property = "type")
+@JsonSubTypes({
+        @JsonSubTypes.Type(value = Equipment.class, name = "Equipment"),
+        @JsonSubTypes.Type(value = ConsumableItem.class, name = "Consumable"),
+        @JsonSubTypes.Type(value = StaticItem.class, name = "Static")
+})
 public abstract class Item {
     private String id;
     private String name;
@@ -35,10 +43,15 @@ class Equipment extends Item {
     private ArrayList<Double> stats;
     private int useCount;
     private boolean isEquip;
-
-    public Equipment(@JsonProperty("id")String id, @JsonProperty("name")String name, @JsonProperty("description")String description, @JsonProperty("type")String type,
-                     @JsonProperty("sort")String sort, @JsonProperty("stats")ArrayList<Double> stats, @JsonProperty("useCount")int useCount,
-                     @JsonProperty("isEquip")boolean isEquip) {
+    @JsonCreator
+    public Equipment(@JsonProperty("id") String id,
+                     @JsonProperty("name") String name,
+                     @JsonProperty("description") String description,
+                     @JsonProperty("type") String type,
+                     @JsonProperty("sort") String sort,
+                     @JsonProperty("stats") ArrayList<Double> stats,
+                     @JsonProperty("useCount") int useCount,
+                     @JsonProperty("isEquip") boolean isEquip) {
         super(id,name,description,type);
         this.sort = sort;
         this.stats = stats;
@@ -77,7 +90,7 @@ class ConsumableItem extends Item {
     private int effect;
     private int limit;
     private String required;
-
+    @JsonCreator
     public ConsumableItem(@JsonProperty("id")String id, @JsonProperty("name")String name, @JsonProperty("description")String description, @JsonProperty("type")String type,
                           @JsonProperty("sort")String sort,@JsonProperty("effect") int effect,@JsonProperty("limit") int limit,
                           @JsonProperty("required")String required) {
@@ -100,6 +113,7 @@ class ConsumableItem extends Item {
 }
 
 class StaticItem extends Item {
+    @JsonCreator
     public StaticItem(@JsonProperty("id")String id, @JsonProperty("name")String name,
                       @JsonProperty("description")String description, @JsonProperty("type")String type) {
         super(id,name,description,type);

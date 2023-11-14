@@ -18,7 +18,7 @@ public class Player {
     private double atk;
     private ArrayList<Item> inventory;
 
-    public Player(String name) throws InvalidRoomException, FileNotFoundException {
+    public Player(String name) throws InvalidRoomException {
         this.name=name;
         map = new Map();
         this.currentRoom = map.getRoom(1);

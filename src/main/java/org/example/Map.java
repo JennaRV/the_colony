@@ -1,10 +1,14 @@
 package org.example;
+import java.io.File;
 import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.fasterxml.jackson.annotation.JsonTypeInfo;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.core.type.TypeReference;
+import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
@@ -80,11 +84,20 @@ public class Map {
 
     public ArrayList readMap(String fileRoom) {
         ObjectMapper mapper = new ObjectMapper();
+        mapper.disable(DeserializationFeature.FAIL_ON_INVALID_SUBTYPE);
         try {
-            allRooms = (ArrayList<Room>) mapper.readValue(fileRoom, new TypeReference<List<Room>>(){});
+            File roomFile = new File(fileRoom);
+            if (!roomFile.exists()) {
+                throw new FileNotFoundException("File not found: " + fileRoom);
+            }
+            allRooms = (ArrayList<Room>) mapper.readValue(roomFile, new TypeReference<List<Room>>() {});
         } catch (JsonMappingException e) {
             throw new RuntimeException(e);
         } catch (JsonProcessingException e) {
+            throw new RuntimeException(e);
+        } catch (FileNotFoundException e) {
+            System.err.println(e.getMessage());
+        }  catch (IOException e) {
             throw new RuntimeException(e);
         }
         return allRooms;
@@ -92,33 +105,57 @@ public class Map {
 
     public ArrayList readItem(String fileItem) {
         ObjectMapper mapper = new ObjectMapper();
+        mapper.disable(DeserializationFeature.FAIL_ON_INVALID_SUBTYPE);
         try {
-            allItems = (ArrayList<Item>) mapper.readValue(fileItem, new TypeReference<List<Item>>(){});
+            File itemFile = new File(fileItem);
+            if (!itemFile.exists()) {
+                throw new FileNotFoundException("File not found: " + fileItem);
+            }
+            allItems = (ArrayList<Item>) mapper.readValue(itemFile, new TypeReference<List<Item>>(){});
         } catch (JsonProcessingException e) {
             System.err.println("File not found: " + e.getMessage());
+        } catch (IOException e) {
+            throw new RuntimeException(e);
         }
         return allItems;
     }
 
     public ArrayList readPuzzle(String filePuzzle) {
         ObjectMapper mapper = new ObjectMapper();
+        mapper.disable(DeserializationFeature.FAIL_ON_INVALID_SUBTYPE);
         try {
-            allPuzzles = (ArrayList<Puzzle>) mapper.readValue(filePuzzle, new TypeReference<List<Puzzle>>(){});
+            File puzzleFile = new File(filePuzzle);
+            if (!puzzleFile.exists()) {
+                throw new FileNotFoundException("File not found: " + filePuzzle);
+            }
+            allPuzzles = (ArrayList<Puzzle>) mapper.readValue(puzzleFile, new TypeReference<List<Puzzle>>(){});
         } catch (JsonMappingException e) {
             throw new RuntimeException(e);
         } catch (JsonProcessingException e) {
+            throw new RuntimeException(e);
+        } catch (IOException e) {
             throw new RuntimeException(e);
         }
         return allPuzzles;
     }
 
     public ArrayList readMonster(String fileMonster) {
+
         ObjectMapper mapper = new ObjectMapper();
+        mapper.disable(DeserializationFeature.FAIL_ON_INVALID_SUBTYPE);
         try {
-            allMonster = (ArrayList<Monster>) mapper.readValue(fileMonster, new TypeReference<List<Monster>>(){});
+            File monsterFile = new File(fileMonster);
+            if (!monsterFile.exists()) {
+                throw new FileNotFoundException("File not found: " + fileMonster);
+            }
+            allMonster = (ArrayList<Monster>) mapper.readValue(monsterFile, new TypeReference<List<Monster>>(){});
         } catch (JsonMappingException e) {
             throw new RuntimeException(e);
         } catch (JsonProcessingException e) {
+            throw new RuntimeException(e);
+        } catch (FileNotFoundException e) {
+            throw new RuntimeException(e);
+        } catch (IOException e) {
             throw new RuntimeException(e);
         }
         return allMonster;

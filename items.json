@@ -7,13 +7,13 @@
     "sort" : "Weapon",
     "stats" : [0,0,0,3],
     "useCount": -1,
-    "isEquip": "False"
+    "isEquip": false
   },
   {
     "id": "A2",
     "name": "Band aids",
     "description": "A small, flexible medical dressings designed for covering and protecting minor cuts, scrapes, blisters,or other superficial wounds on the skin. Bandaids are used for healing.",
-    "type" : "Consumable Item",
+    "type" : "Consumable",
     "sort" : "Healing",
     "effect" : 3,
     "limit" : "None",
@@ -27,7 +27,7 @@
     "sort" : "Weapon",
     "stats" : [0,0,0,10],
     "useCount": 10,
-    "isEquip": "False"
+    "isEquip": false
   },
   {
     "id": "A4",
@@ -39,7 +39,7 @@
     "id": "A5",
     "name": "Med-kit",
     "description": "A collection of essential medical supplies and equipment designed to provide immediate and basic medical care in the event of injuries, accidents, or emergencies.Heals more than a Band aids.",
-    "type" : "Consumable Item",
+    "type" : "Consumable",
     "sort" : "Healing",
     "effect" : 6,
     "limit" : "None",
@@ -58,7 +58,7 @@
     "type" : "Equipment",
     "sort" : "Flashlight",
     "stats" : [0,0,0,0],
-    "isEquip": "False"
+    "isEquip": false
   },
   {
     "id": "A8",
@@ -74,13 +74,13 @@
     "sort" : "Gear",
     "stats" : [0,3,0,0],
     "useCount": -1,
-    "isEquip": "False"
+    "isEquip": false
   },
   {
     "id": "A10",
     "name": "Armor Plates",
     "description": "Armor plates are the ballistic or armor plates that may be placed inside the Plate Carrier. These plates are used to replenish armor.",
-    "type" : "Consumable Item",
+    "type" : "Consumable",
     "sort" : "Armor",
     "effect" : 20,
     "limit" : "None",
@@ -102,7 +102,7 @@
     "id": "A13",
     "name": "Ammunition",
     "description": "Contains 10 rounds, used to reload the Pistol.",
-    "type" : "Consumable Item",
+    "type" : "Consumable",
     "sort" : "Bullet",
     "stats" : 10,
     "limit" : "None",
