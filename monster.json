@@ -29,7 +29,7 @@
     "ATK": 5.0,
     "drop": [
       {
-        "item_id":["Bandaid"],
+        "item":["Bandaid"],
       }
     ],
     "specialEffects": [
@@ -60,7 +60,7 @@
     "ATK": 1.0,
     "drop": [
       {
-        "item_id": ["Bandaid","Med-Kit","Armor Plate","Ammunition"]
+        "item": ["Bandaid","Med-Kit","Armor Plate","Ammunition"]
       },
 
     ],
