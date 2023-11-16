@@ -1,51 +1,223 @@
 [
   {
     "room_num": 1,
-    "room_name": "Home",
-    "desc": ["This is your home.",
-            "I got to rest up before adventuring. Crazy stuff out there."],
+    "room_name": ["Shuttle Interior (Crashed Reactor Active)","Shuttle Interior (Crashed Reactor Shutdown)"],
+    "desc": ["You stand on the slanted floor; the impact absorbing design has crumpled the walls and floor slightly to save you in the crash landing. \n Warning lights flash on and off, washing the area in red light intermittently. \n The storage lockers have broken open violently and their contents lie scattered throughout the room. \n The impact foam and your crash harness saved you from the crushing forces that deformed the control panel beyond usability dangle from the remains of the pilot’s seat. \n The speakers that are still functioning warn of imminent reactor failure.","The warning lights have shut off with the shutdown of the reactor and the loss of power. \n Emergency lights running from the battery provide enough light to see and lead to the airlock hatch. \n Casual inspection of the seal shows that the automatic mechanisms are smashed and if you want out you will have to pop the locks manually to free yourself from the wreckage of your shuttle."],
     "visit": false,
-    "nav_tab": [2,3,0,0]
-  },
-  {
-    "room_num": 2,
-    "room_name": "Prisoners' Den",
-    "desc": ["This is the prisoners' den, home to the most vicious criminals. ",
-              "It's quite dark, and the haunting voices echo across this area."],
-    "visit": false,
-    "nav_tab": [0,0,1,0]
+    "items" : ["A1","A2","A5"],
+    "nav_tab": [3,0,8,8],
+    "puzzle" : "P1",
+    "monsters" : []
   },
   {
     "room_num": 3,
-    "room_name": "Nocuous Forest",
-    "desc": ["Probably some people's definition of their worse nightmares. ",
-            "From pesky insects to death-seeking snakes, this forest has got them all. "],
+    "room_name": ["Crash site"],
+    "desc": ["Signs of the shuttles’ descent are visible throughout the area. \n Downed trees and smashed branches are scattered about and to the north a rent through the canopy of the trees traces the path of the crash. \n The wildlife was silent for a few moments when you first approached but the ceaseless background noise of the forest resumed the moment you paused. \n Alien life both plant and insect, surrounds you. \n The airlock hatch of the shuttle stands open to your south and the outpost lies somewhere to the north."],
     "visit": false,
-    "nav_tab": [0,4,0,1]
+    "items" : [],
+    "nav_tab": [4,3,8,8],
+    "puzzle" : "None",
+    "monsters" : ["M2","M3","M5","M7"]
   },
   {
     "room_num": 4,
-    "room_name": "Whispering Abyss",
-    "desc": ["This place is where all the depressed people's lingering souls dangle. ",
-      "Expect some of your favorite artists to be in here."],
+    "room_name": ["Alien Forest"],
+    "desc": ["The shuttles crash and bounce has left a relatively clear line of travel towards the outpost to the north. \n Much of the plant life was charred away by the shuttles malfunctioning thrusters before they succumbed to damage and stopped functioning. \n The local “trees” did not burn for long, and the lower brush was blasted away at least for several hundred feet allowing you to pass north or south quickly without having to waste hours fighting through the underbrush on either side to achieve the same distance.."],
     "visit": false,
-    "nav_tab": [0,5,6,3]
+    "items" : [],
+    "nav_tab": [5,3,8,8],
+    "puzzle" : "P6",
+    "monsters" : ["M3","M5","M7"]
   },
   {
     "room_num": 5,
-    "room_name": "Papa's Harmonical Factory",
-    "desc": ["If you like being escaping into a realm of music, then this is the place for you. ",
-      "From classical Beethoven to Rock n' Roll to Electronic to Mumbling-- I think you get the idea. "],
+    "room_name": ["Stone Ruins"],
+    "desc": ["A few minutes north of the end of the path carved by your shuttle crash, you find an unusual patch of open ground. \n Silence reigns in the area, made all the stranger for what it contains. \n The ruins of strange stone structures are scattered around and the ground between them is relatively clear of plants. \n Unreadable script decorates some of the partial structures.\n No mention of alien ruins was included in the contract though these are far from the first signs of intelligent life humanity has found. \n Fortunately, the ruins have resulted in a relatively clear line of approach to the outpost to the north."],
     "visit": false,
-    "nav_tab": [0,0,0,4]
+    "items" : ["A11","A12"],
+    "nav_tab": [6,4,8,8],
+    "puzzle" : "P3",
+    "monsters" : ["M3","M5","M7"]
   },
   {
     "room_num": 6,
-    "room_name": "Flesh-Eating Canyon",
-    "desc": ["Franklin said, \"I have met the enemy, and it is the eyes of other people.\"",
-            "Welcome to the place where the government went haywire and created zombie apocalypse, ",
-            "but still has the audacity to send us to jail for tax evasion. "],
+    "room_name": ["Strange open ground."],
+    "desc": ["The area before you contains the same large trees, spaced out as the earlier forest but with almost none of the low lying brush. \n The soil seems like it has been churned about and dug into with strange lines cutting across it that look like they were tilled by a drunken farmer. \n The noise of the forest is quieter here and you hear faint scratching noises occasionally from the open area. \n Stretching east and west across the route towards the outpost there seems to be nothing to do but cross it.,"],
     "visit": false,
-    "nav_tab": [4,0,0,0]
+    "items" : [],
+    "nav_tab": [7,5,8,8],
+    "puzzle" : "None",
+    "monsters" : ["M3","M5","M7"]
+  },
+  {
+    "room_num": 7,
+    "room_name": ["Forest (wildlife encounter: Flying creatures, monstrous plant life, etc… )"],
+    "desc": ["Plant life of all kinds prevents clear fields of vision. Crawling and slithering forms shift through the brush at your approach. \n It is a fight for every forward foot of travel in this dense alien forest. Strange noise assaults your ears from all directions. Fortunately, the outpost should be just a short way to the north."],
+    "visit": false,
+    "items" : [],
+    "nav_tab": [9,6,8,8],
+    "puzzle" : "None",
+    "monsters" : ["M3","M5","M7"]
+
+  },
+  {
+    "room_num": 8,
+    "room_name": ["Pathless Forest."],
+    "desc": ["The forest is choked with alien ferns and bushes. \n Unrecognizable plants compete for every open space to try and catch every bit of sunlight that makes it through the canopy of the trees. \n The constant sensation of insects landing on you before flitting or crawling away as you push through the intertwined cacophony of life is both distracting and unpleasant. \n The effort involved in fighting through this has left you drenched in sweat and regretting your choice to leave the relatively clear path towards the outpost. \n You struggle to maintain your bearings as you attempt to navigate through this mess."],
+    "visit": false,
+    "items" : [],
+    "nav_tab": [4,0,0,0],
+    "puzzle" : "None",
+    "monsters" : ["M3","M5","M7"]
+  },
+  {
+    "room_num": 9,
+    "room_name": ["Outpost entrance."],
+    "desc": ["The reassuring bulk of a standard template colony outpost looms above you. \n The decontamination chamber door and all the viewports you can see are intact and sealed. \n The entry access panel is illuminated and the exterior lights at the door are on. Civilization at last. \n The exterior appearance of the building suggests that the outpost failure to call in was simply due to transmitter failure rather than any of the other potential problems you were sent to look out for."],
+    "visit": false,
+    "items" : [],
+    "nav_tab": [10,7,0,0],
+    "puzzle" : "None",
+    "monsters" : ["M2","M4","M5"]
+  },
+  {
+    "room_num": 10,
+    "room_name": ["Outpost Hub."],
+    "desc": ["Signs of fighting mar the otherwise normal interior of the outpost hub. What normally acts as the common area for a small outpost like this has been thoroughly torn apart. \n The remains of chairs and tables lie around the room, some show deformations as though they were used as blunt improvised weapons. \n Blood stains and signs of weapons discharge show on the walls and floor. \n Whatever happened to cut off communication started inside. \n To the east are the stairs leading up into the overlook bunker that provides security for the outpost. \n To the west are the doors to personal living areas. North lies the door to the work hub."],
+    "visit": false,
+    "items" : [],
+    "nav_tab": [15,9,11,12],
+    "puzzle" : "None",
+    "monsters" : ["M2","M4","M5"]
+  },
+  {
+    "room_num": 11,
+    "room_name": ["Bunker."],
+    "desc": ["A standard outpost defense bunker. Screens with camera views covering every possible entry to the outpost. \n Lockers to store personal armor, weapons, and rations in the event of dangerous wildlife or pirates. \n A reinforced door and walls to act as a final retreat in the event of the worst-case scenarios. \n Almost all of it has been damaged by weapons fire and signs of combat."],
+    "visit": false,
+    "items" : ["A3","A9","A10","A14"],
+    "nav_tab": [0,0,0,10],
+    "puzzle" : "P5",
+    "monsters" : ["M2","M4"]
+  },
+  {
+    "room_num": 12,
+    "room_name": ["Living quarters."],
+    "desc": ["The central hub of this area branches into a couple dozen individual bunks consisting of a simple bed, desk, and storage locker. \n Signs of panic and people rushing are obvious with doors and personal lockers left open and desks with still running laptops and tablets on them. \n The outpost foreman has a large room at the west end of the hallway.,"],
+    "visit": false,
+    "items" : [],
+    "nav_tab": [0,0,10,13],
+    "puzzle" : "None",
+    "monsters" : ["M4"]
+  },
+  {
+    "room_num": 13,
+    "room_name": ["Foreman’s Room."],
+    "desc": ["The foreman’s room looks lived in and lacks any of the signs of violence seen elsewhere in the facility. Like the other rooms it is fairly spartan, a framed picture of a couple and a portable speaker the only signs of personality in the room. \n The only signs of something unusual are the open door and the desk has an open journal and a framed picture of a women sitting on resting on it."],
+    "visit": false,
+    "items" : ["A4"],
+    "nav_tab": [0,0,12,13],
+    "puzzle" : "None",
+    "monsters" : ["M4"]
+  },
+  {
+    "room_num": 14,
+    "room_name": null,
+    "desc": null,
+    "visit": false,
+    "items" : [],
+    "nav_tab": null,
+    "puzzle" : "None",
+    "monsters" : []
+  },
+  {
+    "room_num": 15,
+    "room_name": ["Work Hub (Locked).", "Work Hub (Unlocked)"],
+    "desc": ["The utilitarian workplace for any outpost. A few pieces of mining equipment are in the area alongside some mini haulers for moving loads are in the area alongside the ever-present signs of violence. On the east side of the room is the doorway to the outpost laboratory and to the north are the material processing chambers. \n The door leading to the mine is to the west, its access panel showing a lockdown sign.","The utilitarian workplace for any outpost. Mining. \n A few pieces of mining equipment are in the area alongside some mini haulers for moving loads are in the area alongside the ever-present signs of violence.  \n On the east side of the room is the doorway to the outpost laboratory and north are the material processing chambers. To the west is the door leading to the mine stands open."],
+    "visit": false,
+    "items" : ["A8","A10"],
+    "nav_tab": [18,10,16,20],
+    "puzzle" : "P4",
+    "monsters" : ["M2","M4"]
+  },
+  {
+    "room_num": 16,
+    "room_name": ["Laboratory."],
+    "desc": ["Combination mineral testing lab and medical facility for an outpost; the lab is less damaged than most of the rooms you have seen. Sample quality testing machinery and product testing systems line the northern side of the room. The south side of the room is separated by an opaque plastic barrier with a wide door labeled medical."],
+    "visit": false,
+    "items" : [],
+    "nav_tab": [0,17,0,15],
+    "puzzle" : "None",
+    "monsters" : ["M2","M4"]
+  },
+  {
+    "room_num": 17,
+    "room_name": ["Medical."],
+    "desc": ["A medical facility excessively superior to the usual outpost medical facility. Instead of the usual cold storage to preserve a severely injured person for movement to a better facility, advanced medical beds, full surgical kits, bioprinters, and gene-samplers fill this room. With all this the facility would never need to call for assistance due to medical injury."],
+    "visit": false,
+    "items" : ["A5","A6"],
+    "nav_tab": [16,0,0,0],
+    "puzzle" : "P2",
+    "monsters" : ["M2","M4"]
+  },
+  {
+    "room_num": 18,
+    "room_name": ["Processing chamber."],
+    "desc": ["For a mining outpost these chambers are practically untouched. \n Pieces of strange metals you have never seen before lie in the processor. \n Shaped tools of unknown purpose show signs of having been put in the processor while it was running but show no signs of damage or warping."],
+    "visit": false,
+    "items" : [],
+    "nav_tab": [0,15,0,19],
+    "puzzle" : "None",
+    "monsters" : ["M2"]
+  },
+  {
+    "room_num": 19,
+    "room_name": ["Mining Equipment Maintenance and Storage."],
+    "desc": ["Barely used cutters and drills line the wall near the door alongside fuel packs and protective gear for mining. \n Only the hauling equipment and engines show any signs of use and nowhere near the wear and tear associated with their normal use. \n Support lattice printers for the mine shaft look barely touched and still have near full filament tanks."],
+    "visit": false,
+    "items" : ["A7"],
+    "nav_tab": [0,0,18,0],
+    "puzzle" : "None",
+    "monsters" : []
+  },
+  {
+    "room_num": 20,
+    "room_name": ["Mine Entry."],
+    "desc": ["Columns of stone, stalactites, and stalagmites reveal the mostly natural origins of the cavern you enter from the outpost. \n High power mine lights have been scattered around the area, but it has just served to create and highlight the existing areas of shadow and darkness. \n Some of the nearby mining equipment looks like it has been used on living creatures instead of stone and ore. \n The cavern continues off in deeper darkness to the north."],
+    "visit": false,
+    "items" : [],
+    "nav_tab": [0,0,15,21],
+    "puzzle" : "P7",
+    "monsters" : ["M6","M7"]
+  },
+  {
+    "room_num": 21,
+    "room_name": ["Mine Ruins."],
+    "desc": ["In the darkness you begin to see signs of stonework and strange construction. \n Stone ruins similar to those you saw on the surface are around you but more complete and the strange symbols carved in them glisten in the refracted light tinged a deep crimson. \n You hear the faint whispers of wind, and the air is chill upon your skin. \n To the north seems to be the center of this arcane structure layout."],
+    "visit": false,
+    "items" : [],
+    "nav_tab": [0,22,20,0],
+    "puzzle" : "None",
+    "monsters" : ["M6","M7"]
+  },
+  {
+    "room_num": 22,
+    "room_name": ["Underground Alien Ruins."],
+    "desc": ["The whispering noise of the wind increases as you approach the central plinth but despite noise and the chill in your bones you feel no wind. \n Ahead of you an obelisk of glistening black stone rises behind a plinth slightly longer and wider than a human body with runnels carved across it and down and across the short length of floor leading to a depression the obelisk rises from."],
+    "visit": false,
+    "items" : [],
+    "nav_tab": [21,23,0,0],
+    "puzzle" : "None",
+    "monsters" : ["M1","M6","M7"]
+  },
+  {
+    "room_num": 23,
+    "room_name": ["Deep Caves."],
+    "desc": ["Darkness saturates the cave with only flickers of light from the mining lamps refracted from the etchings on the alien structures cast any light into this area. \n Stalagmites rising from the floor trip you up as you move onward and stalactites from the ceiling hang low enough to catch your head and shoulders when you are unwary. \n You can still hear the whispers of the non-existent wind echoing from the shadows all around you."],
+    "visit": false,
+    "items" : [],
+    "nav_tab": [22,0,0,0],
+    "puzzle" : "None",
+    "monsters" : ["M1","M6","M7"]
   }
 ]
