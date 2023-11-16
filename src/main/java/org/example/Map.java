@@ -17,18 +17,18 @@ public class Map {
     private ArrayList<Puzzle> allPuzzles;
     private ArrayList<Monster> allMonster;
 
-    public Map(){
+    public Map() throws IOException {
         allRooms = new ArrayList<>();
         readMap("rooms.json");
 
-        allItems = new ArrayList<>();
-        readItem("items.json");
-
-        allPuzzles = new ArrayList<>();
-        readPuzzle("puzzles.json");
-
-        allMonster = new ArrayList<>();
-        readMonster("monster.json");
+//        allItems = new ArrayList<>();
+//        readItem("items.json");
+//
+//        allPuzzles = new ArrayList<>();
+//        readPuzzle("puzzles.json");
+//
+//        allMonster = new ArrayList<>();
+//        readMonster("monster.json");
     }
 
     public Map(ArrayList<Room> rooms, ArrayList<Item> items, ArrayList<Puzzle> puzzles, ArrayList<Monster> monster) {
@@ -46,7 +46,7 @@ public class Map {
         Room room = null;
 
         for (int i = 0; i < allRooms.size(); i++) {
-            if (allRooms.get(i).getRoom_num() == room_num) {
+            if (this.allRooms.get(i).getRoom_num() == room_num) {
                 room = allRooms.get(i);
                 break;
             }
@@ -81,7 +81,7 @@ public class Map {
         throw new InvalidMonsterException("Monster not found ");
     }
 
-    public ArrayList readMap(String fileRoom) {
+    public List readMap(String fileRoom) throws IOException {
         ObjectMapper mapper = new ObjectMapper();
         mapper.disable(DeserializationFeature.FAIL_ON_INVALID_SUBTYPE);
         try {
@@ -100,6 +100,7 @@ public class Map {
             throw new RuntimeException(e);
         }
         return allRooms;
+
     }
 
     public ArrayList readItem(String fileItem) {

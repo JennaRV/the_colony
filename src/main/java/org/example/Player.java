@@ -2,6 +2,7 @@ package org.example;
 
 
 import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.util.*;
 
 public class Player {
@@ -18,7 +19,7 @@ public class Player {
     private double atk;
     private ArrayList<Item> inventory;
 
-    public Player(String name) throws InvalidRoomException {
+    public Player(String name) throws InvalidRoomException, IOException {
         this.name=name;
         map = new Map();
         this.currentRoom = map.getRoom(1);
@@ -54,42 +55,42 @@ public class Player {
         this.currentRoom = map.getRoom(currentRoom.getEastID());
     }
 
-    public void pickupItem(String itemName) throws InvalidItemException {
-        Item item = map.getItem(itemName);
-        if (currentRoom.roomItems().contains(item)) {
-            if (item.getType().equalsIgnoreCase("Consumable Item")){
-                ConsumableItem consumableItem = (ConsumableItem) item;
-                if (inventory.contains(consumableItem)){
-                    int count = 0;
-                    for(Item item1:inventory){
-                        if(item1.getName().equalsIgnoreCase(itemName)){
-                            count++;
-                        }
-                    }
-                    if(consumableItem.getLimit() == count) {
-                        System.out.println("You already reach the limit of this item. You can't not pick up " + itemName +" now.");
-                        return;
-                    }
-                }
-            }
-            inventory.add(item);
-            currentRoom.roomItems().remove(item);
-            System.out.println("You picked up " + itemName);
-        } else {
-            System.out.println("Item not found in the room.");
-        }
-    }
-
-    public void dropItem(String itemName) throws InvalidItemException {
-        Item item = map.getItem(itemName);
-        if (inventory.contains(item)) {
-            inventory.remove(item);
-            currentRoom.roomItems().add(item);
-            System.out.println("You dropped " + itemName);
-        } else {
-            System.out.println("Item not found in your inventory.");
-        }
-    }
+//    public void pickupItem(String itemName) throws InvalidItemException {
+//        Item item = map.getItem(itemName);
+//        if (currentRoom.roomItems().contains(item)) {
+//            if (item.getType().equalsIgnoreCase("Consumable Item")){
+//                ConsumableItem consumableItem = (ConsumableItem) item;
+//                if (inventory.contains(consumableItem)){
+//                    int count = 0;
+//                    for(Item item1:inventory){
+//                        if(item1.getName().equalsIgnoreCase(itemName)){
+//                            count++;
+//                        }
+//                    }
+//                    if(consumableItem.getLimit() == count) {
+//                        System.out.println("You already reach the limit of this item. You can't not pick up " + itemName +" now.");
+//                        return;
+//                    }
+//                }
+//            }
+//            inventory.add(item);
+//            currentRoom.roomItems().remove(item);
+//            System.out.println("You picked up " + itemName);
+//        } else {
+//            System.out.println("Item not found in the room.");
+//        }
+//    }
+//
+//    public void dropItem(String itemName) throws InvalidItemException {
+//        Item item = map.getItem(itemName);
+//        if (inventory.contains(item)) {
+//            inventory.remove(item);
+//            currentRoom.roomItems().add(item);
+//            System.out.println("You dropped " + itemName);
+//        } else {
+//            System.out.println("Item not found in your inventory.");
+//        }
+//    }
 
 
     public double getHp() {
@@ -192,26 +193,26 @@ public class Player {
         }
         System.out.println(inventory.toString());
     }
-    public void exploreItem(String itemName) throws InvalidItemException {
-        Item item = map.getItem(itemName);
-        if (inventory.contains(item) || currentRoom.roomItems().contains(item)) {
-            item.getInformation();
-            if(item.getType().equalsIgnoreCase("Equipment")){
-
-            }
-        } else {
-            System.out.println("You can't inspect this item now.");
-        }
-    }
+//    public void exploreItem(String itemName) throws InvalidItemException {
+//        Item item = map.getItem(itemName);
+//        if (inventory.contains(item) || currentRoom.roomItems().contains(item)) {
+//            item.getInformation();
+//            if(item.getType().equalsIgnoreCase("Equipment")){
+//
+//            }
+//        } else {
+//            System.out.println("You can't inspect this item now.");
+//        }
+//    }
 
 
     public ArrayList<Equipment> getEquippedItems () {
         return this.equippedItems;
     }
 
-    public void look() {
-        System.out.println("Item: " + currentRoom.getListItem());
-    }
+//    public void look() {
+//        System.out.println("Item: " + currentRoom.getListItem());
+//    }
 
     public String printString() {
         return String.format("Player: %s\n%s", name, currentRoom.toString());

@@ -8,30 +8,29 @@ public class Room {
 
     private int room_num;
 
-   private String room_name;
+   private ArrayList<String> room_name=new ArrayList<>();
 
    private String[] desc;
 
    private boolean visit;
    private int[] nav_tab;
-   private ArrayList<Item> items;
-   private Puzzle puzzle;
-   private Monster monster;
+   private ArrayList<String> items;
+   private String puzzle;
+   private String monster;
+   private ArrayList<String> monsters= new ArrayList<>();
 
 
-    public Monster getMonster() {
-        return monster;
-    }
-
-    public Room(@JsonProperty("room_num")int room_num, @JsonProperty("room_name") String room_name, @JsonProperty("desc") String[] desc,
-                @JsonProperty("visit") boolean visit, @JsonProperty("nav_tab") int[] nav_tab,
-                @JsonProperty("items") ArrayList<Item> items) {
+    public Room(@JsonProperty("room_num")int room_num, @JsonProperty("room_name") ArrayList<String> room_name, @JsonProperty("desc") String[] desc,
+                @JsonProperty("visit") boolean visit,@JsonProperty("items") ArrayList<String> items, @JsonProperty("nav_tab") int[] nav_tab,
+                @JsonProperty("puzzle") String puzzle,@JsonProperty("monsters") ArrayList<String> monsters) {
        this.room_num = room_num;
        this.room_name = room_name;
        this.desc = desc;
        this.visit = visit;
        this.nav_tab = nav_tab;
        this.items = items;
+       this.puzzle=puzzle;
+       this.monsters=monsters;
     }
 
     public int getRoom_num() {
@@ -62,29 +61,33 @@ public class Room {
         return nav_tab[3];
     }
 
-    public boolean itemExists() {
-        if (!this.items.isEmpty()){
-            return true;
-        }
-        return false;
-    }
+//    public boolean itemExists() {
+//        if (!this.items.isEmpty()){
+//            return true;
+//        }
+//        return false;
+//    }
 
-    public ArrayList<Item> roomItems(){
-       return this.items;
-    }
-    public String getListItem() {return items.toString();}
+//    public ArrayList<Item> roomItems(){
+//       return this.items;
+//    }
+//    public String getListItem() {return items.toString();}
 
-    public Puzzle getPuzzle() {
-        return puzzle;
-    }
+//    public Puzzle getPuzzle() {
+//        return puzzle;
+//    }
 
-    public void setPuzzle(Puzzle puzzle) {
-        this.puzzle = puzzle;
-    }
-
-    public void setMonster(Monster monster) {
-        this.monster = monster;
-    }
+//    public void setPuzzle(Puzzle puzzle) {
+//        this.puzzle = puzzle;
+//    }
+//
+//    public void setMonster(Monster monster) {
+//        this.monster = monster;
+//    }
+//
+//    public Monster getMonster() {
+//        return monster;
+//    }
 
     public String toString() {
         //String itemInfo = (item != null) ? String.format("\nItem Info:\n%s", item.toString()) : "";
