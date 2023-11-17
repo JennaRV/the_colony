@@ -17,7 +17,7 @@ public class Main {
         String in = scanner.nextLine();
         Player p1 = new Player(in);
         System.out.println(p1.printString());
-        boolean play=false;
+        boolean play=true;
         while(play){
             if(p1.getCurrentRoom().isVisit()){
                 System.out.println("You've been in this room before");
@@ -88,14 +88,14 @@ public class Main {
 
             if (parts[0].equalsIgnoreCase("pickup") && parts.length > 1) {
                 String itemName = String.join(" ", Arrays.copyOfRange(parts, 1, parts.length));
-                //p1.pickupItem(itemName);
+                p1.pickupItem(itemName);
                 System.out.println(itemName + " has been picked up from the room and successfully added to the player inventory.");
             }
-//            else if (parts[0].equalsIgnoreCase("i")) {
-//                //handleInventory(p1,scanner);
-//            }
+           else if (parts[0].equalsIgnoreCase("i")) {
+               handleInventory(p1,scanner);
+           }
             else if (parts[0].equalsIgnoreCase("look")) {
-//                p1.look();
+                p1.look();
             } else if (parts[0].equalsIgnoreCase("stats")) {
                 System.out.println("HP: "+ p1.getHp());
                 System.out.println("DEF: "+ p1.getDef());
@@ -177,40 +177,41 @@ public class Main {
 //
 //        }
 //    }
-//    public static void handleInventory(Player p1, Scanner scanner) throws InvalidItemException {
-//        boolean inInventory = true;
-//
-//        p1.getInventory();
-//
-//        while (inInventory) {
-//            String input = scanner.nextLine().toLowerCase();
-//            String command = input;
-//            String[] parts = command.split(" ");
-//
-//            if (parts[0].equalsIgnoreCase("explore") && parts.length > 1) {
-//                String itemName = String.join(" ", Arrays.copyOfRange(parts, 1, parts.length));
-//                p1.exploreItem(itemName);
-//            } else if (parts[0].equalsIgnoreCase("drop") && parts.length > 1) {
-//                String itemName = String.join(" ", Arrays.copyOfRange(parts, 1, parts.length));
-//                p1.dropItem(itemName);
-//                System.out.println(itemName + " has been dropped successfully from the player inventory and placed in the room.");
-//            } else if (parts[0].equalsIgnoreCase("equip") && parts.length > 1) {
-//                String itemName = String.join(" ", Arrays.copyOfRange(parts, 1, parts.length));
-//                p1.equip(itemName);
-//            } else if (parts[0].equalsIgnoreCase("un-equip") && parts.length > 1) {
-//                String itemName = String.join(" ", Arrays.copyOfRange(parts, 1, parts.length));
-//                p1.unequip(itemName);
-//            } else if (parts[0].equalsIgnoreCase("consume") && parts.length > 1) {
-//                String itemName = String.join(" ", Arrays.copyOfRange(parts, 1, parts.length));
-//                p1.consume(itemName);
-//            } else if ((parts[0].equalsIgnoreCase("exit"))){
-//                    System.out.println("Exiting inventory");
-//                    inInventory = false;
-//            } else {
-//                System.out.println("Invalid command!");
-//            }
-//        }
-//    }
+    public static void handleInventory(Player p1, Scanner scanner) throws InvalidItemException {
+        boolean inInventory = true;
+
+        while (inInventory) {
+            p1.getInventory();
+            System.out.println("Enter 'explore' + item name to get information of item, " +
+                    "'drop' + item name to take item out of inventory, 'equip' + item name to equip item, " +
+                    "'un-equip to un-equip item, 'consume' + item name to use consumable item, 'exit' to exit inventory view.");
+            String input = scanner.nextLine().toLowerCase();
+            String command = input;
+            String[] parts = command.split(" ");
+            if (parts[0].equalsIgnoreCase("explore") && parts.length > 1) {
+                String itemName = String.join(" ", Arrays.copyOfRange(parts, 1, parts.length));
+                p1.exploreItem(itemName);
+            } else if (parts[0].equalsIgnoreCase("drop") && parts.length > 1) {
+                String itemName = String.join(" ", Arrays.copyOfRange(parts, 1, parts.length));
+                p1.dropItem(itemName);
+                System.out.println(itemName + " has been dropped successfully from the player inventory and placed in the room.");
+            } else if (parts[0].equalsIgnoreCase("equip") && parts.length > 1) {
+                String itemName = String.join(" ", Arrays.copyOfRange(parts, 1, parts.length));
+                p1.equip(itemName);
+            } else if (parts[0].equalsIgnoreCase("un-equip") && parts.length > 1) {
+                String itemName = String.join(" ", Arrays.copyOfRange(parts, 1, parts.length));
+                p1.unequip(itemName);
+            } else if (parts[0].equalsIgnoreCase("consume") && parts.length > 1) {
+                String itemName = String.join(" ", Arrays.copyOfRange(parts, 1, parts.length));
+                p1.consume(itemName);
+            } else if ((parts[0].equalsIgnoreCase("exit"))){
+                    System.out.println("Exiting inventory");
+                    inInventory = false;
+            } else {
+                System.out.println("Invalid command!");
+            }
+        }
+    }
     public static void restart() throws IOException, InvalidItemException, InvalidRoomException, InvalidPuzzleException {
         Main game= new Main();
         game.Game();

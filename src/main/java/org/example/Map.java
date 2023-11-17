@@ -4,6 +4,7 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.core.type.TypeReference;
@@ -17,12 +18,13 @@ public class Map {
     private ArrayList<Puzzle> allPuzzles;
     private ArrayList<Monster> allMonster;
 
-    public Map() throws IOException {
+    public Map() throws IOException, InvalidItemException {
+        allItems = new ArrayList<>();
+        readItem("items.json");
+
         allRooms = new ArrayList<>();
         readMap("rooms.json");
 
-//        allItems = new ArrayList<>();
-//        readItem("items.json");
 //
 //        allPuzzles = new ArrayList<>();
 //        readPuzzle("puzzles.json");
@@ -81,7 +83,7 @@ public class Map {
         throw new InvalidMonsterException("Monster not found ");
     }
 
-    public List readMap(String fileRoom) throws IOException {
+    public List readMap(String fileRoom) throws IOException, InvalidItemException {
         ObjectMapper mapper = new ObjectMapper();
         mapper.disable(DeserializationFeature.FAIL_ON_INVALID_SUBTYPE);
         try {
@@ -90,6 +92,7 @@ public class Map {
                 throw new FileNotFoundException("File not found: " + fileRoom);
             }
             allRooms = (ArrayList<Room>) mapper.readValue(roomFile, new TypeReference<List<Room>>() {});
+            createItem();
         } catch (JsonMappingException e) {
             throw new RuntimeException(e);
         } catch (JsonProcessingException e) {
@@ -103,7 +106,7 @@ public class Map {
 
     }
 
-    public ArrayList readItem(String fileItem) {
+    public ArrayList readItem(String fileItem) throws InvalidItemException {
         ObjectMapper mapper = new ObjectMapper();
         mapper.disable(DeserializationFeature.FAIL_ON_INVALID_SUBTYPE);
         try {
@@ -159,4 +162,17 @@ public class Map {
         }
         return allMonster;
     }
+
+    public void createItem() throws InvalidItemException {
+        for(Room room: allRooms) {
+            ArrayList<String> itemNames = room.getItems();
+            System.out.println(itemNames.toString());
+            for(String itemName: itemNames) {
+                ArrayList<Item> inventory = room.getInventory();
+                Item item = getItem(itemName);
+                inventory.add(item);
+            }
+        }
+    }
+
 }

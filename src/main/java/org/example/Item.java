@@ -91,8 +91,13 @@ class ConsumableItem extends Item {
     private int limit;
     private String required;
     @JsonCreator
-    public ConsumableItem(@JsonProperty("id")String id, @JsonProperty("name")String name, @JsonProperty("description")String description, @JsonProperty("type")String type,
-                          @JsonProperty("sort")String sort,@JsonProperty("effect") int effect,@JsonProperty("limit") int limit,
+    public ConsumableItem(@JsonProperty("id")String id,
+                          @JsonProperty("name")String name,
+                          @JsonProperty("description")String description,
+                          @JsonProperty("type")String type,
+                          @JsonProperty("sort")String sort,
+                          @JsonProperty("effect") int effect,
+                          @JsonProperty("limit") int limit,
                           @JsonProperty("required")String required) {
         super(id,name,description,type);
         this.sort = sort;

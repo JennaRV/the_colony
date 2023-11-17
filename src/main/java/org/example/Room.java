@@ -3,21 +3,23 @@ package org.example;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 import java.util.ArrayList;
+import java.util.RandomAccess;
 
 public class Room {
 
     private int room_num;
 
-   private ArrayList<String> room_name=new ArrayList<>();
+   private ArrayList<String> room_name;
 
    private String[] desc;
 
    private boolean visit;
    private int[] nav_tab;
    private ArrayList<String> items;
+   private ArrayList<Item> inventory = new ArrayList<>();
    private String puzzle;
    private String monster;
-   private ArrayList<String> monsters= new ArrayList<>();
+   private ArrayList<String> monsters;
 
 
     public Room(@JsonProperty("room_num")int room_num, @JsonProperty("room_name") ArrayList<String> room_name, @JsonProperty("desc") String[] desc,
@@ -68,11 +70,21 @@ public class Room {
 //        return false;
 //    }
 
-//    public ArrayList<Item> roomItems(){
-//       return this.items;
-//    }
-//    public String getListItem() {return items.toString();}
+    public ArrayList<String> getItems(){
+       return items;
+    }
 
+    public ArrayList<Item> getInventory(){
+        return inventory;
+    }
+    public ArrayList<String> getListItem() {
+        ArrayList<String> listItem = new ArrayList<>();
+        for(Item item : inventory) {
+            listItem.add(item.getName());
+        }
+        return listItem;
+    }
+//
 //    public Puzzle getPuzzle() {
 //        return puzzle;
 //    }

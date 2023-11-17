@@ -19,7 +19,7 @@ public class Player {
     private double atk;
     private ArrayList<Item> inventory;
 
-    public Player(String name) throws InvalidRoomException, IOException {
+    public Player(String name) throws InvalidRoomException, IOException, InvalidItemException {
         this.name=name;
         map = new Map();
         this.currentRoom = map.getRoom(1);
@@ -55,9 +55,24 @@ public class Player {
         this.currentRoom = map.getRoom(currentRoom.getEastID());
     }
 
-//    public void pickupItem(String itemName) throws InvalidItemException {
-//        Item item = map.getItem(itemName);
-//        if (currentRoom.roomItems().contains(item)) {
+    public void pickupItem(String itemName) throws InvalidItemException {
+        Item item = map.getItem(itemName);
+        if (currentRoom.getInventory().contains(item)) {
+            if (item instanceof ConsumableItem) {
+                ConsumableItem consumableItem = (ConsumableItem) item;
+                if(inventory.contains(consumableItem)){
+                    int count = 0;
+                    for(Item item1:inventory){
+                        if(item1.getName().equalsIgnoreCase(itemName)){
+                            count++;
+                        }
+                    }
+                    if(consumableItem.getLimit() == count) {
+                        System.out.println("You already reach the limit of this item. You can't not pick up " + itemName +" now.");
+                        return;
+                    }
+                }
+            }
 //            if (item.getType().equalsIgnoreCase("Consumable Item")){
 //                ConsumableItem consumableItem = (ConsumableItem) item;
 //                if (inventory.contains(consumableItem)){
@@ -73,24 +88,25 @@ public class Player {
 //                    }
 //                }
 //            }
-//            inventory.add(item);
-//            currentRoom.roomItems().remove(item);
-//            System.out.println("You picked up " + itemName);
-//        } else {
-//            System.out.println("Item not found in the room.");
-//        }
-//    }
-//
-//    public void dropItem(String itemName) throws InvalidItemException {
-//        Item item = map.getItem(itemName);
-//        if (inventory.contains(item)) {
-//            inventory.remove(item);
-//            currentRoom.roomItems().add(item);
-//            System.out.println("You dropped " + itemName);
-//        } else {
-//            System.out.println("Item not found in your inventory.");
-//        }
-//    }
+            inventory.add(item);
+            currentRoom.getInventory().remove(item);
+            System.out.println(currentRoom.getInventory().toString());
+            System.out.println("You picked up " + itemName);
+        } else {
+            System.out.println("Item not found in the room.");
+        }
+    }
+
+    public void dropItem(String itemName) throws InvalidItemException {
+        Item item = map.getItem(itemName);
+        if (inventory.contains(item)) {
+            inventory.remove(item);
+            currentRoom.getInventory().add(item);
+            System.out.println("You dropped " + itemName);
+        } else {
+            System.out.println("Item not found in your inventory.");
+        }
+    }
 
 
     public double getHp() {
@@ -111,32 +127,29 @@ public class Player {
     }
 
     public void equip(String itemName) throws InvalidItemException {
-        Item item  = map.getItem(itemName);
+        Item item = map.getItem(itemName);
         if (inventory.contains(item)) {
-            if (!item.getType().equalsIgnoreCase("Equipment")){
-                System.out.println("You can't equip that item.");
-                return;
-            }
-
-            Equipment equipment = (Equipment) item;
-
-            for(Equipment item1:equippedItems){
-                if(item1.getSort().equalsIgnoreCase(equipment.getSort())){
-                    System.out.println("You already equip " + equipment.getSort() + " item.");
-                    return;
+            if (item instanceof Equipment) {
+                Equipment equipment = (Equipment) item;
+                for (Equipment item1 : equippedItems) {
+                    if (item1.getSort().equalsIgnoreCase(equipment.getSort())) {
+                        System.out.println("You already equip " + equipment.getSort() + " item.");
+                        return;
+                    }
                 }
+
+                hp += equipment.getHPModifier();
+                def += equipment.getDefModifier();
+                amr += equipment.getAmrModifier();
+                atk += equipment.getAtkModifier();
+
+                equippedItems.add(equipment);
+                inventory.remove(equipment);
+                System.out.println("3");
+                System.out.println(itemName + " has been equipped successfully from the player inventory");
+            } else {
+                System.out.println("You can't equip that item.");
             }
-
-            hp += equipment.getHPModifier();
-            def += equipment.getDefModifier();
-            amr += equipment.getAmrModifier();
-            atk += equipment.getAtkModifier();
-
-            equippedItems.add(equipment);
-            inventory.remove(equipment);
-
-            System.out.println(itemName + " has been equipped successfully from the player inventory");
-
         } else {
             System.out.println("You don't have that item yet.");
         }
@@ -163,56 +176,84 @@ public class Player {
     }
 
     public void consume(String itemName) throws InvalidItemException {
-        ConsumableItem item = (ConsumableItem) map.getItem(itemName);
-        if(inventory.contains(item)) {
-            Equipment requiredItem = (Equipment) map.getItem(item.getRequired());
-            if(!inventory.contains(requiredItem)){
-                System.out.println("You need to get " + item.getRequired() + " first.");
-                return;
+        Item item = map.getItem(itemName);
+        System.out.println("1");
+        if(inventory.contains(item)){
+            System.out.println("2");
+            if(item instanceof ConsumableItem) {
+                System.out.println("3");
+                ConsumableItem consumableItem = (ConsumableItem) item;
+                Item requiredItem = map.getItem(consumableItem.getRequired());
+                if(inventory.contains(requiredItem)){
+                    System.out.println("2");
+                    if(consumableItem.getSort().equalsIgnoreCase("Healing")){
+                        hp += consumableItem.getEffect();
+                    } else if (consumableItem.getSort().equalsIgnoreCase("Armor")) {
+                        amr += consumableItem.getEffect();
+                    } else if (consumableItem.getSort().equalsIgnoreCase("Bullet")) {
+                        Equipment weapon =(Equipment) map.getItem(consumableItem.getRequired());
+                        weapon.setUseCount(consumableItem.getEffect());
+                    }
+                } else {
+                    System.out.println("You need " + requiredItem.getName() + " to use this item.");
+                }
+            } else {
+                System.out.println("That's not a consumable item.");
             }
-            if(item.getSort().equalsIgnoreCase("Healing")){
-                hp += item.getEffect();
-            }
-            else if(item.getSort().equalsIgnoreCase("Armor")) {
-                amr += item.getEffect();
-            }
-            else if(item.getSort().equalsIgnoreCase("Bullet")) {
-                requiredItem.setUseCount(item.getEffect());
-            }
-            inventory.remove(item);
-        }
-        else{
+        } else {
             System.out.println("This item is not in your inventory");
         }
+
+//
+//        if(inventory.contains(item)) {
+//
+//            if(!inventory.contains(requiredItem)){
+//                System.out.println("You need to get " + item.getRequired() + " first.");
+//                return;
+//            }
+//
+//
+//            }
+//            else if() {
+//
+//            }
+//            else if() {
+//
+//            }
+//            inventory.remove(item);
+//        }
+//        else{
+//
+//        }
     }
 
     public void getInventory() {
-        if (inventory.isEmpty()) {
-            System.out.println("Inventory was empty.");
-            return;
+        ArrayList<String> listItem = new ArrayList<>();
+        for(Item item : inventory) {
+            listItem.add(item.getName());
         }
-        System.out.println(inventory.toString());
+        System.out.println(listItem);
     }
-//    public void exploreItem(String itemName) throws InvalidItemException {
-//        Item item = map.getItem(itemName);
-//        if (inventory.contains(item) || currentRoom.roomItems().contains(item)) {
-//            item.getInformation();
-//            if(item.getType().equalsIgnoreCase("Equipment")){
-//
-//            }
-//        } else {
-//            System.out.println("You can't inspect this item now.");
-//        }
-//    }
+    public void exploreItem(String itemName) throws InvalidItemException {
+        Item item = map.getItem(itemName);
+        if (inventory.contains(item) || currentRoom.getInventory().contains(item)) {
+            item.getInformation();
+            if(item.getType().equalsIgnoreCase("Equipment")){
+
+            }
+        } else {
+            System.out.println("You can't inspect this item now.");
+        }
+    }
 
 
     public ArrayList<Equipment> getEquippedItems () {
         return this.equippedItems;
     }
 
-//    public void look() {
-//        System.out.println("Item: " + currentRoom.getListItem());
-//    }
+    public void look() {
+        System.out.println("Item: " + currentRoom.getListItem());
+    }
 
     public String printString() {
         return String.format("Player: %s\n%s", name, currentRoom.toString());
