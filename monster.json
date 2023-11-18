@@ -8,7 +8,7 @@
     "HP": 40.0,
     "DEF": 6.0,
     "ATK": 7.0,
-    "drop": null,
+    "drop": [],
     "specialEffects": [
       {
         "type": "blockAction",
@@ -29,11 +29,7 @@
     "HP": 15.0,
     "DEF": 4.0,
     "ATK": 5.0,
-    "drop": [
-      {
-        "item":["Bandaid"]
-      }
-    ],
+    "drop": ["Bandaid"],
     "specialEffects": [
       {
         "type": "halfDamage",
@@ -50,8 +46,8 @@
     "HP": 6.0,
     "DEF": 0.0,
     "ATK": 3.0,
-    "drop": null,
-    "specialEffects":null
+    "drop": [],
+    "specialEffects":[]
   },
   {
     "ID" : "M4",
@@ -62,12 +58,7 @@
     "HP": 6.0,
     "DEF": 1.0,
     "ATK": 1.0,
-    "drop": [
-      {
-        "item": ["Bandaid","Med-Kit","Armor Plate","Ammunition"]
-      },
-
-    ],
+    "drop": ["Bandaid","Med-Kit","Armor Plate","Ammunition"],
     "specialEffects": [
       {
         "type": "QuadrupleDamge",
@@ -85,7 +76,7 @@
     "HP": 6.0,
     "DEF": 0.0,
     "ATK": 3.0,
-    "drop": null,
+    "drop": [],
     "specialEffects": [
       {
         "type": "noWeapon",
@@ -102,7 +93,7 @@
     "HP": 7.0,
     "DEF": 2.0,
     "ATK": 5.0,
-    "drop": null,
+    "drop": [],
     "specialEffects": [
       {
         "type": "noDamage",
@@ -119,13 +110,12 @@
     "HP": 2.0,
     "DEF": 0.0,
     "ATK": 1.0,
-    "drop": null,
+    "drop": [],
     "specialEffects": [
       {
         "type": "noDamage",
         "chance": 10
       }
-    ],
-
+    ]
   }
 ]

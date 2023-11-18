@@ -16,7 +16,7 @@
     "type" : "Consumable",
     "sort" : "Healing",
     "effect" : 3,
-    "limit" : "None",
+    "limit" : -1,
     "required": "None"
   },
   {
@@ -42,7 +42,7 @@
     "type" : "Consumable",
     "sort" : "Healing",
     "effect" : 6,
-    "limit" : "None",
+    "limit" : -1,
     "required": "None"
   },
   {
@@ -83,7 +83,7 @@
     "type" : "Consumable",
     "sort" : "Armor",
     "effect" : 20,
-    "limit" : "None",
+    "limit" : -1,
     "required": "Plate Carrier"
   },
   {
@@ -104,8 +104,8 @@
     "description": "Contains 10 rounds, used to reload the Pistol.",
     "type" : "Consumable",
     "sort" : "Bullet",
-    "stats" : 10,
-    "limit" : "None",
+    "effect" : 10,
+    "limit" : -1,
     "required": "Military Grade Pistol"
   },
   {

@@ -2,21 +2,37 @@ package org.example;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 
+import java.util.ArrayList;
+
 public class Monster {
     private String id;
+    private ArrayList<Integer> roomIDs;
     private String name, desc;
     private boolean isDead;
     private double HP, DEF, ATK;
+    private ArrayList<String> drop;
+    private ArrayList<Object> specialEffects;
 
-    public Monster(@JsonProperty("ID") String id,@JsonProperty("name") String name, @JsonProperty("desc") String desc, @JsonProperty("isDead") boolean isDead,
-                   @JsonProperty("HP") double HP, @JsonProperty("DEF") double DEF, @JsonProperty("ATK") double ATK) {
+    public Monster(@JsonProperty("ID") String id,
+                   @JsonProperty("roomIDs") ArrayList<Integer> roomIDs,
+                   @JsonProperty("name") String name,
+                   @JsonProperty("desc") String desc,
+                   @JsonProperty("isDead") boolean isDead,
+                   @JsonProperty("HP") double HP,
+                   @JsonProperty("DEF") double DEF,
+                   @JsonProperty("ATK") double ATK,
+                   @JsonProperty("drop") ArrayList<String> drop,
+                   @JsonProperty("specialEffects") ArrayList<Object> specialEffects) {
         this.id = id;
+        this.roomIDs = roomIDs;
         this.name = name;
         this.desc = desc;
         this.isDead = isDead;
         this.HP = HP;
         this.DEF = DEF;
         this.ATK = ATK;
+        this.drop = drop;
+        this.specialEffects = specialEffects;
     }
 
     public String getId(){
@@ -48,6 +64,9 @@ public class Monster {
 
     public void setHP(double HP) {
         this.HP = HP;
+    }
+    public ArrayList<Integer> getRoomIDs() {
+        return roomIDs;
     }
 
     @Override

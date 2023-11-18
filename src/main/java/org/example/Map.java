@@ -4,6 +4,7 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.core.type.TypeReference;
@@ -17,18 +18,19 @@ public class Map {
     private ArrayList<Puzzle> allPuzzles;
     private ArrayList<Monster> allMonster;
 
-    public Map() throws IOException {
+    public Map() throws IOException, InvalidItemException {
+        allItems = new ArrayList<>();
+        readItem("items.json");
+
+        allMonster = new ArrayList<>();
+        readMonster("monster.json");
+
+        allPuzzles = new ArrayList<>();
+        readPuzzle("puzzles.json");
+
         allRooms = new ArrayList<>();
         readMap("rooms.json");
 
-//        allItems = new ArrayList<>();
-//        readItem("items.json");
-//
-//        allPuzzles = new ArrayList<>();
-//        readPuzzle("puzzles.json");
-//
-//        allMonster = new ArrayList<>();
-//        readMonster("monster.json");
     }
 
     public Map(ArrayList<Room> rooms, ArrayList<Item> items, ArrayList<Puzzle> puzzles, ArrayList<Monster> monster) {
@@ -81,7 +83,7 @@ public class Map {
         throw new InvalidMonsterException("Monster not found ");
     }
 
-    public List readMap(String fileRoom) throws IOException {
+    public List readMap(String fileRoom) throws IOException, InvalidItemException {
         ObjectMapper mapper = new ObjectMapper();
         mapper.disable(DeserializationFeature.FAIL_ON_INVALID_SUBTYPE);
         try {
@@ -90,6 +92,9 @@ public class Map {
                 throw new FileNotFoundException("File not found: " + fileRoom);
             }
             allRooms = (ArrayList<Room>) mapper.readValue(roomFile, new TypeReference<List<Room>>() {});
+            createItem();
+            createMonster();
+            createPuzzle();
         } catch (JsonMappingException e) {
             throw new RuntimeException(e);
         } catch (JsonProcessingException e) {
@@ -98,12 +103,16 @@ public class Map {
             System.err.println(e.getMessage());
         }  catch (IOException e) {
             throw new RuntimeException(e);
+        } catch (InvalidRoomException e) {
+            throw new RuntimeException(e);
+        } catch (InvalidPuzzleException e) {
+            throw new RuntimeException(e);
         }
         return allRooms;
 
     }
 
-    public ArrayList readItem(String fileItem) {
+    public ArrayList readItem(String fileItem) throws InvalidItemException {
         ObjectMapper mapper = new ObjectMapper();
         mapper.disable(DeserializationFeature.FAIL_ON_INVALID_SUBTYPE);
         try {
@@ -158,5 +167,37 @@ public class Map {
             throw new RuntimeException(e);
         }
         return allMonster;
+    }
+
+    public void createItem() throws InvalidItemException {
+        for(Room room: allRooms) {
+            ArrayList<String> itemNames = room.getItems();
+            for(String itemName: itemNames) {
+                ArrayList<Item> inventory = room.getInventory();
+                Item item = getItem(itemName);
+                inventory.add(item);
+            }
+        }
+    }
+
+    public void createMonster() throws InvalidRoomException {
+       for(Monster monster: allMonster) {
+           ArrayList<Integer> roomIDs = monster.getRoomIDs();
+           Random randomGenerator = new Random();
+           int index = randomGenerator.nextInt(roomIDs.size());
+           int roomID = roomIDs.get(index);
+           getRoom(roomID).getMonsters().add(monster);
+       }
+    }
+
+    public void createPuzzle() throws InvalidPuzzleException {
+        for(Room room: allRooms) {
+            String puzzleID = room.getPuzzleID();
+            System.out.println(puzzleID);
+            if(!puzzleID.equalsIgnoreCase("None")){
+                Puzzle puzzle = getPuzzle(puzzleID);
+                room.setPuzzle(puzzle);
+            }
+        }
     }
 }
