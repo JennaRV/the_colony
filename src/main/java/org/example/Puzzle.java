@@ -1,5 +1,7 @@
 package org.example;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+
 public class Puzzle {
     private String puzzleID;
     private String puzzleQ;
@@ -7,7 +9,11 @@ public class Puzzle {
     private boolean isSolved;
     private int numAttempts;
 
-    public Puzzle(String puzzleID,String puzzleQ, String puzzleA, boolean isSolved, int numAttempts) {
+    public Puzzle(@JsonProperty("puzzleID")String puzzleID,
+                  @JsonProperty("puzzleQ")String puzzleQ,
+                  @JsonProperty("puzzleA")String puzzleA,
+                  @JsonProperty("isSolved")boolean isSolved,
+                  @JsonProperty("numAttempts")int numAttempts) {
         this.puzzleID = puzzleID;
         this.puzzleQ = puzzleQ;
         this.puzzleA = puzzleA;

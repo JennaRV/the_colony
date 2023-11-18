@@ -17,7 +17,7 @@
     "items" : [],
     "nav_tab": [4,3,8,8],
     "puzzle" : "None",
-    "monsters" : ["M2","M3","M5","M7"]
+    "monsters" : []
   },
   {
     "room_num": 4,
@@ -27,7 +27,7 @@
     "items" : [],
     "nav_tab": [5,3,8,8],
     "puzzle" : "P6",
-    "monsters" : ["M3","M5","M7"]
+    "monsters" : []
   },
   {
     "room_num": 5,
@@ -37,7 +37,7 @@
     "items" : ["Alien Structure 1","Alien Structure 2"],
     "nav_tab": [6,4,8,8],
     "puzzle" : "P3",
-    "monsters" : ["M3","M5","M7"]
+    "monsters" : []
   },
   {
     "room_num": 6,
@@ -47,7 +47,7 @@
     "items" : [],
     "nav_tab": [7,5,8,8],
     "puzzle" : "None",
-    "monsters" : ["M3","M5","M7"]
+    "monsters" : []
   },
   {
     "room_num": 7,
@@ -57,7 +57,7 @@
     "items" : [],
     "nav_tab": [9,6,8,8],
     "puzzle" : "None",
-    "monsters" : ["M3","M5","M7"]
+    "monsters" : []
 
   },
   {
@@ -68,7 +68,7 @@
     "items" : [],
     "nav_tab": [4,0,0,0],
     "puzzle" : "None",
-    "monsters" : ["M3","M5","M7"]
+    "monsters" : []
   },
   {
     "room_num": 9,
@@ -78,7 +78,7 @@
     "items" : [],
     "nav_tab": [10,7,0,0],
     "puzzle" : "None",
-    "monsters" : ["M2","M4","M5"]
+    "monsters" : []
   },
   {
     "room_num": 10,
@@ -88,7 +88,7 @@
     "items" : [],
     "nav_tab": [15,9,11,12],
     "puzzle" : "None",
-    "monsters" : ["M2","M4","M5"]
+    "monsters" : []
   },
   {
     "room_num": 11,
@@ -98,7 +98,7 @@
     "items" : ["Military Grade Pistol","Plate Carrier","Armor Plates","Keypad"],
     "nav_tab": [0,0,0,10],
     "puzzle" : "P5",
-    "monsters" : ["M2","M4"]
+    "monsters" : []
   },
   {
     "room_num": 12,
@@ -108,7 +108,7 @@
     "items" : [],
     "nav_tab": [0,0,10,13],
     "puzzle" : "None",
-    "monsters" : ["M4"]
+    "monsters" : []
   },
   {
     "room_num": 13,
@@ -118,7 +118,7 @@
     "items" : ["Journal"],
     "nav_tab": [0,0,12,13],
     "puzzle" : "None",
-    "monsters" : ["M4"]
+    "monsters" : []
   },
   {
     "room_num": 14,
@@ -138,7 +138,7 @@
     "items" : ["Keycard","Armor Plates"],
     "nav_tab": [18,10,16,20],
     "puzzle" : "P4",
-    "monsters" : ["M2","M4"]
+    "monsters" : []
   },
   {
     "room_num": 16,
@@ -148,7 +148,7 @@
     "items" : [],
     "nav_tab": [0,17,0,15],
     "puzzle" : "None",
-    "monsters" : ["M2","M4"]
+    "monsters" : []
   },
   {
     "room_num": 17,
@@ -158,7 +158,7 @@
     "items" : ["Med-kit","Biosample"],
     "nav_tab": [16,0,0,0],
     "puzzle" : "P2",
-    "monsters" : ["M2","M4"]
+    "monsters" : []
   },
   {
     "room_num": 18,
@@ -168,7 +168,7 @@
     "items" : [],
     "nav_tab": [0,15,0,19],
     "puzzle" : "None",
-    "monsters" : ["M2"]
+    "monsters" : []
   },
   {
     "room_num": 19,
@@ -188,7 +188,7 @@
     "items" : [],
     "nav_tab": [0,0,15,21],
     "puzzle" : "P7",
-    "monsters" : ["M6","M7"]
+    "monsters" : []
   },
   {
     "room_num": 21,
@@ -198,7 +198,7 @@
     "items" : [],
     "nav_tab": [0,22,20,0],
     "puzzle" : "None",
-    "monsters" : ["M6","M7"]
+    "monsters" : []
   },
   {
     "room_num": 22,
@@ -208,7 +208,7 @@
     "items" : [],
     "nav_tab": [21,23,0,0],
     "puzzle" : "None",
-    "monsters" : ["M1","M6","M7"]
+    "monsters" : []
   },
   {
     "room_num": 23,
@@ -218,6 +218,6 @@
     "items" : [],
     "nav_tab": [22,0,0,0],
     "puzzle" : "None",
-    "monsters" : ["M1","M6","M7"]
+    "monsters" : []
   }
 ]
