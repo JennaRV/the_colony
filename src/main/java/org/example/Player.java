@@ -227,13 +227,18 @@ public class Player {
 //        }
     }
 
-    public void getInventory() {
+    public void printInventory() {
         ArrayList<String> listItem = new ArrayList<>();
         for(Item item : inventory) {
             listItem.add(item.getName());
         }
         System.out.println(listItem);
     }
+
+    public ArrayList<Item> getInventory() {
+        return inventory;
+    }
+
     public void exploreItem(String itemName) throws InvalidItemException {
         Item item = map.getItem(itemName);
         if (inventory.contains(item) || currentRoom.getInventory().contains(item)) {

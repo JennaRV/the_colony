@@ -72,12 +72,16 @@ public class Monster {
     @Override
     public String toString() {
         return "Monster{" +
-                "name='" + name + '\'' +
-                ", desc='" + desc + '\'' +
-                ", isDead=" + isDead +
-                ", HP=" + HP +
-                ", DEF=" + DEF +
-                ", ATK=" + ATK +
+                "\nid='" + id + '\'' +
+                ", \nroomIDs=" + roomIDs +
+                ", \nname='" + name + '\'' +
+                ", \ndesc='" + desc + '\'' +
+                ", \nisDead=" + isDead +
+                ", \nHP=" + HP +
+                ", \nDEF=" + DEF +
+                ", \nATK=" + ATK +
+                ", \ndrop=" + drop +
+                ", \nspecialEffects=" + specialEffects +
                 '}';
     }
 }
