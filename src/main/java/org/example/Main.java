@@ -47,11 +47,6 @@ public class Main {
 //                    }
 //                }
 //            }
-            ArrayList<Item> items = new ArrayList<>(p1.getInventory());
-            Map<String, Item> itemMap = new HashMap<>();
-            for (Item item : items) {
-                itemMap.put(item.getName().toLowerCase(), item);
-            }
 
             //Monster mechs
             while (!p1.getCurrentRoom().getMonsters().isEmpty()) {
@@ -151,7 +146,7 @@ public class Main {
     }
 
 
-    public static void handlePlayerTurn(Player p, Monster m, Scanner scanner, HashMap<String, Monster> monsterMap){
+    public static void handlePlayerTurn(Player p, Monster m, Scanner scanner, HashMap<String, Monster> monsterMap) throws InvalidItemException, IOException {
         System.out.println("Player's turn: Type 'attack' to attack, 'inventory' to access inventory");
         String engage=scanner.nextLine();
         switch (engage.toLowerCase()) {
@@ -163,6 +158,20 @@ public class Main {
                 if (m.getHP() <= 0) {
                     m.setDead(true);
                     System.out.println("You defeated the monster");
+                    ArrayList<Item> droppedItems= m.getDropItems();
+                    ArrayList<Double> dropChances=m.getDropChance();
+                    Random random = new Random();
+                    if(!droppedItems.isEmpty()){
+                        for (int i = 0; i < droppedItems.size(); i++) {
+                            double chance = random.nextDouble();
+
+                            if (dropChances.get(i) >= chance) {
+                                System.out.println(droppedItems.get(i) + " has been dropped from the monster. Placing it in your inventory.");
+                                p.getInventory().add(droppedItems.get(i));
+                            }
+                        }
+
+                    }
                     p.getCurrentRoom().getMonsters().remove(m);
                     monsterMap.remove(m.getName());
                 }

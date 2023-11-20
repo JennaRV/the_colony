@@ -83,6 +83,10 @@ public class Map {
         throw new InvalidMonsterException("Monster not found ");
     }
 
+    public ArrayList<Item> getAllItems() {
+        return allItems;
+    }
+
     public List readMap(String fileRoom) throws IOException, InvalidItemException {
         ObjectMapper mapper = new ObjectMapper();
         mapper.disable(DeserializationFeature.FAIL_ON_INVALID_SUBTYPE);

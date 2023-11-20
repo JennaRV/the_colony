@@ -9,6 +9,7 @@
     "DEF": 6.0,
     "ATK": 7.0,
     "drop": [],
+    "chance": null,
     "specialEffects": [
       {
         "type": "blockAction",
@@ -30,6 +31,7 @@
     "DEF": 4.0,
     "ATK": 5.0,
     "drop": ["Bandaid"],
+    "chance": [0.25],
     "specialEffects": [
       {
         "type": "halfDamage",
@@ -47,6 +49,7 @@
     "DEF": 0.0,
     "ATK": 3.0,
     "drop": [],
+    "chance": null,
     "specialEffects":[]
   },
   {
@@ -59,6 +62,7 @@
     "DEF": 1.0,
     "ATK": 1.0,
     "drop": ["Bandaid","Med-Kit","Armor Plate","Ammunition"],
+    "chance": [0.3,0.05,0.05,0.06],
     "specialEffects": [
       {
         "type": "QuadrupleDamge",
@@ -77,6 +81,7 @@
     "DEF": 0.0,
     "ATK": 3.0,
     "drop": [],
+    "chance": null,
     "specialEffects": [
       {
         "type": "noWeapon",
@@ -94,6 +99,7 @@
     "DEF": 2.0,
     "ATK": 5.0,
     "drop": [],
+    "chance": null,
     "specialEffects": [
       {
         "type": "noDamage",
@@ -111,6 +117,7 @@
     "DEF": 0.0,
     "ATK": 1.0,
     "drop": [],
+    "chance": null,
     "specialEffects": [
       {
         "type": "noDamage",

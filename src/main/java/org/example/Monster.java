@@ -2,7 +2,9 @@ package org.example;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 
+import java.io.IOException;
 import java.util.ArrayList;
+import java.util.HashMap;
 
 public class Monster {
     private String id;
@@ -12,6 +14,8 @@ public class Monster {
     private double HP, DEF, ATK;
     private ArrayList<String> drop;
     private ArrayList<Object> specialEffects;
+    private ArrayList<Double> chance = new ArrayList<>();
+
 
     public Monster(@JsonProperty("ID") String id,
                    @JsonProperty("roomIDs") ArrayList<Integer> roomIDs,
@@ -22,6 +26,7 @@ public class Monster {
                    @JsonProperty("DEF") double DEF,
                    @JsonProperty("ATK") double ATK,
                    @JsonProperty("drop") ArrayList<String> drop,
+                   @JsonProperty("chance") ArrayList<Double> chance,
                    @JsonProperty("specialEffects") ArrayList<Object> specialEffects) {
         this.id = id;
         this.roomIDs = roomIDs;
@@ -32,6 +37,7 @@ public class Monster {
         this.DEF = DEF;
         this.ATK = ATK;
         this.drop = drop;
+        this.chance=chance;
         this.specialEffects = specialEffects;
     }
 
@@ -58,6 +64,30 @@ public class Monster {
         return ATK;
     }
 
+    public ArrayList<Item> getDropItems() throws InvalidItemException, IOException {
+         Map map=new Map();
+        ArrayList<Item> monsterItems=new ArrayList<>();
+        ArrayList<String> allItemStrings=new ArrayList<>();
+
+        for(Item i: map.getAllItems()){
+            allItemStrings.add(i.getName());
+        }
+        for (String itemName : drop) {
+            if (allItemStrings.contains(itemName)) {
+                Item item = map.getItem(itemName);
+                if(item!=null) {
+                    monsterItems.add(item);
+                }
+            }
+        }
+        return monsterItems;
+
+    }
+
+    public ArrayList<Double> getDropChance() {
+        return chance;
+    }
+
     public void setDead(boolean dead) {
         isDead = dead;
     }
@@ -81,6 +111,7 @@ public class Monster {
                 ", \nDEF=" + DEF +
                 ", \nATK=" + ATK +
                 ", \ndrop=" + drop +
+                ", \nchance=" + chance +
                 ", \nspecialEffects=" + specialEffects +
                 '}';
     }
