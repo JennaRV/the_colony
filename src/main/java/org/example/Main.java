@@ -151,7 +151,13 @@ public class Main {
         Random random = new Random();
         switch (engage.toLowerCase()) {
             case "attack" -> {
-                double pDamage = handlePlayerEffect(p,m,random)-m.getDEF();
+                double pDamage = handlePlayerEffect(p,m,random);
+                if(pDamage-m.getDEF()>0){
+                    pDamage-=m.getDEF();
+                }
+                else{
+                    pDamage=0;
+                }
                 m.setHP(m.getHP() - pDamage);
                 System.out.println("You did " +pDamage + " damage!" );
                 System.out.println("Monster HP: " + m.getHP());
