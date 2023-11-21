@@ -195,13 +195,19 @@ public class Main {
     public static void handleMonsterTurn(Player p, Monster m,Scanner scanner) throws IOException, InvalidItemException, InvalidRoomException, InvalidPuzzleException {
         Random random = new Random();
         double mDamage=handleMonsterEffect(m,random);
-        if(mDamage-p.getAmr()>0){
-            mDamage-= p.getAmr();
-            p.setAmr(0);
+        if(mDamage-p.getDef()>0){
+            mDamage-= p.getDef();
+            if(mDamage-p.getAmr()>0){
+                mDamage-=p.getAmr();
+                p.setAmr(0);
+            }
+            else{
+                p.setAmr(p.getAmr()-mDamage);
+                mDamage=0;
+            }
         }
         else{
-            p.setAmr(p.getAmr()-mDamage);
-            mDamage=0;
+           mDamage=0;
         }
         p.setHp(p.getHp()-(mDamage-p.getDef()));
         System.out.println("Monster did " +(mDamage-p.getDef()) + " damage!" );
