@@ -8,7 +8,7 @@ import java.util.HashMap;
 
 public class Monster {
     private String id;
-    private ArrayList<Integer> roomIDs;
+    private ArrayList<String> roomIDs;
     private String name, desc;
     private boolean isDead;
     private double HP, DEF, ATK;
@@ -19,7 +19,7 @@ public class Monster {
 
 
     public Monster(@JsonProperty("ID") String id,
-                   @JsonProperty("roomIDs") ArrayList<Integer> roomIDs,
+                   @JsonProperty("roomIDs") ArrayList<String> roomIDs,
                    @JsonProperty("name") String name,
                    @JsonProperty("desc") String desc,
                    @JsonProperty("isDead") boolean isDead,
@@ -98,7 +98,7 @@ public class Monster {
     public void setHP(double HP) {
         this.HP = HP;
     }
-    public ArrayList<Integer> getRoomIDs() {
+    public ArrayList<String> getRoomIDs() {
         return roomIDs;
     }
 
