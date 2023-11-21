@@ -16,9 +16,10 @@ public class Main {
         System.out.println("Type your name");
         String in = scanner.nextLine();
         Player p1 = new Player(in);
-        System.out.println(p1.printString());
+        System.out.println("1");
         boolean play=true;
         while(play){
+            System.out.println(p1.printString());
             if(p1.getCurrentRoom().isVisit()){
                 System.out.println("You've been in this room before");
             }
