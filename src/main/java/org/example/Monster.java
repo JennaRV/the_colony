@@ -15,6 +15,7 @@ public class Monster {
     private ArrayList<String> drop;
     private ArrayList<Object> specialEffects;
     private ArrayList<Double> chance = new ArrayList<>();
+    private String effect;
 
 
     public Monster(@JsonProperty("ID") String id,
@@ -25,6 +26,7 @@ public class Monster {
                    @JsonProperty("HP") double HP,
                    @JsonProperty("DEF") double DEF,
                    @JsonProperty("ATK") double ATK,
+                   @JsonProperty("effect") String effect,
                    @JsonProperty("drop") ArrayList<String> drop,
                    @JsonProperty("chance") ArrayList<Double> chance,
                    @JsonProperty("specialEffects") ArrayList<Object> specialEffects) {
@@ -36,6 +38,7 @@ public class Monster {
         this.HP = HP;
         this.DEF = DEF;
         this.ATK = ATK;
+        this.effect=effect;
         this.drop = drop;
         this.chance=chance;
         this.specialEffects = specialEffects;
@@ -99,6 +102,12 @@ public class Monster {
         return roomIDs;
     }
 
+    public ArrayList<Object> getSpecialEffects() {
+        return specialEffects;
+    }
+
+
+
     @Override
     public String toString() {
         return "Monster{" +
@@ -110,6 +119,7 @@ public class Monster {
                 ", \nHP=" + HP +
                 ", \nDEF=" + DEF +
                 ", \nATK=" + ATK +
+                ", \neffects=" + specialEffects +
                 ", \ndrop=" + drop +
                 ", \nchance=" + chance +
                 ", \nspecialEffects=" + specialEffects +

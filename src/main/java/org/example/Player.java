@@ -122,6 +122,10 @@ public class Player {
     }
     public double getAmr() {return amr;}
 
+    public void setAmr(double amr) {
+        this.amr = amr;
+    }
+
     public double getAtk() {
         return atk;
     }

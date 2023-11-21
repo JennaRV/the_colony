@@ -16,9 +16,9 @@ public class Main {
         System.out.println("Type your name");
         String in = scanner.nextLine();
         Player p1 = new Player(in);
-        System.out.println(p1.printString());
         boolean play=true;
         while(play){
+            System.out.println(p1.printString());
             if(p1.getCurrentRoom().isVisit()){
                 System.out.println("You've been in this room before");
             }
@@ -63,7 +63,7 @@ public class Main {
                 String examine = scanner.nextLine();
                 Monster monster = monsterMap.get(examine);
                 if (monster!=null) {
-                    System.out.println(monster.toString());
+                    System.out.println(monster);
                     System.out.println("Type 'attack' to engage with the monster. Type 'ignore' to not fight (it wil still be removed)");
                     String playerAction = scanner.nextLine();
                     boolean playerTurn = true;
@@ -149,9 +149,10 @@ public class Main {
     public static void handlePlayerTurn(Player p, Monster m, Scanner scanner, HashMap<String, Monster> monsterMap) throws InvalidItemException, IOException {
         System.out.println("Player's turn: Type 'attack' to attack, 'inventory' to access inventory");
         String engage=scanner.nextLine();
+        Random random = new Random();
         switch (engage.toLowerCase()) {
             case "attack" -> {
-                double pDamage = p.getAtk()-m.getDEF();
+                double pDamage = handlePlayerEffect(p,m,random)-m.getDEF();
                 m.setHP(m.getHP() - pDamage);
                 System.out.println("You did " +pDamage + " damage!" );
                 System.out.println("Monster HP: " + m.getHP());
@@ -160,7 +161,6 @@ public class Main {
                     System.out.println("You defeated the monster");
                     ArrayList<Item> droppedItems= m.getDropItems();
                     ArrayList<Double> dropChances=m.getDropChance();
-                    Random random = new Random();
                     if(!droppedItems.isEmpty()){
                         for (int i = 0; i < droppedItems.size(); i++) {
                             double chance = random.nextDouble();
@@ -188,12 +188,15 @@ public class Main {
 
     }
     public static void handleMonsterTurn(Player p, Monster m,Scanner scanner) throws IOException, InvalidItemException, InvalidRoomException, InvalidPuzzleException {
-        double monsterThreshold = 0.35;
         Random random = new Random();
-        double randomValue = random.nextDouble();
-        double mDamage=m.getATK();
-        if(randomValue<monsterThreshold){
-            mDamage=m.getATK()*2;
+        double mDamage=handleMonsterEffect(m,random);
+        if(mDamage-p.getAmr()>0){
+            mDamage-= p.getAmr();
+            p.setAmr(0);
+        }
+        else{
+            p.setAmr(p.getAmr()-mDamage);
+            mDamage=0;
         }
         p.setHp(p.getHp()-(mDamage-p.getDef()));
         System.out.println("Monster did " +(mDamage-p.getDef()) + " damage!" );
@@ -211,6 +214,78 @@ public class Main {
 
         }
     }
+    public static double handlePlayerEffect(Player p,Monster m, Random rand){
+        double damage=p.getAtk();
+        ArrayList<Object> specialEffects=m.getSpecialEffects();
+        if(specialEffects!=null){
+            String effect= (String) specialEffects.get(0);
+            String type= (String) specialEffects.get(1);
+            double chance= (double) specialEffects.get(2);
+            if(effect.equalsIgnoreCase("player")){
+                    if(type.equalsIgnoreCase("noDamage")){
+                        double prob = rand.nextDouble();
+                        if(chance>=prob){
+                            return 0;
+                        }
+                    }
+                    else if(type.equalsIgnoreCase("playerMiss")){
+                        double prob = rand.nextDouble();
+                        System.out.println("Monster effect: " + type);
+                        if(chance>=prob){
+                            return 0;
+                        }
+                    }
+                    else if (type.equalsIgnoreCase("blockAction")){
+                        System.out.println("Monster effect: " + type);
+                        double prob = rand.nextDouble();
+                        if(chance>=prob){
+                            return 0;
+                        }
+                    }
+                    else if(type.equalsIgnoreCase("halfDamage")){
+                        System.out.println("Monster effect: " + type);
+                        double prob = rand.nextDouble();
+                        if(chance>=prob){
+                            return p.getAtk()/2;
+                        }
+                    }
+                    else if(type.equalsIgnoreCase("noWeapon")){
+                        System.out.println("Monster effect: " + type);
+                        ArrayList<Equipment> equippedItems= p.getEquippedItems();
+                        for(Equipment e: equippedItems){
+                            if(e.getAtkModifier()==0 && e.getSort().equalsIgnoreCase("weapon")){
+                                return 1;
+                            }
+                        }
+                    }
+                    else{
+                        return damage;
+                    }
+
+            }
+        }
+        return damage;
+    }
+    public static double handleMonsterEffect(Monster m, Random rand){
+        double damage=m.getATK();
+        ArrayList<Object> specialEffects=m.getSpecialEffects();
+        if(specialEffects!=null){
+            String effect= (String) specialEffects.get(0);
+            String type= (String) specialEffects.get(1);
+            double chance= (double) specialEffects.get(2);
+            if(effect.equalsIgnoreCase("monster")){
+                if(type.equalsIgnoreCase("QuadrupleDamage")){
+                    System.out.println("Monster effect: " + type);
+                    double prob=rand.nextDouble();
+                    if(chance>=prob) {
+                        return m.getATK() * 4;
+                    }
+                }
+            }
+        }
+        return damage;
+    }
+
     public static void handleInventory(Player p1, Scanner scanner) throws InvalidItemException {
         boolean inInventory = true;
 
