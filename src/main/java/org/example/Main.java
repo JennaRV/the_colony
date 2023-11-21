@@ -2,7 +2,6 @@ package org.example;
 
 import java.io.IOException;
 import java.util.*;
-import java.util.Map;
 
 public class Main {
     public static void main(String[] args) throws IOException, InvalidItemException, InvalidRoomException, InvalidPuzzleException {
@@ -95,8 +94,8 @@ public class Main {
             //Room Travel
             System.out.println("\nEnter a direction (N,S,E,W) that you want to go. Type 'commands' to view all commands.");
             System.out.println("To view your inventory, press 'I'");
-            String input=scanner.nextLine().toLowerCase();
-            String command = input;
+            String command=scanner.nextLine().toLowerCase();
+
             String[] parts = command.split(" ");
 
             if (parts[0].equalsIgnoreCase("pickup") && parts.length > 1) {
@@ -294,8 +293,7 @@ public class Main {
             System.out.println("Enter 'explore' + item name to get information of item, " +
                     "'drop' + item name to take item out of inventory, 'equip' + item name to equip item, " +
                     "'un-equip to un-equip item, 'consume' + item name to use consumable item, 'exit' to exit inventory view.");
-            String input = scanner.nextLine().toLowerCase();
-            String command = input;
+            String command = scanner.nextLine().toLowerCase();
             String[] parts = command.split(" ");
             if (parts[0].equalsIgnoreCase("explore") && parts.length > 1) {
                 String itemName = String.join(" ", Arrays.copyOfRange(parts, 1, parts.length));
