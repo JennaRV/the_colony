@@ -1,9 +1,8 @@
 package org.example;
 
 import java.io.IOException;
-import java.util.Arrays;
-import java.util.Random;
-import java.util.Scanner;
+import java.util.*;
+
 public class Main {
     public static void main(String[] args) throws IOException, InvalidItemException, InvalidRoomException, InvalidPuzzleException {
 
@@ -16,7 +15,6 @@ public class Main {
         System.out.println("Type your name");
         String in = scanner.nextLine();
         Player p1 = new Player(in);
-        System.out.println("1");
         boolean play=true;
         while(play){
             System.out.println(p1.printString());
@@ -50,41 +48,54 @@ public class Main {
 //            }
 
             //Monster mechs
-//            if (p1.getCurrentRoom().getMonster() != null) {
-//                System.out.println("There is a monster in this room: " + p1.getCurrentRoom().getMonster().getName());
-//                String examine = scanner.nextLine();
-//                Monster monster = p1.getCurrentRoom().getMonster();
-//
-//                if (examine.equalsIgnoreCase("examine monster")) {
-//                    System.out.println(monster.toString());
-//                    System.out.println("Type 'attack' to engage with the monster. Type 'ignore' to not fight (it wil still be removed)");
-//                    String playerAction = scanner.nextLine();
-//                    boolean playerTurn = true;
-//                    while (!monster.isDead() ^ p1.getHp() <= 0) {
-//                        if (playerTurn) {
-//                            if (playerAction.equalsIgnoreCase("ignore")) {
-//                                System.out.println("Monster will be ignored and no longer respawn");
-//                                p1.getCurrentRoom().setMonster(null);
-//                                break;
-//                            } else {
-//                                //handlePlayerTurn(p1, monster,itemMap,scanner);
-//                            }
-//
-//                        } else {
-//                            handleMonsterTurn(p1, monster,scanner);
-//                        }
-//                        playerTurn = !playerTurn;
-//                    }
-//                }
-//            }
+            while (!p1.getCurrentRoom().getMonsters().isEmpty()) {
+                HashMap<String, Monster> monsterMap= new HashMap<>();
+                System.out.println("There is a monster in this room. " );
+                for(Monster i: p1.getCurrentRoom().getMonsters()){
+                    if(i!=null){
+                        System.out.println(i.getName());
+                        monsterMap.put(i.getName(),i);
+
+                    }
+                }
+                System.out.println("\nSelect a monster to examine");
+                String examine = scanner.nextLine();
+                Monster monster = monsterMap.get(examine);
+                if (monster!=null) {
+                    System.out.println(monster);
+                    System.out.println("Type 'attack' to engage with the monster. Type 'ignore' to not fight (it wil still be removed)");
+                    String playerAction = scanner.nextLine();
+                    boolean playerTurn = true;
+                    while (!monster.isDead() ^ p1.getHp() <= 0) {
+                        if (playerTurn) {
+                            if (playerAction.equalsIgnoreCase("ignore")) {
+                                System.out.println("Monster will be ignored and no longer respawn");
+                                p1.getCurrentRoom().getMonsters().remove(monster);
+                                monsterMap.remove(monster.getName());
+                                break;
+                            } else {
+                                handlePlayerTurn(p1, monster,scanner, monsterMap);
+                            }
+
+                        } else {
+                            handleMonsterTurn(p1, monster,scanner);
+                        }
+                        playerTurn = !playerTurn;
+                    }
+                }
+                else{
+                    System.out.println("Invalid command. Exiting monster stage");
+                    break;
+                }
+            }
 
 
 
             //Room Travel
             System.out.println("\nEnter a direction (N,S,E,W) that you want to go. Type 'commands' to view all commands.");
             System.out.println("To view your inventory, press 'I'");
-            String input=scanner.nextLine().toLowerCase();
-            String command = input;
+            String command=scanner.nextLine().toLowerCase();
+
             String[] parts = command.split(" ");
 
             if (parts[0].equalsIgnoreCase("pickup") && parts.length > 1) {
@@ -134,60 +145,167 @@ public class Main {
     }
 
 
-//    public static void handlePlayerTurn(Player p, Monster m, Scanner scanner) throws InvalidItemException {
-//        System.out.println("Player's turn: Type 'attack' to attack, 'inventory' to access inventory");
-//        String engage=scanner.nextLine();
-//        switch (engage.toLowerCase()) {
-//            case "attack" -> {
-//                double pDamage = p.getAtk()-m.getDEF();
-//                m.setHP(m.getHP() - pDamage);
-//                System.out.println("You did " +pDamage + " damage!" );
-//                System.out.println("Monster HP: " + m.getHP());
-//                if (m.getHP() <= 0) {
-//                    m.setDead(true);
-//                    System.out.println("You defeated the monster");
-//                    p.getCurrentRoom().setMonster(null);
-//                }
-//            }
-//            case "i" -> handleInventory(p, scanner);
-//            default -> System.out.println("Invalid command");
-//        }
-//
-//    }
-//    public static void handleMonsterTurn(Player p, Monster m,Scanner scanner) throws IOException, InvalidItemException, InvalidRoomException, InvalidPuzzleException {
-//        double monsterThreshold = 0.35;
-//        Random random = new Random();
-//        double randomValue = random.nextDouble();
-//        double mDamage=m.getATK();
-//        if(randomValue<monsterThreshold){
-//            mDamage=m.getATK()*2;
-//        }
-//        p.setHp(p.getHp()-(mDamage-p.getDef()));
-//        System.out.println("Monster did " +(mDamage-p.getDef()) + " damage!" );
-//        System.out.println("Player HP: " + p.getHp());
-//        if(p.getHp()<=0){
-//            System.out.println("The monster has defeated you. You can exit or restart the game.");
-//            String input= scanner.nextLine().toLowerCase();
-//            if(input.equalsIgnoreCase("exit")){
-//                System.exit(0);
-//            }
-//            else if(input.equalsIgnoreCase("restart")){
-//                System.out.println("Game restarted");
-//                restart();
-//            }
-//
-//        }
-//    }
+    public static void handlePlayerTurn(Player p, Monster m, Scanner scanner, HashMap<String, Monster> monsterMap) throws InvalidItemException, IOException {
+        System.out.println("Player's turn: Type 'attack' to attack, 'inventory' to access inventory");
+        String engage=scanner.nextLine();
+        Random random = new Random();
+        switch (engage.toLowerCase()) {
+            case "attack" -> {
+                double pDamage = handlePlayerEffect(p,m,random);
+                if(pDamage-m.getDEF()>0){
+                    pDamage-=m.getDEF();
+                }
+                else{
+                    pDamage=0;
+                }
+                m.setHP(m.getHP() - pDamage);
+                System.out.println("You did " +pDamage + " damage!" );
+                System.out.println("Monster HP: " + m.getHP());
+                if (m.getHP() <= 0) {
+                    m.setDead(true);
+                    System.out.println("You defeated the monster");
+                    ArrayList<Item> droppedItems= m.getDropItems();
+                    ArrayList<Double> dropChances=m.getDropChance();
+                    if(!droppedItems.isEmpty()){
+                        for (int i = 0; i < droppedItems.size(); i++) {
+                            double chance = random.nextDouble();
+
+                            if (dropChances.get(i) >= chance) {
+                                System.out.println(droppedItems.get(i) + " has been dropped from the monster. Placing it in your inventory.");
+                                p.getInventory().add(droppedItems.get(i));
+                            }
+                        }
+
+                    }
+                    p.getCurrentRoom().getMonsters().remove(m);
+                    monsterMap.remove(m.getName());
+                }
+            }
+            case "i" -> {
+                try {
+                    handleInventory(p, scanner);
+                } catch (InvalidItemException e) {
+                    throw new RuntimeException(e);
+                }
+            }
+            default -> System.out.println("Invalid command");
+        }
+
+    }
+    public static void handleMonsterTurn(Player p, Monster m,Scanner scanner) throws IOException, InvalidItemException, InvalidRoomException, InvalidPuzzleException {
+        Random random = new Random();
+        double mDamage=handleMonsterEffect(m,random);
+        if(mDamage-p.getDef()>0){
+            mDamage-= p.getDef();
+            if(mDamage-p.getAmr()>0){
+                mDamage-=p.getAmr();
+                p.setAmr(0);
+            }
+            else{
+                p.setAmr(p.getAmr()-mDamage);
+                mDamage=0;
+            }
+        }
+        else{
+           mDamage=0;
+        }
+        p.setHp(p.getHp()-(mDamage-p.getDef()));
+        System.out.println("Monster did " +(mDamage-p.getDef()) + " damage!" );
+        System.out.println("Player HP: " + p.getHp());
+        if(p.getHp()<=0){
+            System.out.println("The monster has defeated you. You can exit or restart the game.");
+            String input= scanner.nextLine().toLowerCase();
+            if(input.equalsIgnoreCase("exit")){
+                System.exit(0);
+            }
+            else if(input.equalsIgnoreCase("restart")){
+                System.out.println("Game restarted");
+                restart();
+            }
+
+        }
+    }
+    public static double handlePlayerEffect(Player p,Monster m, Random rand){
+        double damage=p.getAtk();
+        ArrayList<Object> specialEffects=m.getSpecialEffects();
+        if(specialEffects!=null){
+            String effect= (String) specialEffects.get(0);
+            String type= (String) specialEffects.get(1);
+            double chance= (double) specialEffects.get(2);
+            if(effect.equalsIgnoreCase("player")){
+                    if(type.equalsIgnoreCase("noDamage")){
+                        double prob = rand.nextDouble();
+                        if(chance>=prob){
+                            return 0;
+                        }
+                    }
+                    else if(type.equalsIgnoreCase("playerMiss")){
+                        double prob = rand.nextDouble();
+                        System.out.println("Monster effect: " + type);
+                        if(chance>=prob){
+                            return 0;
+                        }
+                    }
+                    else if (type.equalsIgnoreCase("blockAction")){
+                        System.out.println("Monster effect: " + type);
+                        double prob = rand.nextDouble();
+                        if(chance>=prob){
+                            return 0;
+                        }
+                    }
+                    else if(type.equalsIgnoreCase("halfDamage")){
+                        System.out.println("Monster effect: " + type);
+                        double prob = rand.nextDouble();
+                        if(chance>=prob){
+                            return p.getAtk()/2;
+                        }
+                    }
+                    else if(type.equalsIgnoreCase("noWeapon")){
+                        System.out.println("Monster effect: " + type);
+                        ArrayList<Equipment> equippedItems= p.getEquippedItems();
+                        for(Equipment e: equippedItems){
+                            if(e.getAtkModifier()==0 && e.getSort().equalsIgnoreCase("weapon")){
+                                return 1;
+                            }
+                        }
+                    }
+                    else{
+                        return damage;
+                    }
+
+            }
+        }
+        return damage;
+    }
+    public static double handleMonsterEffect(Monster m, Random rand){
+        double damage=m.getATK();
+        ArrayList<Object> specialEffects=m.getSpecialEffects();
+        if(specialEffects!=null){
+            String effect= (String) specialEffects.get(0);
+            String type= (String) specialEffects.get(1);
+            double chance= (double) specialEffects.get(2);
+            if(effect.equalsIgnoreCase("monster")){
+                if(type.equalsIgnoreCase("QuadrupleDamage")){
+                    System.out.println("Monster effect: " + type);
+                    double prob=rand.nextDouble();
+                    if(chance>=prob) {
+                        return m.getATK() * 4;
+                    }
+                }
+            }
+        }
+        return damage;
+    }
+
     public static void handleInventory(Player p1, Scanner scanner) throws InvalidItemException {
         boolean inInventory = true;
 
         while (inInventory) {
-            p1.getInventory();
+            p1.printInventory();
             System.out.println("Enter 'explore' + item name to get information of item, " +
                     "'drop' + item name to take item out of inventory, 'equip' + item name to equip item, " +
                     "'un-equip to un-equip item, 'consume' + item name to use consumable item, 'exit' to exit inventory view.");
-            String input = scanner.nextLine().toLowerCase();
-            String command = input;
+            String command = scanner.nextLine().toLowerCase();
             String[] parts = command.split(" ");
             if (parts[0].equalsIgnoreCase("explore") && parts.length > 1) {
                 String itemName = String.join(" ", Arrays.copyOfRange(parts, 1, parts.length));

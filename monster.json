@@ -9,14 +9,17 @@
     "DEF": 6.0,
     "ATK": 7.0,
     "drop": [],
+    "chance": [],
     "specialEffects": [
       {
+        "effect": "player",
         "type": "blockAction",
-        "chance": 10
+        "chance": 0.10
       },
       {
+        "effect": "player",
         "type": "noDamage",
-        "chance": 10
+        "chance": 0.10
       }
     ]
   },
@@ -30,10 +33,12 @@
     "DEF": 4.0,
     "ATK": 5.0,
     "drop": ["Bandaid"],
+    "chance": [0.25],
     "specialEffects": [
       {
+        "effect": "player",
         "type": "halfDamage",
-        "chance": 10
+        "chance": 0.10
       }
     ]
   },
@@ -47,6 +52,7 @@
     "DEF": 0.0,
     "ATK": 3.0,
     "drop": [],
+    "chance": [],
     "specialEffects":[]
   },
   {
@@ -59,10 +65,12 @@
     "DEF": 1.0,
     "ATK": 1.0,
     "drop": ["Bandaid","Med-Kit","Armor Plate","Ammunition"],
+    "chance": [0.3,0.05,0.05,0.06],
     "specialEffects": [
       {
-        "type": "QuadrupleDamge",
-        "chance": 50
+        "effect": "monster",
+        "type": "QuadrupleDamage",
+        "chance": 0.50
       }
     ]
   },
@@ -76,10 +84,12 @@
     "DEF": 0.0,
     "ATK": 3.0,
     "drop": [],
+    "chance": [],
     "specialEffects": [
       {
+        "effect": "player",
         "type": "noWeapon",
-        "chance": 100
+        "chance": 1.00
       }
     ]
   },
@@ -93,8 +103,10 @@
     "DEF": 2.0,
     "ATK": 5.0,
     "drop": [],
+    "chance": [],
     "specialEffects": [
       {
+        "effect": "player",
         "type": "noDamage",
         "chance": 10
       }
@@ -110,10 +122,12 @@
     "DEF": 0.0,
     "ATK": 1.0,
     "drop": [],
+    "chance": [],
     "specialEffects": [
       {
-        "type": "noDamage",
-        "chance": 10
+        "effect": "player",
+        "type": "playerMiss",
+        "chance": 0.4
       }
     ]
   }
