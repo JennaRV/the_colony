@@ -66,7 +66,7 @@
     "desc": ["The forest is choked with alien ferns and bushes. \n Unrecognizable plants compete for every open space to try and catch every bit of sunlight that makes it through the canopy of the trees. \n The constant sensation of insects landing on you before flitting or crawling away as you push through the intertwined cacophony of life is both distracting and unpleasant. \n The effort involved in fighting through this has left you drenched in sweat and regretting your choice to leave the relatively clear path towards the outpost. \n You struggle to maintain your bearings as you attempt to navigate through this mess."],
     "visit": false,
     "items" : [],
-    "nav_tab": ["4","0","0","0"],
+    "nav_tab": ["0","0","0","0"],
     "puzzle" : "None",
     "monsters" : []
   },
