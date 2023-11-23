@@ -22,7 +22,7 @@ public class Player {
     public Player(String name) throws InvalidRoomException, IOException, InvalidItemException {
         this.name=name;
         map = new Map();
-        this.currentRoom = map.getRoom(1);
+        this.currentRoom = map.getRoom("1");
         inventory = new ArrayList<>();
         equippedItems = new ArrayList<>();
         hp = 10;
@@ -73,21 +73,6 @@ public class Player {
                     }
                 }
             }
-//            if (item.getType().equalsIgnoreCase("Consumable Item")){
-//                ConsumableItem consumableItem = (ConsumableItem) item;
-//                if (inventory.contains(consumableItem)){
-//                    int count = 0;
-//                    for(Item item1:inventory){
-//                        if(item1.getName().equalsIgnoreCase(itemName)){
-//                            count++;
-//                        }
-//                    }
-//                    if(consumableItem.getLimit() == count) {
-//                        System.out.println("You already reach the limit of this item. You can't not pick up " + itemName +" now.");
-//                        return;
-//                    }
-//                }
-//            }
             inventory.add(item);
             currentRoom.getInventory().remove(item);
             System.out.println(currentRoom.getInventory().toString());
@@ -181,54 +166,31 @@ public class Player {
 
     public void consume(String itemName) throws InvalidItemException {
         Item item = map.getItem(itemName);
-        System.out.println("1");
         if(inventory.contains(item)){
-            System.out.println("2");
             if(item instanceof ConsumableItem) {
-                System.out.println("3");
                 ConsumableItem consumableItem = (ConsumableItem) item;
-                Item requiredItem = map.getItem(consumableItem.getRequired());
-                if(inventory.contains(requiredItem)){
-                    System.out.println("2");
-                    if(consumableItem.getSort().equalsIgnoreCase("Healing")){
-                        hp += consumableItem.getEffect();
-                    } else if (consumableItem.getSort().equalsIgnoreCase("Armor")) {
-                        amr += consumableItem.getEffect();
-                    } else if (consumableItem.getSort().equalsIgnoreCase("Bullet")) {
-                        Equipment weapon =(Equipment) map.getItem(consumableItem.getRequired());
-                        weapon.setUseCount(consumableItem.getEffect());
+                if(!consumableItem.getRequired().equalsIgnoreCase("None")){
+                    Item requiredItem = map.getItem(consumableItem.getRequired());
+                    if(!inventory.contains(requiredItem)){
+                        System.out.println("You need " + requiredItem.getName() + " to use this item.");
+                        return;
                     }
-                } else {
-                    System.out.println("You need " + requiredItem.getName() + " to use this item.");
                 }
+                if(consumableItem.getSort().equalsIgnoreCase("Healing")){
+                    hp += consumableItem.getEffect();
+                } else if (consumableItem.getSort().equalsIgnoreCase("Armor")) {
+                    amr += consumableItem.getEffect();
+                } else if (consumableItem.getSort().equalsIgnoreCase("Bullet")) {
+                    Equipment weapon =(Equipment) map.getItem(consumableItem.getRequired());
+                    weapon.setUseCount(consumableItem.getEffect());
+                }
+                inventory.remove(consumableItem);
             } else {
                 System.out.println("That's not a consumable item.");
             }
         } else {
             System.out.println("This item is not in your inventory");
         }
-
-//
-//        if(inventory.contains(item)) {
-//
-//            if(!inventory.contains(requiredItem)){
-//                System.out.println("You need to get " + item.getRequired() + " first.");
-//                return;
-//            }
-//
-//
-//            }
-//            else if() {
-//
-//            }
-//            else if() {
-//
-//            }
-//            inventory.remove(item);
-//        }
-//        else{
-//
-//        }
     }
 
     public void printInventory() {

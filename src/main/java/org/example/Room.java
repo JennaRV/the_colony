@@ -7,14 +7,14 @@ import java.util.RandomAccess;
 
 public class Room {
 
-    private int room_num;
+    private String room_id;
 
    private ArrayList<String> room_name;
 
    private String[] desc;
 
    private boolean visit;
-   private int[] nav_tab;
+   private String[] nav_tab;
    private ArrayList<String> items;
    private ArrayList<Item> inventory = new ArrayList<>();
    private String puzzleID;
@@ -22,15 +22,15 @@ public class Room {
    private ArrayList<Monster> monsters;
 
 
-    public Room(@JsonProperty("room_num")int room_num,
+    public Room(@JsonProperty("room_id")String room_id,
                 @JsonProperty("room_name") ArrayList<String> room_name,
                 @JsonProperty("desc") String[] desc,
                 @JsonProperty("visit") boolean visit,
                 @JsonProperty("items") ArrayList<String> items,
-                @JsonProperty("nav_tab") int[] nav_tab,
+                @JsonProperty("nav_tab") String[] nav_tab,
                 @JsonProperty("puzzle") String puzzleID,
                 @JsonProperty("monsters") ArrayList<Monster> monsters) {
-       this.room_num = room_num;
+       this.room_id = room_id;
        this.room_name = room_name;
        this.desc = desc;
        this.visit = visit;
@@ -40,8 +40,8 @@ public class Room {
        this.monsters=monsters;
     }
 
-    public int getRoom_num() {
-        return room_num;
+    public String getRoom_id() {
+        return room_id;
     }
 
     public boolean isVisit() {
@@ -52,28 +52,21 @@ public class Room {
         this.visit = visit;
     }
 
-    public int getNorthID() {
+    public String getNorthID() {
         return nav_tab[0];
     }
 
-    public int getEastID() {
+    public String getEastID() {
         return nav_tab[1];
     }
 
-    public int getSouthID() {
+    public String getSouthID() {
         return nav_tab[2];
     }
 
-    public int getWestID() {
+    public String getWestID() {
         return nav_tab[3];
     }
-
-//    public boolean itemExists() {
-//        if (!this.items.isEmpty()){
-//            return true;
-//        }
-//        return false;
-//    }
 
     public ArrayList<String> getItems(){
        return items;
@@ -106,10 +99,9 @@ public class Room {
     }
 
     public String toString() {
-        //String itemInfo = (item != null) ? String.format("\nItem Info:\n%s", item.toString()) : "";
 
-        return String.format("Room Number: %d\nRoom Name: %s\nRoom Description:\n%s",
-                room_num, room_name, String.join("\n", desc));
+        return String.format("Room Number: %s\nRoom Name: %s\nRoom Description:\n%s",
+                room_id, room_name, String.join("\n", desc));
     }
 
 }

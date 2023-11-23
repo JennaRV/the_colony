@@ -40,47 +40,62 @@ public class Map {
         this.allMonster = monster;
     }
 
-    public Room getRoom(int room_num) throws InvalidRoomException {
-        if (room_num == 0) {
-            throw new InvalidRoomException("You can't go that direction.");
-        }
-
+    public Room getRoom(String room_id) throws InvalidRoomException {
         Room room = null;
 
-        for (int i = 0; i < allRooms.size(); i++) {
-            if (this.allRooms.get(i).getRoom_num() == room_num) {
-                room = allRooms.get(i);
-                break;
+        if (room_id.equalsIgnoreCase("0") ) {
+            throw new InvalidRoomException("You can't go that direction.");
+        } else {
+            for (int i = 0; i < allRooms.size(); i++) {
+                if (this.allRooms.get(i).getRoom_id().equalsIgnoreCase(room_id)) {
+                    room = allRooms.get(i);
+                    break;
+                }
             }
+            return room;
         }
-        return room;
     }
 
-    public Item getItem(String itemName) throws InvalidItemException {
-        for (Item item : allItems) {
-            if (item.getName().equalsIgnoreCase(itemName)) {
-                return item;
+    public Item getItem(String itemName) {
+        try {
+            for (Item item : allItems) {
+                if (item.getName().equalsIgnoreCase(itemName)) {
+                    return item;
+                }
             }
+            throw new InvalidItemException("Item not found: " + itemName);
+        } catch (InvalidItemException e) {
+            System.out.println(e.getMessage());
+            return null;
         }
-        throw new InvalidItemException("Item not found: " + itemName);
     }
 
-    public Puzzle getPuzzle(String puzzleID) throws InvalidPuzzleException {
-        for (Puzzle puzzle : allPuzzles) {
-            if (puzzle.getPuzzleID().equalsIgnoreCase(puzzleID)) {
-                return puzzle;
+    public Puzzle getPuzzle(String puzzleID) {
+        try {
+            for (Puzzle puzzle : allPuzzles) {
+                if (puzzle.getPuzzleID().equalsIgnoreCase(puzzleID)) {
+                    return puzzle;
+                }
             }
+            throw new InvalidPuzzleException("Puzzle not found: " + puzzleID);
+        } catch (InvalidPuzzleException e) {
+            System.out.println(e.getMessage());
+            return null;
         }
-        throw new InvalidPuzzleException("Puzzle not found: " + puzzleID);
     }
 
-    public Monster getMonster(String monsterID) throws InvalidMonsterException {
-        for (Monster monster : allMonster) {
-            if (monster.getId().equalsIgnoreCase(monsterID)) {
-                return monster;
+    public Monster getMonster(String monsterID)  {
+        try {
+            for (Monster monster : allMonster) {
+                if (monster.getId().equalsIgnoreCase(monsterID)) {
+                    return monster;
+                }
             }
+            throw new InvalidMonsterException("Monster not found: " + monsterID);
+        } catch (InvalidMonsterException e) {
+            System.out.println(e.getMessage());
+            return null;
         }
-        throw new InvalidMonsterException("Monster not found ");
     }
 
     public ArrayList<Item> getAllItems() {
@@ -180,16 +195,17 @@ public class Map {
                 ArrayList<Item> inventory = room.getInventory();
                 Item item = getItem(itemName);
                 inventory.add(item);
+
             }
         }
     }
 
     public void createMonster() throws InvalidRoomException {
        for(Monster monster: allMonster) {
-           ArrayList<Integer> roomIDs = monster.getRoomIDs();
+           ArrayList<String> roomIDs = monster.getRoomIDs();
            Random randomGenerator = new Random();
            int index = randomGenerator.nextInt(roomIDs.size());
-           int roomID = roomIDs.get(index);
+           String roomID = roomIDs.get(index);
            getRoom(roomID).getMonsters().add(monster);
        }
     }
@@ -197,7 +213,6 @@ public class Map {
     public void createPuzzle() throws InvalidPuzzleException {
         for(Room room: allRooms) {
             String puzzleID = room.getPuzzleID();
-            System.out.println(puzzleID);
             if(!puzzleID.equalsIgnoreCase("None")){
                 Puzzle puzzle = getPuzzle(puzzleID);
                 room.setPuzzle(puzzle);
