@@ -79,5 +79,5 @@ public class Puzzle {
 
     public ArrayList<String> getPuzzleDrops() {
         return puzzleDrops;
-    }g
+    }
 }
