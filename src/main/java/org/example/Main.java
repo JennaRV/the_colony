@@ -108,6 +108,8 @@ public class Main {
            }
             else if (parts[0].equalsIgnoreCase("look")) {
                 p1.look();
+            } else if (parts[0].equalsIgnoreCase("solve") || parts[0].equalsIgnoreCase("solve puzzle")) {
+                p1.solvePuzzle(scanner);
             } else if (parts[0].equalsIgnoreCase("stats")) {
                 System.out.println("HP: "+ p1.getHp());
                 System.out.println("DEF: "+ p1.getDef());
@@ -331,6 +333,60 @@ public class Main {
             }
         }
     }
+
+//    public static void handlePuzzle(Player player, Scanner scanner){
+//        if(player.getCurrentRoom().getPuzzle()!=null) {
+//            Integer attempts = player.getCurrentRoom().getPuzzle().getNumAttempts();
+//            int currentAttempts = 0;
+//            String ans = player.getCurrentRoom().getPuzzle().getPuzzleA();
+//            ArrayList<String> puzzleHints = player.getCurrentRoom().getPuzzle().getHints();
+//            ArrayList<String> drops = player.getCurrentRoom().getPuzzle().getPuzzleDrops();
+//            while (attempts != 0 && !player.getCurrentRoom().getPuzzle().isSolved()) {
+//                System.out.println(player.getCurrentRoom().getPuzzle().getPuzzleQ());
+//                String user_ans = scanner.nextLine();
+//                System.out.println();
+//                switch (user_ans) {
+//                    case "attack":
+//                        System.out.println("You cannot attack while engrossed in this puzzle.");
+//                        break;
+//                    case "exit room":
+//                        System.out.println("You are too engrossed in this puzzle to leave right now.");
+//                        break;
+//                    default:
+//                        if (ans.equalsIgnoreCase(user_ans)) {
+//                            System.out.println("Success! " + player.getCurrentRoom().getPuzzle().getSuccessMessage());
+//                            player.getCurrentRoom().getPuzzle().setSolved(true);
+//                            for(String item : drops){
+//
+//                            //    player.getCurrentRoom().getInventory().add;
+//                            }
+//
+//                        } else {
+//                            System.out.println("That didn't work. Try again.");
+//                            if(attempts != null) {
+//                                currentAttempts++;
+//                                attempts--;
+//                                System.out.println("You have " + attempts + " attempts left.");
+//                                for(int i = 0; i < currentAttempts && i < puzzleHints.size(); i++){
+//                                    System.out.println();
+//                                    System.out.println(puzzleHints.get(i));
+//                                }
+//
+//                            }
+//
+//                        }
+//                        if (attempts == 0) {
+//                            System.out.println();
+//                            System.out.println("Failed to solve. " + player.getCurrentRoom().getPuzzle().getFailureMessage());
+//                        }
+//                }
+//            }
+//        }
+//        else {
+//            System.out.println("There is nothing to solve in this room");
+//        }
+//    }
+
     public static void restart() throws IOException, InvalidItemException, InvalidRoomException, InvalidPuzzleException {
         Main game= new Main();
         game.Game();

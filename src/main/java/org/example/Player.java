@@ -226,6 +226,60 @@ public class Player {
         System.out.println("Item: " + currentRoom.getListItem());
     }
 
+    public void solvePuzzle(Scanner scanner){
+        if(getCurrentRoom().getPuzzle()!=null) {
+            Integer attempts = getCurrentRoom().getPuzzle().getNumAttempts();
+            int currentAttempts = 0;
+            String ans = getCurrentRoom().getPuzzle().getPuzzleA();
+            ArrayList<String> puzzleHints = getCurrentRoom().getPuzzle().getHints();
+            ArrayList<String> drops = getCurrentRoom().getPuzzle().getPuzzleDrops();
+            while (attempts != 0 && !getCurrentRoom().getPuzzle().isSolved()) {
+                System.out.println(getCurrentRoom().getPuzzle().getPuzzleQ());
+                String user_ans = scanner.nextLine();
+                System.out.println();
+                switch (user_ans) {
+                    case "attack":
+                        System.out.println("You cannot attack while engrossed in this puzzle.");
+                        break;
+                    case "exit room":
+                        System.out.println("You are too engrossed in this puzzle to leave right now.");
+                        break;
+                    default:
+                        if (ans.equalsIgnoreCase(user_ans)) {
+                            System.out.println("Success! " + getCurrentRoom().getPuzzle().getSuccessMessage());
+                            getCurrentRoom().getPuzzle().setSolved(true);
+                            for(String item : drops){
+                                Item puzzleDrop = map.getItem(item);
+                                getCurrentRoom().getInventory().add(puzzleDrop);
+                                System.out.println(item + " has been dropped in the room");
+                            }
+
+                        } else {
+                            System.out.println("That didn't work. Try again.");
+                            if(attempts != null) {
+                                currentAttempts++;
+                                attempts--;
+                                System.out.println("You have " + attempts + " attempts left.");
+                                for(int i = 0; i < currentAttempts && i < puzzleHints.size(); i++){
+                                    System.out.println();
+                                    System.out.println(puzzleHints.get(i));
+                                }
+
+                            }
+
+                        }
+                        if (attempts == 0) {
+                            System.out.println();
+                            System.out.println("Failed to solve. " +getCurrentRoom().getPuzzle().getFailureMessage());
+                        }
+                }
+            }
+        }
+        else {
+            System.out.println("There is nothing to solve in this room");
+        }
+    }
+
     public String printString() {
         return String.format("Player: %s\n%s", name, currentRoom.toString());
     }
