@@ -171,7 +171,7 @@ public class Main {
                             double chance = random.nextDouble();
 
                             if (dropChances.get(i) >= chance) {
-                                System.out.println(droppedItems.get(i) + " has been dropped from the monster. Placing it in your inventory.");
+                                System.out.println(droppedItems.get(i).getName() + " has been dropped from the monster. Placing it in your inventory.");
                                 p.getInventory().add(droppedItems.get(i));
                             }
                         }
@@ -227,63 +227,63 @@ public class Main {
     }
     public static double handlePlayerEffect(Player p,Monster m, Random rand){
         double damage=p.getAtk();
-        ArrayList<Object> specialEffects=m.getSpecialEffects();
-        if(specialEffects!=null){
-            String effect= (String) specialEffects.get(0);
-            String type= (String) specialEffects.get(1);
-            double chance= (double) specialEffects.get(2);
-            if(effect.equalsIgnoreCase("player")){
-                    if(type.equalsIgnoreCase("noDamage")){
+        ArrayList<LinkedHashMap<String, Object>> specialEffects=m.getSpecialEffects();
+        if (specialEffects != null && specialEffects.size() > 0) {
+            for (LinkedHashMap<String, Object> effects : specialEffects) {
+                String effect = (String) effects.get("effect");
+                String type = (String) effects.get("type");
+                double chance = (double) effects.get("chance");
+                if (effect.equalsIgnoreCase("player")) {
+                    if (type.equalsIgnoreCase("noDamage")) {
                         double prob = rand.nextDouble();
-                        if(chance>=prob){
+                        if (chance >= prob) {
                             return 0;
                         }
-                    }
-                    else if(type.equalsIgnoreCase("playerMiss")){
+                    } else if (type.equalsIgnoreCase("playerMiss")) {
                         double prob = rand.nextDouble();
                         System.out.println("Monster effect: " + type);
-                        if(chance>=prob){
+                        if (chance >= prob) {
                             return 0;
                         }
-                    }
-                    else if (type.equalsIgnoreCase("blockAction")){
+                    } else if (type.equalsIgnoreCase("blockAction")) {
                         System.out.println("Monster effect: " + type);
                         double prob = rand.nextDouble();
-                        if(chance>=prob){
+                        if (chance >= prob) {
                             return 0;
                         }
-                    }
-                    else if(type.equalsIgnoreCase("halfDamage")){
+                    } else if (type.equalsIgnoreCase("halfDamage")) {
                         System.out.println("Monster effect: " + type);
                         double prob = rand.nextDouble();
-                        if(chance>=prob){
-                            return p.getAtk()/2;
+                        if (chance >= prob) {
+                            return p.getAtk() / 2;
                         }
-                    }
-                    else if(type.equalsIgnoreCase("noWeapon")){
+                    } else if (type.equalsIgnoreCase("noWeapon")) {
                         System.out.println("Monster effect: " + type);
-                        ArrayList<Equipment> equippedItems= p.getEquippedItems();
-                        for(Equipment e: equippedItems){
-                            if(e.getAtkModifier()==0 && e.getSort().equalsIgnoreCase("weapon")){
-                                return 1;
+                        ArrayList<Equipment> equippedItems = p.getEquippedItems();
+                        for (Equipment e : equippedItems) {
+                            if (e.getSort().equalsIgnoreCase("weapon")) {
+                                return damage;
                             }
                         }
-                    }
-                    else{
+                        return 1;
+                    } else {
                         return damage;
                     }
 
+                }
             }
         }
-        return damage;
+            return damage;
+
     }
     public static double handleMonsterEffect(Monster m, Random rand){
         double damage=m.getATK();
-        ArrayList<Object> specialEffects=m.getSpecialEffects();
-        if(specialEffects!=null){
-            String effect= (String) specialEffects.get(0);
-            String type= (String) specialEffects.get(1);
-            double chance= (double) specialEffects.get(2);
+        ArrayList<LinkedHashMap<String, Object>> specialEffects=m.getSpecialEffects();
+        if (specialEffects != null && specialEffects.size() > 0) {
+            LinkedHashMap<String, Object> firstEffect = specialEffects.get(0);
+            String effect = (String) firstEffect.get("effect");
+            String type = (String) firstEffect.get("type");
+            double chance = (double) firstEffect.get("chance");
             if(effect.equalsIgnoreCase("monster")){
                 if(type.equalsIgnoreCase("QuadrupleDamage")){
                     System.out.println("Monster effect: " + type);
