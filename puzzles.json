@@ -3,7 +3,7 @@
     "puzzleName": "Emergency Shutdown Override",
     "puzzleID": "P1",
     "puzzleQ": "To ensure your survival, you must figure out how to perform an emergency shutdown of the crashed reactor before it reaches a catastrophic failure.",
-    "puzzleA": "R,Y,B,R,G",
+    "puzzleA": "RYBRG",
     "isSolved": false,
     "numAttempts": 2,
     "hints": [
@@ -12,7 +12,8 @@
     ],
     "successMessage": "The reactor's warning lights change to a steady green, indicating a successful emergency shutdown. \nThe imminent reactor failure is averted, ensuring your survival.",
     "failureMessage": "The reactor exploded, killing you instantly",
-    "puzzleDrops": []
+    "puzzleDrops": [],
+    "killsPlayer": true
   },
 
 
@@ -30,7 +31,8 @@
     ],
     "successMessage": "The door slides open, revealing the contents: A medkit.Underwhelming, but useful...",
     "failureMessage": "",
-    "puzzleDrops": ["Med-Kit"]
+    "puzzleDrops": ["Med-Kit"],
+    "killsPlayer": false
   },
 
 
@@ -48,7 +50,8 @@
     ],
     "successMessage": "You can’t be sure the carvings on the other structure were glowing. But what you can be sure of is that, suddenly, somehow,  you’re able to read the alien script. You can’t distinguish any letters or words, but, somehow, you just know what it’s saying. Although it only lasts for a minute, you’re able to read part of the inscriptions.\n\nThey tell of a magical family of royals, and a great storm that felled them.\nOf a lost prince, who lay dormant, and the creatures who found him.\n\nOh yeah, and there’s a very shittily carved arrow that points north, so you should probably go that direction.",
     "failureMessage": "",
-    "puzzleDrops": []
+    "puzzleDrops": [],
+    "killsPlayer": false
   },
 
 
@@ -67,7 +70,8 @@
     ],
     "successMessage": "",
     "failureMessage": "",
-    "puzzleDrops": []
+    "puzzleDrops": [],
+    "killsPlayer": false
   },
 
 
@@ -84,7 +88,8 @@
     ],
     "successMessage": "Toward the back of the bunker, there’s a part that’s closed off. To proceed further into the bunker or access valuable resources stored within, you need to override the security lockdown that has been activated due to the signs of combat.\nTo do this, you must enter the correct sequence of codes by deciphering clues found within the bunker.\n",
     "failureMessage": "",
-    "puzzleDrops": ["Band aids", "Band aids", "Ammunition", "Armor Plates"]
+    "puzzleDrops": ["Band aids", "Band aids", "Ammunition", "Armor Plates"],
+    "killsPlayer": false
   },
 
 
@@ -101,7 +106,8 @@
     ],
     "successMessage": "The Lurker, now less wary of your presence, begins to guide you through the forest. It uses its unique knowledge of the terrain and its skulking abilities to help you avoid potential\nhazards or threats.\n\nFollow the Lurker's guidance as it leads you along the clearest and safest path toward your destination, saving you time and energy that would have been wasted on navigating the underbrush. You’re unable to keep up, and eventually, you lose him.\n",
     "failureMessage": "",
-    "puzzleDrops": []
+    "puzzleDrops": [],
+    "killsPlayer": false
   },
 
 
@@ -117,7 +123,8 @@
     ],
     "successMessage": "You made it through the Chamber safely.",
     "failureMessage": "",
-    "puzzleDrops": []
+    "puzzleDrops": [],
+    "killsPlayer": false
   }
 
 ]
