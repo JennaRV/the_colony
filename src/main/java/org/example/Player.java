@@ -11,8 +11,9 @@ public class Player {
     private Room previousRoom;
 
     private Map map;
-    private ArrayList<Equipment> equippedItems;
-
+    private Equipment weapon;
+    private Equipment gear;
+    private Equipment flashlight;
     private double hp;
     private double def;
     private double amr;
@@ -24,7 +25,9 @@ public class Player {
         map = new Map();
         this.currentRoom = map.getRoom("1");
         inventory = new ArrayList<>();
-        equippedItems = new ArrayList<>();
+        weapon=null;
+        gear=null;
+        flashlight=null;
         hp = 10;
         def = 0;
         amr = 0;
@@ -92,8 +95,18 @@ public class Player {
             System.out.println("Item not found in your inventory.");
         }
     }
-
-
+    public Equipment getWeapon() {return weapon;}
+    public void setWeapon(Equipment weapon) {
+        this.weapon = weapon;
+    }
+    public Equipment getGear() {return gear;}
+    public void setGear(Equipment gear) {
+        this.gear = gear;
+    }
+    public Equipment getFlashlight() {return flashlight;}
+    public void setFlashlight(Equipment flashlight) {
+        this.flashlight = flashlight;
+    }
     public double getHp() {
         return hp;
     }
@@ -120,10 +133,26 @@ public class Player {
         if (inventory.contains(item)) {
             if (item instanceof Equipment) {
                 Equipment equipment = (Equipment) item;
-                for (Equipment item1 : equippedItems) {
-                    if (item1.getSort().equalsIgnoreCase(equipment.getSort())) {
+                if(equipment.getSort().equalsIgnoreCase("Weapon")){
+                    if(weapon != null){
                         System.out.println("You already equip " + equipment.getSort() + " item.");
                         return;
+                    } else {
+                        weapon = equipment;
+                    }
+                } else if(equipment.getSort().equalsIgnoreCase("Gear")) {
+                    if(gear != null){
+                        System.out.println("You already equip " + equipment.getSort() + " item.");
+                        return;
+                    } else {
+                        gear = equipment;
+                    }
+                } else if(equipment.getSort().equalsIgnoreCase("Flashlight")) {
+                    if(flashlight != null){
+                        System.out.println("You already equip " + equipment.getSort() + " item.");
+                        return;
+                    } else {
+                        flashlight = equipment;
                     }
                 }
 
@@ -132,7 +161,6 @@ public class Player {
                 amr += equipment.getAmrModifier();
                 atk += equipment.getAtkModifier();
 
-                equippedItems.add(equipment);
                 inventory.remove(equipment);
                 System.out.println("3");
                 System.out.println(itemName + " has been equipped successfully from the player inventory");
@@ -146,22 +174,38 @@ public class Player {
 
     public void unequip(String itemName) throws InvalidItemException {
         Item item  = map.getItem(itemName);
-        if (equippedItems.contains(item)) {
-            Equipment equipment = (Equipment) item;
-            if(hp - equipment.getHPModifier() <= 0) {
-                System.out.println("You will be death after un-equip this item.");
-                return;
-            }
-            hp -= equipment.getHPModifier();
-            def -= equipment.getDefModifier();
-            amr -= equipment.getAmrModifier();
-            atk -= equipment.getAtkModifier();
-            equippedItems.remove(equipment);
-            inventory.add(equipment);
-            System.out.println(itemName + " has been un-equipped successfully to the player inventory");
+//        if (equippedItems.contains(item)) {
+//            Equipment equipment = (Equipment) item;
+//            if(hp - equipment.getHPModifier() <= 0) {
+//                System.out.println("You will be death after un-equip this item.");
+//                return;
+//            }
+//            hp -= equipment.getHPModifier();
+//            def -= equipment.getDefModifier();
+//            amr -= equipment.getAmrModifier();
+//            atk -= equipment.getAtkModifier();
+//            equippedItems.remove(equipment);
+//            inventory.add(equipment);
+//            System.out.println(itemName + " has been un-equipped successfully to the player inventory");
+//        } else {
+//            System.out.println("You did not equip that item yet.");
+//        }
+        Equipment equipment = (Equipment) item;
+        if(equipment == weapon) {
+            weapon = null;
+        } else if(equipment == gear) {
+            gear = null;
+        } else if(equipment == flashlight) {
+            flashlight = null;
         } else {
             System.out.println("You did not equip that item yet.");
+            return;
         }
+        hp -= equipment.getHPModifier();
+        def -= equipment.getDefModifier();
+        amr -= equipment.getAmrModifier();
+        atk -= equipment.getAtkModifier();
+        inventory.add(equipment);
     }
 
     public void consume(String itemName) throws InvalidItemException {
@@ -215,11 +259,6 @@ public class Player {
         } else {
             System.out.println("You can't inspect this item now.");
         }
-    }
-
-
-    public ArrayList<Equipment> getEquippedItems () {
-        return this.equippedItems;
     }
 
     public void look() {

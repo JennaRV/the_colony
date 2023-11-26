@@ -262,11 +262,8 @@ public class Main {
                     }
                     else if(type.equalsIgnoreCase("noWeapon")){
                         System.out.println("Monster effect: " + type);
-                        ArrayList<Equipment> equippedItems= p.getEquippedItems();
-                        for(Equipment e: equippedItems){
-                            if(e.getAtkModifier()==0 && e.getSort().equalsIgnoreCase("weapon")){
-                                return 1;
-                            }
+                        if(p.getWeapon() == null){
+                            return 1;
                         }
                     }
                     else{
