@@ -226,7 +226,7 @@ public class Player {
         System.out.println("Item: " + currentRoom.getListItem());
     }
 
-    public void solvePuzzle(Scanner scanner){
+    public void solvePuzzle(Scanner scanner) throws InvalidItemException {
         if(getCurrentRoom().getPuzzle()!=null) {
             Integer attempts = getCurrentRoom().getPuzzle().getNumAttempts();
             int currentAttempts = 0;
@@ -245,32 +245,45 @@ public class Player {
                         System.out.println("You are too engrossed in this puzzle to leave right now.");
                         break;
                     default:
-                        if (ans.equalsIgnoreCase(user_ans)) {
-                            System.out.println("Success! " + getCurrentRoom().getPuzzle().getSuccessMessage());
-                            getCurrentRoom().getPuzzle().setSolved(true);
-                            for(String item : drops){
-                                Item puzzleDrop = map.getItem(item);
-                                getCurrentRoom().getInventory().add(puzzleDrop);
-                                System.out.println(item + " has been dropped in the room");
-                            }
+                        if (getCurrentRoom().getPuzzle().checkAnswer(ans)) {
+                            if (checkConditions(ans)) {
+                                System.out.println("Success! " + getCurrentRoom().getPuzzle().getSuccessMessage());
+                                getCurrentRoom().getPuzzle().setSolved(true);
+                                for (String item : drops) {
+                                    Item puzzleDrop = map.getItem(item);
+                                    getCurrentRoom().getInventory().add(puzzleDrop);
+                                    System.out.println(item + " has been dropped in the room");
+                                }
 
-                        } else {
-                            System.out.println("That didn't work. Try again.");
-                            if(attempts != null) {
-                                currentAttempts++;
-                                attempts--;
-                                System.out.println("You have " + attempts + " attempts left.");
-                                for(int i = 0; i < currentAttempts && i < puzzleHints.size(); i++){
-                                    System.out.println();
-                                    System.out.println(puzzleHints.get(i));
+                            } else {
+                                System.out.println("That didn't work. Try again.");
+                                if (attempts != null) {
+                                    currentAttempts++;
+                                    attempts--;
+                                    System.out.println("You have " + attempts + " attempts left.");
+                                    for (int i = 0; i < currentAttempts && i < puzzleHints.size(); i++) {
+                                        System.out.println();
+                                        System.out.println(puzzleHints.get(i));
+                                    }
+
                                 }
 
                             }
+                            if (attempts == 0) {
+                                System.out.println();
+                                System.out.println("Failed to solve. " + getCurrentRoom().getPuzzle().getFailureMessage());
+                                if (getCurrentRoom().getPuzzle().killsPlayer()) {
+                                    System.out.println("You can exit or restart the game.");
+                                    String input = scanner.nextLine().toLowerCase();
+                                    if (input.equalsIgnoreCase("exit")) {
+                                        System.exit(0);
+                                    } else if (input.equalsIgnoreCase("restart")) {
+                                        System.out.println("Game restarted");
+                                        //restart();
+                                    }
 
-                        }
-                        if (attempts == 0) {
-                            System.out.println();
-                            System.out.println("Failed to solve. " +getCurrentRoom().getPuzzle().getFailureMessage());
+                                }
+                            }
                         }
                 }
             }
@@ -278,6 +291,45 @@ public class Player {
         else {
             System.out.println("There is nothing to solve in this room");
         }
+    }
+
+    public boolean checkConditions(String answer) throws InvalidItemException {
+        String[] conditions = answer.split("\\s+", 2);
+
+        if (conditions.length > 0) {
+            String condition = conditions[0];
+            String itemName = (conditions.length > 1) ? conditions[1] : "";
+            Item item = map.getItem(itemName);
+
+            switch (condition.toLowerCase()) {
+                case "use":
+                    if(getInventory().contains(item)){
+                        System.out.println("You used the " + item);
+                        return true;
+                    }
+                    else {
+                        System.out.println("You are not currently carrying that item.");
+                        return false;
+                    }
+                case "look":
+                    //will implement later
+                    break;
+                case "drop":
+                    if(getInventory().contains(item)){
+                        dropItem(itemName);
+                        return true;
+                    }
+                    else {
+                        System.out.println("You are not currently carrying that item.");
+                        return false;
+                    }
+                default:
+                    return true;
+
+            }
+        }
+
+        return false;
     }
 
     public String printString() {
