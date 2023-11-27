@@ -50,7 +50,7 @@ public class Main {
             //Monster mechs
             while (!p1.getCurrentRoom().getMonsters().isEmpty()) {
                 HashMap<String, Monster> monsterMap= new HashMap<>();
-                System.out.println("There is a monster in this room. " );
+                System.out.println("There is a monster in this room. ");
                 for(Monster i: p1.getCurrentRoom().getMonsters()){
                     if(i!=null){
                         System.out.println(i.getName());
@@ -61,6 +61,7 @@ public class Main {
                 System.out.println("\nSelect a monster to examine");
                 String examine = scanner.nextLine();
                 Monster monster = monsterMap.get(examine);
+                boolean flee;
                 if (monster!=null) {
                     System.out.println(monster);
                     System.out.println("Type 'attack' to engage with the monster. Type 'ignore' to not fight (it wil still be removed)");
@@ -74,7 +75,10 @@ public class Main {
                                 monsterMap.remove(monster.getName());
                                 break;
                             } else {
-                                handlePlayerTurn(p1, monster,scanner, monsterMap);
+                                flee=handlePlayerTurn(p1, monster,scanner, monsterMap);
+                                if(flee==true){
+                                    break;
+                                }
                             }
 
                         } else {
@@ -97,7 +101,6 @@ public class Main {
             String command=scanner.nextLine().toLowerCase();
 
             String[] parts = command.split(" ");
-
             if (parts[0].equalsIgnoreCase("pickup") && parts.length > 1) {
                 String itemName = String.join(" ", Arrays.copyOfRange(parts, 1, parts.length));
                 p1.pickupItem(itemName);
@@ -141,11 +144,14 @@ public class Main {
             } else {
                 System.out.println("Invalid command!");
             }
+
+
         }
     }
 
 
-    public static void handlePlayerTurn(Player p, Monster m, Scanner scanner, HashMap<String, Monster> monsterMap) throws InvalidItemException, IOException {
+    public static boolean handlePlayerTurn(Player p, Monster m, Scanner scanner, HashMap<String, Monster> monsterMap) throws InvalidItemException, IOException {
+        boolean flee=false;
         System.out.println("Player's turn: Type 'attack' to attack, 'inventory' to access inventory");
         String engage=scanner.nextLine();
         Random random = new Random();
@@ -181,6 +187,11 @@ public class Main {
                     monsterMap.remove(m.getName());
                 }
             }
+            case "flee" -> {
+                System.out.println("Fleeing combat");
+                p.setCurrentRoom(p.getPreviousRoom());
+                flee=true;
+            }
             case "i" -> {
                 try {
                     handleInventory(p, scanner);
@@ -190,7 +201,7 @@ public class Main {
             }
             default -> System.out.println("Invalid command");
         }
-
+        return flee;
     }
     public static void handleMonsterTurn(Player p, Monster m,Scanner scanner) throws IOException, InvalidItemException, InvalidRoomException, InvalidPuzzleException {
         Random random = new Random();

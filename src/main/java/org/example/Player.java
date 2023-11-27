@@ -18,7 +18,6 @@ public class Player {
     private double amr;
     private double atk;
     private ArrayList<Item> inventory;
-
     public Player(String name) throws InvalidRoomException, IOException, InvalidItemException {
         this.name=name;
         map = new Map();
@@ -28,11 +27,15 @@ public class Player {
         hp = 10;
         def = 0;
         amr = 0;
-        atk = 0;
+        atk = 60;
     }
 
     public Room getCurrentRoom() {
         return this.currentRoom;
+    }
+
+    public void setCurrentRoom(Room currentRoom) {
+        this.currentRoom = currentRoom;
     }
 
     public void moveNorth() throws InvalidRoomException, InvalidPuzzleException {
@@ -53,6 +56,10 @@ public class Player {
     public void moveEast() throws InvalidRoomException, InvalidPuzzleException {
         this.previousRoom = currentRoom;
         this.currentRoom = map.getRoom(currentRoom.getEastID());
+    }
+
+    public Room getPreviousRoom() {
+        return previousRoom;
     }
 
     public void pickupItem(String itemName) throws InvalidItemException {
