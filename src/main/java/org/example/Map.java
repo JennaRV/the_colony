@@ -2,17 +2,19 @@ package org.example;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
-public class Map {
+public class Map implements Serializable {
     private ArrayList<Room> allRooms;
     private ArrayList<Item> allItems;
     private ArrayList<Puzzle> allPuzzles;
@@ -33,6 +35,7 @@ public class Map {
 
     }
 
+    @JsonCreator
     public Map(ArrayList<Room> rooms, ArrayList<Item> items, ArrayList<Puzzle> puzzles, ArrayList<Monster> monster) {
         this.allRooms = rooms;
         this.allPuzzles = puzzles;

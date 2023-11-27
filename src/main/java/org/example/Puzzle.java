@@ -1,11 +1,14 @@
 package org.example;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
+
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Set;
 
-public class Puzzle {
+public class Puzzle implements Serializable {
 
     private String puzzleName;
     private String puzzleID;
@@ -21,6 +24,9 @@ public class Puzzle {
     private String part2ID;
     private boolean numAns;
     private boolean anyOrder;
+
+    public Puzzle(){}
+    @JsonCreator
     public Puzzle(@JsonProperty("puzzleName") String puzzleName,
                   @JsonProperty("puzzleID") String puzzleID,
                   @JsonProperty("puzzleQ") String puzzleQ,

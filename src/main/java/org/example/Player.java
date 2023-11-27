@@ -1,11 +1,13 @@
 package org.example;
 
 
-import java.io.FileNotFoundException;
-import java.io.IOException;
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.databind.ObjectMapper;
+
+import java.io.*;
 import java.util.*;
 
-public class Player {
+public class Player implements Serializable {
     private String name;
     private Room currentRoom;
     private Room previousRoom;
@@ -19,9 +21,12 @@ public class Player {
     private double atk;
     private ArrayList<Item> inventory;
 
-    public Player(String name) throws InvalidRoomException, IOException, InvalidItemException {
-        this.name=name;
-        map = new Map();
+    public Player(){}
+    @JsonCreator
+    public Player(String name, Map map) throws InvalidRoomException, IOException, InvalidItemException {
+        this.name = name;
+        //map = new Map();
+        map = this.map;
         this.currentRoom = map.getRoom("1");
         inventory = new ArrayList<>();
         equippedItems = new ArrayList<>();
@@ -60,15 +65,15 @@ public class Player {
         if (currentRoom.getInventory().contains(item)) {
             if (item instanceof ConsumableItem) {
                 ConsumableItem consumableItem = (ConsumableItem) item;
-                if(inventory.contains(consumableItem)){
+                if (inventory.contains(consumableItem)) {
                     int count = 0;
-                    for(Item item1:inventory){
-                        if(item1.getName().equalsIgnoreCase(itemName)){
+                    for (Item item1 : inventory) {
+                        if (item1.getName().equalsIgnoreCase(itemName)) {
                             count++;
                         }
                     }
-                    if(consumableItem.getLimit() == count) {
-                        System.out.println("You already reach the limit of this item. You can't not pick up " + itemName +" now.");
+                    if (consumableItem.getLimit() == count) {
+                        System.out.println("You already reach the limit of this item. You can't not pick up " + itemName + " now.");
                         return;
                     }
                 }
@@ -105,7 +110,10 @@ public class Player {
     public double getDef() {
         return def;
     }
-    public double getAmr() {return amr;}
+
+    public double getAmr() {
+        return amr;
+    }
 
     public void setAmr(double amr) {
         this.amr = amr;
@@ -145,10 +153,10 @@ public class Player {
     }
 
     public void unequip(String itemName) throws InvalidItemException {
-        Item item  = map.getItem(itemName);
+        Item item = map.getItem(itemName);
         if (equippedItems.contains(item)) {
             Equipment equipment = (Equipment) item;
-            if(hp - equipment.getHPModifier() <= 0) {
+            if (hp - equipment.getHPModifier() <= 0) {
                 System.out.println("You will be death after un-equip this item.");
                 return;
             }
@@ -166,22 +174,22 @@ public class Player {
 
     public void consume(String itemName) throws InvalidItemException {
         Item item = map.getItem(itemName);
-        if(inventory.contains(item)){
-            if(item instanceof ConsumableItem) {
+        if (inventory.contains(item)) {
+            if (item instanceof ConsumableItem) {
                 ConsumableItem consumableItem = (ConsumableItem) item;
-                if(!consumableItem.getRequired().equalsIgnoreCase("None")){
+                if (!consumableItem.getRequired().equalsIgnoreCase("None")) {
                     Item requiredItem = map.getItem(consumableItem.getRequired());
-                    if(!inventory.contains(requiredItem)){
+                    if (!inventory.contains(requiredItem)) {
                         System.out.println("You need " + requiredItem.getName() + " to use this item.");
                         return;
                     }
                 }
-                if(consumableItem.getSort().equalsIgnoreCase("Healing")){
+                if (consumableItem.getSort().equalsIgnoreCase("Healing")) {
                     hp += consumableItem.getEffect();
                 } else if (consumableItem.getSort().equalsIgnoreCase("Armor")) {
                     amr += consumableItem.getEffect();
                 } else if (consumableItem.getSort().equalsIgnoreCase("Bullet")) {
-                    Equipment weapon =(Equipment) map.getItem(consumableItem.getRequired());
+                    Equipment weapon = (Equipment) map.getItem(consumableItem.getRequired());
                     weapon.setUseCount(consumableItem.getEffect());
                 }
                 inventory.remove(consumableItem);
@@ -195,7 +203,7 @@ public class Player {
 
     public void printInventory() {
         ArrayList<String> listItem = new ArrayList<>();
-        for(Item item : inventory) {
+        for (Item item : inventory) {
             listItem.add(item.getName());
         }
         System.out.println(listItem);
@@ -209,7 +217,7 @@ public class Player {
         Item item = map.getItem(itemName);
         if (inventory.contains(item) || currentRoom.getInventory().contains(item)) {
             item.getInformation();
-            if(item.getType().equalsIgnoreCase("Equipment")){
+            if (item.getType().equalsIgnoreCase("Equipment")) {
 
             }
         } else {
@@ -218,7 +226,7 @@ public class Player {
     }
 
 
-    public ArrayList<Equipment> getEquippedItems () {
+    public ArrayList<Equipment> getEquippedItems() {
         return this.equippedItems;
     }
 
@@ -227,7 +235,7 @@ public class Player {
     }
 
     public void solvePuzzle(Scanner scanner, Puzzle puzzle) throws InvalidItemException {
-        if(puzzle!=null) {
+        if (puzzle != null) {
             Integer attempts = puzzle.getNumAttempts();
             int currentAttempts = 0;
             String ans = puzzle.getPuzzleA();
@@ -253,7 +261,7 @@ public class Player {
                             if (checkConditions(ans)) {
                                 System.out.println("Success! " + puzzle.getSuccessMessage());
                                 System.out.println();
-                                if(!"none".equals(puzzle.getPart2ID())){  //this is where i tried to handle the two part puzzle
+                                if (!"none".equals(puzzle.getPart2ID())) {  //this is where i tried to handle the two part puzzle
                                     solvePuzzle(scanner, map.getPuzzle(puzzle.getPart2ID()));
                                 }
                                 puzzle.setSolved(true);
@@ -288,8 +296,7 @@ public class Player {
                         }
                 }
             }
-        }
-        else {
+        } else {
             System.out.println("There is nothing to solve in this room");
         }
     }
@@ -304,11 +311,10 @@ public class Player {
 
             switch (condition.toLowerCase()) {
                 case "use":
-                    if(getInventory().contains(item)){
+                    if (getInventory().contains(item)) {
                         System.out.println("You used the " + item);
                         return true;
-                    }
-                    else {
+                    } else {
                         System.out.println("You are not currently carrying that item.");
                         return false;
                     }
@@ -316,11 +322,10 @@ public class Player {
                     //will implement later
                     break;
                 case "drop":
-                    if(getInventory().contains(item)){
+                    if (getInventory().contains(item)) {
                         dropItem(itemName);
                         return true;
-                    }
-                    else {
+                    } else {
                         System.out.println("You are not currently carrying that item.");
                         return false;
                     }
@@ -333,9 +338,50 @@ public class Player {
         return false;
     }
 
+
+//        String fileName = name + ".txt";
+//        try (ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream(fileName))) {
+//            // Write the entire game object to the file
+//            oos.writeObject(map);
+//            System.out.println("Game saved successfully.");
+//        } catch (IOException e) {
+//            e.printStackTrace();
+//        }
+
     public String printString() {
         return String.format("Player: %s\n%s", name, currentRoom.toString());
     }
 
 
+    public void saveGame() {
+        try (ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream(name + ".dat"))) {
+            oos.writeObject(map);
+            System.out.println("Game saved successfully.");
+            System.exit(0);
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+//    public static Player loadGame() {
+//        Scanner scanner = new Scanner(System.in);
+//        System.out.print("Enter your username: ");
+//        String username = scanner.nextLine();
+//
+//        try (FileReader fileReader = new FileReader(username + ".json")) {
+//            ObjectMapper objectMapper = new ObjectMapper();
+//            Player loadedPlayer = objectMapper.readValue(fileReader, Player.class);
+//
+//            System.out.println("Game loaded successfully.");
+//            return loadedPlayer;
+//        } catch (FileNotFoundException e) {
+//            System.out.println("Save file not found for username: " + username);
+//        } catch (IOException e) {
+//            throw new RuntimeException(e);
+//        }
+//
+//        return null;
+//    }
+
 }
+

@@ -1,22 +1,48 @@
 package org.example;
 
-import java.io.IOException;
+import com.fasterxml.jackson.databind.ObjectMapper;
+
+import java.io.*;
 import java.util.*;
 
 public class Main {
+
+    private static Map map;
     public static void main(String[] args) throws IOException, InvalidItemException, InvalidRoomException, InvalidPuzzleException {
 
-        Game();
 
+
+
+        System.out.println("Would you like to start a new game or load an existing game?");
+        Scanner scanner = new Scanner(System.in);
+        String answer = scanner.nextLine();
+        switch (answer.toLowerCase()){
+            case "load", "load game":
+                map = loadGame();
+                Game();
+                break;
+            case "new", "new game":
+                Game();
+                break;
+        }
     }
 
     public static void Game() throws IOException, InvalidRoomException, InvalidPuzzleException, InvalidItemException {
         Scanner scanner = new Scanner(System.in);
-        System.out.println("Type your name");
-        String in = scanner.nextLine();
-        Player p1 = new Player(in);
-        boolean play=true;
-        while(play){
+        Player p1;
+
+        // Check if a game is being loaded
+        if (map != null) {
+            p1 = new Player();
+            System.out.println("Game loaded successfully.");
+        } else {
+            System.out.println("Type your name");
+            String in = scanner.nextLine();
+            p1 = new Player(in,map);
+        }
+
+        boolean play = true;
+        while (play) {
             System.out.println(p1.printString());
             if(p1.getCurrentRoom().isVisit()){
                 System.out.println("You've been in this room before");
@@ -26,26 +52,6 @@ public class Main {
                 p1.getCurrentRoom().setVisit(true);
             }
 
-            //Puzzle mechs
-//            if(p1.getCurrentRoom().getPuzzle()!=null){
-//                int attempts=p1.getCurrentRoom().getPuzzle().getNumAttempts();
-//                String ans= p1.getCurrentRoom().getPuzzle().getPuzzleA();
-//                while(attempts!=0 && !p1.getCurrentRoom().getPuzzle().isSolved()){
-//                    System.out.println(p1.getCurrentRoom().getPuzzle().getPuzzleQ());
-//                    String user_ans= scanner.nextLine();
-//                    if(ans.equalsIgnoreCase(user_ans)){
-//                        System.out.println("Correct");
-//                        p1.getCurrentRoom().getPuzzle().setSolved(true);
-//                    }
-//                    else{
-//                        attempts--;
-//                        System.out.println("Incorrect. Attempts remaining: " + attempts);
-//                    }
-//                    if(attempts==0){
-//                        System.out.println("Failed to solve.");
-//                    }
-//                }
-//            }
 
             //Monster mechs
             while (!p1.getCurrentRoom().getMonsters().isEmpty()) {
@@ -124,13 +130,18 @@ public class Main {
                 System.out.println("\n Explore an item: explore {item} (must be inside inventory)");
                 System.out.println("\n Equip an item: equip {item} (must be inside inventory)");
                 System.out.println("\n Drop an item: drop {item} (must be inside inventory)");
+                System.out.println("\n Solve a puzzle: 'solve' or 'solve puzzle'");
                 System.out.println("\n Attack a monster: attack");
                 System.out.println("\n Ignore a monster: ignore");
                 System.out.println("\n Exit: can be used to exit the inventory or the game");
+                System.out.println("\n Save: Saves the current game");
                 System.out.println("\n Restart: Restarts the game if the player loses to the monster.");
             }  else if (parts[0].equalsIgnoreCase("restart")) {
                 restart();
-            } else if (parts[0].equalsIgnoreCase("exit")) {
+            } else if (parts[0].equalsIgnoreCase("save")){
+                p1.saveGame();
+            }
+            else if (parts[0].equalsIgnoreCase("exit")) {
                 play = false;
             } else if (parts[0].equalsIgnoreCase("n")) {
                 p1.moveNorth();
@@ -334,62 +345,35 @@ public class Main {
         }
     }
 
-//    public static void handlePuzzle(Player player, Scanner scanner){
-//        if(player.getCurrentRoom().getPuzzle()!=null) {
-//            Integer attempts = player.getCurrentRoom().getPuzzle().getNumAttempts();
-//            int currentAttempts = 0;
-//            String ans = player.getCurrentRoom().getPuzzle().getPuzzleA();
-//            ArrayList<String> puzzleHints = player.getCurrentRoom().getPuzzle().getHints();
-//            ArrayList<String> drops = player.getCurrentRoom().getPuzzle().getPuzzleDrops();
-//            while (attempts != 0 && !player.getCurrentRoom().getPuzzle().isSolved()) {
-//                System.out.println(player.getCurrentRoom().getPuzzle().getPuzzleQ());
-//                String user_ans = scanner.nextLine();
-//                System.out.println();
-//                switch (user_ans) {
-//                    case "attack":
-//                        System.out.println("You cannot attack while engrossed in this puzzle.");
-//                        break;
-//                    case "exit room":
-//                        System.out.println("You are too engrossed in this puzzle to leave right now.");
-//                        break;
-//                    default:
-//                        if (ans.equalsIgnoreCase(user_ans)) {
-//                            System.out.println("Success! " + player.getCurrentRoom().getPuzzle().getSuccessMessage());
-//                            player.getCurrentRoom().getPuzzle().setSolved(true);
-//                            for(String item : drops){
-//
-//                            //    player.getCurrentRoom().getInventory().add;
-//                            }
-//
-//                        } else {
-//                            System.out.println("That didn't work. Try again.");
-//                            if(attempts != null) {
-//                                currentAttempts++;
-//                                attempts--;
-//                                System.out.println("You have " + attempts + " attempts left.");
-//                                for(int i = 0; i < currentAttempts && i < puzzleHints.size(); i++){
-//                                    System.out.println();
-//                                    System.out.println(puzzleHints.get(i));
-//                                }
-//
-//                            }
-//
-//                        }
-//                        if (attempts == 0) {
-//                            System.out.println();
-//                            System.out.println("Failed to solve. " + player.getCurrentRoom().getPuzzle().getFailureMessage());
-//                        }
-//                }
-//            }
-//        }
-//        else {
-//            System.out.println("There is nothing to solve in this room");
-//        }
-//    }
+
 
     public static void restart() throws IOException, InvalidItemException, InvalidRoomException, InvalidPuzzleException {
         Main game= new Main();
         game.Game();
     }
+
+    public static Map loadGame() {
+        Scanner scanner = new Scanner(System.in);
+        System.out.print("Enter your username: ");
+        String username = scanner.nextLine();
+
+        try (ObjectInputStream ois = new ObjectInputStream(new FileInputStream(username + ".dat"))) {
+            Map loadedMap = (Map) ois.readObject();
+            System.out.println("Game loaded successfully.");
+            return loadedMap;
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();  // Add this line to print the stack trace
+            System.out.println("Save file not found for username: " + username);
+        } catch (IOException | ClassNotFoundException e) {
+            e.printStackTrace();  // Add this line to print the stack trace
+            throw new RuntimeException(e);
+        }
+
+        return null;
+    }
+
+
+
+
 }
 
