@@ -109,7 +109,7 @@ public class Main {
             else if (parts[0].equalsIgnoreCase("look")) {
                 p1.look();
             } else if (parts[0].equalsIgnoreCase("solve") || parts[0].equalsIgnoreCase("solve puzzle")) {
-                p1.solvePuzzle(scanner);
+                p1.solvePuzzle(scanner, p1.getCurrentRoom().getPuzzle());
             } else if (parts[0].equalsIgnoreCase("stats")) {
                 System.out.println("HP: "+ p1.getHp());
                 System.out.println("DEF: "+ p1.getDef());

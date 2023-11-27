@@ -2,6 +2,8 @@ package org.example;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.Set;
 
 public class Puzzle {
 
@@ -16,6 +18,9 @@ public class Puzzle {
     private String failureMessage;
     private ArrayList<String> puzzleDrops;
     private boolean killsPlayer;
+    private String part2ID;
+    private boolean numAns;
+    private boolean anyOrder;
     public Puzzle(@JsonProperty("puzzleName") String puzzleName,
                   @JsonProperty("puzzleID") String puzzleID,
                   @JsonProperty("puzzleQ") String puzzleQ,
@@ -26,7 +31,10 @@ public class Puzzle {
                   @JsonProperty("successMessage") String successMessage,
                   @JsonProperty("failureMessage") String failureMessage,
                   @JsonProperty("puzzleDrops") ArrayList<String> puzzleDrops,
-                  @JsonProperty("killsPlayer") boolean killsPlayer) {
+                  @JsonProperty("killsPlayer") boolean killsPlayer,
+                  @JsonProperty("part2ID") String part2ID,
+                  @JsonProperty("numAns") boolean numAns,
+                  @JsonProperty("anyOrder") boolean anyOrder) {
         this.puzzleName = puzzleName;
         this.puzzleID = puzzleID;
         this.puzzleQ = puzzleQ;
@@ -38,6 +46,9 @@ public class Puzzle {
         this.failureMessage = failureMessage;
         this.puzzleDrops = puzzleDrops;
         this.killsPlayer = killsPlayer;
+        this.part2ID = part2ID;
+        this.numAns = numAns;
+        this.anyOrder = anyOrder;
     }
 
     public String getPuzzleName(){
@@ -88,11 +99,44 @@ public class Puzzle {
         return killsPlayer;
     }
 
-    public boolean checkAnswer(String answer) {
-        String cleanPuzzleA = puzzleA.replaceAll("\\s*,\\s*", "");
-        String cleanAnswer = answer.replaceAll("\\s*,\\s*", "");
+    public String getPart2ID() {
+        return part2ID;
+    }
 
-        return cleanAnswer.equalsIgnoreCase(cleanPuzzleA) && !cleanAnswer.matches(".*[\\s,]{2,}.*");
+    public boolean isNumAns() {
+        return numAns;
+    }
+
+    public boolean checkAnswer(String answer) {
+        if(anyOrder){
+            String cleanedUserAnswer = answer.replaceAll("[,\\s]+", "");
+
+            Set<Character> userAnswerSet = new HashSet<>();
+            Set<Character> expectedAnswerSet = new HashSet<>();
+
+            for (char c : cleanedUserAnswer.toCharArray()) {
+                userAnswerSet.add(c);
+            }
+            for (char c : answer.toCharArray()) {
+                expectedAnswerSet.add(c);
+            }
+            return userAnswerSet.equals(expectedAnswerSet);
+        }
+        if (numAns){
+            String filteredNumericAnswer = filterNumericAnswer(answer);
+            return filteredNumericAnswer.equals(puzzleA);
+        }
+        else {
+            String cleanPuzzleA = puzzleA.replaceAll("\\s*,\\s*", "");
+            String cleanAnswer = answer.replaceAll("\\s*,\\s*", "");
+
+            return cleanAnswer.equalsIgnoreCase(cleanPuzzleA) && !cleanAnswer.matches(".*[\\s,]{2,}.*");
+        }
+    }
+
+    private String filterNumericAnswer(String answer) {
+        // Keep only numeric characters
+        return answer.replaceAll("[^1-5]", "");
     }
 
 //    public boolean checkConditions(String answer) throws InvalidItemException {

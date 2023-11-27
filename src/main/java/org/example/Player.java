@@ -226,15 +226,15 @@ public class Player {
         System.out.println("Item: " + currentRoom.getListItem());
     }
 
-    public void solvePuzzle(Scanner scanner) throws InvalidItemException {
-        if(getCurrentRoom().getPuzzle()!=null) {
-            Integer attempts = getCurrentRoom().getPuzzle().getNumAttempts();
+    public void solvePuzzle(Scanner scanner, Puzzle puzzle) throws InvalidItemException {
+        if(puzzle!=null) {
+            Integer attempts = puzzle.getNumAttempts();
             int currentAttempts = 0;
-            String ans = getCurrentRoom().getPuzzle().getPuzzleA();
-            ArrayList<String> puzzleHints = getCurrentRoom().getPuzzle().getHints();
-            ArrayList<String> drops = getCurrentRoom().getPuzzle().getPuzzleDrops();
-            while (attempts != 0 && !getCurrentRoom().getPuzzle().isSolved()) {
-                System.out.println(getCurrentRoom().getPuzzle().getPuzzleQ());
+            String ans = puzzle.getPuzzleA();
+            ArrayList<String> puzzleHints = puzzle.getHints();
+            ArrayList<String> drops = puzzle.getPuzzleDrops();
+            while (attempts != 0 && !puzzle.isSolved()) {
+                System.out.println(puzzle.getPuzzleQ());
                 String user_ans = scanner.nextLine();
                 System.out.println();
                 switch (user_ans) {
@@ -244,11 +244,19 @@ public class Player {
                     case "exit room":
                         System.out.println("You are too engrossed in this puzzle to leave right now.");
                         break;
+                    case "exit puzzle", "exit":
+                        System.out.println("You have exited the puzzle");
+                        System.out.println();
+                        return;
                     default:
-                        if (getCurrentRoom().getPuzzle().checkAnswer(ans)) {
+                        if (puzzle.checkAnswer(ans)) {
                             if (checkConditions(ans)) {
-                                System.out.println("Success! " + getCurrentRoom().getPuzzle().getSuccessMessage());
-                                getCurrentRoom().getPuzzle().setSolved(true);
+                                System.out.println("Success! " + puzzle.getSuccessMessage());
+                                System.out.println();
+                                if(!"none".equals(puzzle.getPart2ID())){  //this is where i tried to handle the two part puzzle
+                                    solvePuzzle(scanner, map.getPuzzle(puzzle.getPart2ID()));
+                                }
+                                puzzle.setSolved(true);
                                 for (String item : drops) {
                                     Item puzzleDrop = map.getItem(item);
                                     getCurrentRoom().getInventory().add(puzzleDrop);
@@ -271,16 +279,9 @@ public class Player {
                             }
                             if (attempts == 0) {
                                 System.out.println();
-                                System.out.println("Failed to solve. " + getCurrentRoom().getPuzzle().getFailureMessage());
-                                if (getCurrentRoom().getPuzzle().killsPlayer()) {
-                                    System.out.println("You can exit or restart the game.");
-                                    String input = scanner.nextLine().toLowerCase();
-                                    if (input.equalsIgnoreCase("exit")) {
-                                        System.exit(0);
-                                    } else if (input.equalsIgnoreCase("restart")) {
-                                        System.out.println("Game restarted");
-                                        //restart();
-                                    }
+                                System.out.println("Failed to solve. " + puzzle.getFailureMessage());
+                                if (puzzle.killsPlayer()) {
+                                    System.exit(0);
 
                                 }
                             }
