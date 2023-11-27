@@ -1,9 +1,18 @@
-Welcome to Realm Hopper!
+Welcome to the Colony!
+
+ "The Colony" is a text-based game that players will primarily access through a text-based interface,
+ such as a command-line interface, where they issue text commands to control their character's actions and interactions.
+ Within the game world, players can navigate between and explore 20 distinct rooms, each offering unique descriptions and interactive elements,
+ including monsters, items, and puzzles.
+ Players can engage with monsters using commands like "Attack Monster" and utilize collected items for combat or puzzle-solving.
+ Puzzles within rooms may require specific commands, like "Solve Puzzle," with items potentially offering clues or solutions.
+ The game delivers a narrative-driven experience, with room descriptions and interactions contributing to an engaging storyline.
+ The ultimate objective of the game is to provide an entertaining and immersive text-based adventure for players seeking an enjoyable gaming experience.
 
 In this game, you can create your own map based on the parameter this program requires. This program uses json,
 but it is not hard to use.
 
-If you open rooms.json, you will see a total of 6 rooms, which are all separated by curly brackets. Here is
+If you open rooms.json, you will see a total of 23 rooms, which are all separated by curly brackets. Here is
 what each variable means.
 
 room_num -> contains the room number that will be used to uniquely identify the room you are currently in.
@@ -63,7 +72,7 @@ ATK -> total monster attack.
 
 
 For controls, the first input will ask you for your name, so type your name. The rest will be directional inputs: "n",
-"s","e","w", which represent north, south, east, and west respectively. Pressing "i" would open the inventory to see what
+"e","s","w", which represent north, south, east, and west respectively. Pressing "i" would open the inventory to see what
 items the player currently has. Once the player is in their inventory, they can choose to drop an item by typing "drop" +
 the item name, or they can explore the item by typing "explore" and the item name. Players can also equip and unequip an
  item using a similar command format as explore and drop. If the item is a consumable item, players can consume the item.

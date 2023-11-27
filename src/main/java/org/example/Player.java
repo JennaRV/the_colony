@@ -7,11 +7,10 @@ public class Player {
     private String name;
     private Room currentRoom;
     private Item[] equipArr= {null, null};
-
     private double hp=150;
     private double def=10;
     private double atk=15;
-    private ArrayList<AbstractItem> inventory=new ArrayList<>();
+    private ArrayList<AbstractItem> inventory = new ArrayList<>();
     public Player(String name, Room currentRoom) {
         this.name=name;
         this.currentRoom = currentRoom;
@@ -154,4 +153,6 @@ public class Player {
     }
 
 
+    public AbstractItem getEquippedItem(String itemName) {
+    }
 }
