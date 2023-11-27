@@ -5,6 +5,7 @@ import com.fasterxml.jackson.annotation.JsonSubTypes;
 import com.fasterxml.jackson.annotation.JsonTypeInfo;
 import com.fasterxml.jackson.annotation.JsonCreator;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 @JsonTypeInfo(use = JsonTypeInfo.Id.NAME, property = "type")
 @JsonSubTypes({
@@ -12,13 +13,14 @@ import java.util.ArrayList;
         @JsonSubTypes.Type(value = ConsumableItem.class, name = "Consumable"),
         @JsonSubTypes.Type(value = StaticItem.class, name = "Static")
 })
-public abstract class Item {
+public abstract class Item implements Serializable {
     private String id;
     private String name;
     private String description;
     private String type;
 
-
+    public Item(){}
+    @JsonCreator
     public Item(@JsonProperty("id")String id, @JsonProperty("name")String name, @JsonProperty("description")String description, @JsonProperty("type")String type) {
         this.id = id;
         this.name = name;
@@ -43,6 +45,8 @@ class Equipment extends Item {
     private ArrayList<Double> stats;
     private int useCount;
     private boolean isEquip;
+
+    public Equipment(){}
     @JsonCreator
     public Equipment(@JsonProperty("id") String id,
                      @JsonProperty("name") String name,
@@ -90,6 +94,8 @@ class ConsumableItem extends Item {
     private int effect;
     private int limit;
     private String required;
+
+    public ConsumableItem(){}
     @JsonCreator
     public ConsumableItem(@JsonProperty("id")String id,
                           @JsonProperty("name")String name,
@@ -118,6 +124,8 @@ class ConsumableItem extends Item {
 }
 
 class StaticItem extends Item {
+
+    public StaticItem(){}
     @JsonCreator
     public StaticItem(@JsonProperty("id")String id, @JsonProperty("name")String name,
                       @JsonProperty("description")String description, @JsonProperty("type")String type) {

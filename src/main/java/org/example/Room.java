@@ -1,10 +1,12 @@
 package org.example;
 
+import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
-public class Room {
+public class Room implements Serializable {
 
     private String room_id;
 
@@ -21,6 +23,9 @@ public class Room {
    private ArrayList<Monster> monsters;
    boolean pathless;
 
+   public Room(){}
+
+    
     public Room(@JsonProperty("room_id")String room_id,
                 @JsonProperty("room_name") ArrayList<String> room_name,
                 @JsonProperty("desc") String[] desc,

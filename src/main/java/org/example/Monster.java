@@ -1,12 +1,15 @@
 package org.example;
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 import java.io.IOException;
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.HashMap;
 
-public class Monster {
+public class Monster implements Serializable {
     private String id;
     private ArrayList<String> roomIDs;
     private String name, desc;
@@ -17,7 +20,8 @@ public class Monster {
     private ArrayList<Double> chance = new ArrayList<>();
     private String effect;
 
-
+    private Monster(){}
+    @JsonCreator
     public Monster(@JsonProperty("ID") String id,
                    @JsonProperty("roomIDs") ArrayList<String> roomIDs,
                    @JsonProperty("name") String name,
@@ -67,6 +71,7 @@ public class Monster {
         return ATK;
     }
 
+
     public ArrayList<Item> getDropItems() throws InvalidItemException, IOException {
          Map map=new Map();
         ArrayList<Item> monsterItems=new ArrayList<>();
@@ -86,6 +91,7 @@ public class Monster {
         return monsterItems;
 
     }
+
 
     public ArrayList<Double> getDropChance() {
         return chance;
