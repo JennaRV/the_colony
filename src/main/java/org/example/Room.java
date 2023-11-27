@@ -3,7 +3,6 @@ package org.example;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 import java.util.ArrayList;
-import java.util.RandomAccess;
 
 public class Room {
 
@@ -20,7 +19,7 @@ public class Room {
    private String puzzleID;
    private Puzzle puzzle;
    private ArrayList<Monster> monsters;
-
+   boolean pathless;
 
     public Room(@JsonProperty("room_id")String room_id,
                 @JsonProperty("room_name") ArrayList<String> room_name,
@@ -29,7 +28,8 @@ public class Room {
                 @JsonProperty("items") ArrayList<String> items,
                 @JsonProperty("nav_tab") String[] nav_tab,
                 @JsonProperty("puzzle") String puzzleID,
-                @JsonProperty("monsters") ArrayList<Monster> monsters) {
+                @JsonProperty("monsters") ArrayList<Monster> monsters,
+                @JsonProperty("pathless") boolean isPathless) {
        this.room_id = room_id;
        this.room_name = room_name;
        this.desc = desc;
@@ -38,6 +38,7 @@ public class Room {
        this.items = items;
        this.puzzleID = puzzleID;
        this.monsters=monsters;
+       this.pathless = isPathless;
     }
 
     public String getRoom_id() {
@@ -55,19 +56,19 @@ public class Room {
     public String getNorthID() {
         return nav_tab[0];
     }
-
+    public void setNorthID(String id) {nav_tab[0] = id;}
     public String getEastID() {
         return nav_tab[1];
     }
-
+    public void setEastID(String id) {nav_tab[1] = id;}
     public String getSouthID() {
         return nav_tab[2];
     }
-
+    public void setSouthID(String id) {nav_tab[2] = id;}
     public String getWestID() {
         return nav_tab[3];
     }
-
+    public void setWestID(String id) {nav_tab[3] = id;}
     public ArrayList<String> getItems(){
        return items;
     }
@@ -96,6 +97,9 @@ public class Room {
 
     public ArrayList<Monster> getMonsters() {
         return monsters;
+    }
+    public boolean isPathless() {
+        return pathless;
     }
 
     public String toString() {

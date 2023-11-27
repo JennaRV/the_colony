@@ -41,19 +41,19 @@ public class Map {
     }
 
     public Room getRoom(String room_id) throws InvalidRoomException {
+        if (room_id.equals("0")) {
+            throw new InvalidRoomException("You can't go that direction.");
+        }
+
         Room room = null;
 
-        if (room_id.equalsIgnoreCase("0") ) {
-            throw new InvalidRoomException("You can't go that direction.");
-        } else {
-            for (int i = 0; i < allRooms.size(); i++) {
-                if (this.allRooms.get(i).getRoom_id().equalsIgnoreCase(room_id)) {
-                    room = allRooms.get(i);
-                    break;
-                }
+        for (int i = 0; i < allRooms.size(); i++) {
+            if (allRooms.get(i).getRoom_id().equals(room_id)) {
+                room = allRooms.get(i);
+                break;
             }
-            return room;
         }
+        return room;
     }
 
     public Item getItem(String itemName) {

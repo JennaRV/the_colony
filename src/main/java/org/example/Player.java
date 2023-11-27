@@ -9,7 +9,6 @@ public class Player {
     private String name;
     private Room currentRoom;
     private Room previousRoom;
-
     private Map map;
     private Equipment weapon;
     private Equipment gear;
@@ -41,21 +40,46 @@ public class Player {
     public void moveNorth() throws InvalidRoomException, InvalidPuzzleException {
         this.previousRoom = currentRoom;
         this.currentRoom = map.getRoom(currentRoom.getNorthID());
+        if(currentRoom.isPathless()){//Pathless Forest(R8)'s NSWE is determined by the last room the player has entered
+            currentRoom.setSouthID(previousRoom.getRoom_id());
+        }
+        if(previousRoom.isPathless()){//Reset nav_tab after go out Pathless Forest(R8)
+            previousRoom.setNorthID("0");
+        }
     }
 
     public void moveWest() throws InvalidRoomException, InvalidPuzzleException {
         this.previousRoom = currentRoom;
         this.currentRoom = map.getRoom(currentRoom.getWestID());
+        if(currentRoom.isPathless()){
+            currentRoom.setEastID(previousRoom.getRoom_id());
+            System.out.println("test1");
+        }
+        if(previousRoom.isPathless()){
+            previousRoom.setWestID("0");
+        }
     }
 
     public void moveSouth() throws InvalidRoomException, InvalidPuzzleException {
         this.previousRoom = currentRoom;
         this.currentRoom = map.getRoom(currentRoom.getSouthID());
+        if(currentRoom.isPathless()){
+            currentRoom.setNorthID((previousRoom.getRoom_id()));
+        }
+        if(previousRoom.isPathless()){
+            previousRoom.setSouthID("0");
+        }
     }
 
     public void moveEast() throws InvalidRoomException, InvalidPuzzleException {
         this.previousRoom = currentRoom;
         this.currentRoom = map.getRoom(currentRoom.getEastID());
+        if(currentRoom.isPathless()){
+            currentRoom.setWestID((previousRoom.getRoom_id()));
+        }
+        if(previousRoom.isPathless()){
+            previousRoom.setEastID("0");
+        }
     }
 
     public void pickupItem(String itemName) throws InvalidItemException {
@@ -96,17 +120,7 @@ public class Player {
         }
     }
     public Equipment getWeapon() {return weapon;}
-    public void setWeapon(Equipment weapon) {
-        this.weapon = weapon;
-    }
-    public Equipment getGear() {return gear;}
-    public void setGear(Equipment gear) {
-        this.gear = gear;
-    }
-    public Equipment getFlashlight() {return flashlight;}
-    public void setFlashlight(Equipment flashlight) {
-        this.flashlight = flashlight;
-    }
+
     public double getHp() {
         return hp;
     }
@@ -268,6 +282,5 @@ public class Player {
     public String printString() {
         return String.format("Player: %s\n%s", name, currentRoom.toString());
     }
-
 
 }
