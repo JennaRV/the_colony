@@ -253,7 +253,7 @@ public class Player {
                             if (checkConditions(ans)) {
                                 System.out.println("Success! " + puzzle.getSuccessMessage());
                                 System.out.println();
-                                if(!"none".equals(puzzle.getPart2ID())){  //this is where i tried to handle the two part puzzle
+                                if(!"none".equals(puzzle.getPart2ID())){
                                     solvePuzzle(scanner, map.getPuzzle(puzzle.getPart2ID()));
                                 }
                                 puzzle.setSolved(true);
@@ -262,10 +262,11 @@ public class Player {
                                     getCurrentRoom().getInventory().add(puzzleDrop);
                                     System.out.println(item + " has been dropped in the room");
                                 }
+                                System.out.println();
 
                             } else {
                                 System.out.println("That didn't work. Try again.");
-                                if (attempts != null) {
+                                if (attempts != -1) {
                                     currentAttempts++;
                                     attempts--;
                                     System.out.println("You have " + attempts + " attempts left.");
@@ -300,22 +301,21 @@ public class Player {
         if (conditions.length > 0) {
             String condition = conditions[0];
             String itemName = (conditions.length > 1) ? conditions[1] : "";
-            Item item = map.getItem(itemName);
+//            Item item = map.getItem(itemName);
 
             switch (condition.toLowerCase()) {
                 case "use":
+                    Item item = map.getItem(itemName);
                     if(getInventory().contains(item)){
-                        System.out.println("You used the " + item);
+                        System.out.println("You used the " + itemName);
                         return true;
                     }
                     else {
                         System.out.println("You are not currently carrying that item.");
                         return false;
                     }
-                case "look":
-                    //will implement later
-                    break;
                 case "drop":
+                    item = map.getItem(itemName);
                     if(getInventory().contains(item)){
                         dropItem(itemName);
                         return true;

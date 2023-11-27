@@ -26,13 +26,13 @@
     "puzzleQ": "To access a secure cabinet in the medical facility, you need to override the lockdown on the door.\nThe access panel to the west is currently locked, and you must find a way to unlock it.\n",
     "puzzleA": "use keycard",
     "isSolved": false,
-    "numAttempts": null,
+    "numAttempts": -1,
     "hints" : [
       "Investigate the rooms for any clues or items that might provide insights into unlocking the access panel.",
       "Examine the mini haulers and mining equipment; they might have hidden compartments or tools that could be useful.",
       "Interact with the material processing chambers or outpost laboratory to gather information or items that could help solve the puzzle."
     ],
-    "successMessage": "The door slides open, revealing the contents: A medkit.Underwhelming, but useful...",
+    "successMessage": "The door slides open, revealing the contents: A medkit. Underwhelming, but useful...",
     "failureMessage": "",
     "puzzleDrops": ["Med-Kit"],
     "killsPlayer": false,
@@ -48,7 +48,7 @@
     "puzzleQ": "To continue your journey and safely reach the outpost to the north, you need to decipher the meaning of the mysterious alien script that adorns some of the stone structures.\nThis script might hold clues to the history of the area or offer insights into your surroundings.\n",
     "puzzleA": "look at Alien Structure 1, look at Alien Structure 2",
     "isSolved": false,
-    "numAttempts": null,
+    "numAttempts": -1,
     "hints" : [
       "Examine the stone structures closely. Some of them are covered in inscriptions,  while others have less.",
       "Look around the area for any artifacts, tools, or relics that might help you decipher the script.",
@@ -70,7 +70,7 @@
     "puzzleQ": "The keypad here is special. It has a full QWERTY keyboard, as well as some sort of biometric verification.\nYou certainly can’t “trial-and-error” this time. \n",
     "puzzleA": "Rosaline",
     "isSolved": false,
-    "numAttempts": null,
+    "numAttempts": -1,
     "hints" : [
       "There’s a sticky note beside the keypad. It only has two words, “My Love” written in familiar handwriting.",
       "“My Love” is definitely their “love.” Perhaps you can figure out their name, there must be a hint somewhere."
@@ -87,10 +87,10 @@
   {
     "puzzleName": "Identify Verification Part 2",
     "puzzleID": "P4.1",
-    "puzzleQ": "The keypad here is special. It has a full QWERTY keyboard, as well as some sort of biometric verification.\nYou certainly can’t “trial-and-error” this time. \n",
+    "puzzleQ": "That worked, now you must complete the biometric verification: \n",
     "puzzleA": "use biosample",
     "isSolved": false,
-    "numAttempts": null,
+    "numAttempts": -1,
     "hints" : [
       "Well, “bio” sounds like “biology,” and that’s probably something to do with Medical.",
       "Hmm… Where else have you seen the prefix “bio-”?"
@@ -111,7 +111,7 @@
     "puzzleQ": "Toward the back of the bunker, there’s a part that’s closed off. To proceed further into the bunker or access valuable resources stored within, you need to override the security lockdown that has been activated due to the signs of combat.\nTo do this, you must enter the correct sequence of codes by deciphering clues found within the bunker.\n",
     "puzzleA": "5342",
     "isSolved": false,
-    "numAttempts": null,
+    "numAttempts": -1,
     "hints" : [
       "That keypad “looks” promising",
       "Welp, time to bust out good ol’ trial and error."
@@ -153,7 +153,7 @@
     "puzzleQ": "In the depths of a derelict space mine, you come across a foreboding cave entrance, its walls glistening with ominous, bioluminescent crystals.\nTo proceed deeper into the mine, you must solve the puzzle of the Tenebrous Crystal Chamber.\n\nTo unlock the cave passage, you need to illuminate the correct sequence of crystals, avoiding the trap of the caliginous crystal chamber.\nEach crystal can be toggled on or off by typing the corresponding number between 1-5.\n\nCrystal Statuses:\nCrystal 1: Glowing\nCrystal 2: Off\nCrystal 3: Off\nCrystal 4: Glowing\nCrystal 5: Off\n",
     "puzzleA": "14",
     "isSolved": false,
-    "numAttempts": null,
+    "numAttempts": -1,
     "hints" : [
       "The path to darkness is the path to safety."
     ],
