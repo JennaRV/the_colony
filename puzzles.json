@@ -1,51 +1,170 @@
 [
   {
-    "puzzleID" : "P1",
-    "puzzleQ": "What time signature was the song 'My Wave' by Soundgarden played in?",
-    "puzzleA": "5/4",
+    "puzzleName": "Emergency Shutdown Override",
+    "puzzleID": "P1",
+    "puzzleQ": "To ensure your survival, you must figure out how to perform an emergency shutdown of the crashed reactor before it reaches a catastrophic failure.",
+    "puzzleA": "RYBRG",
     "isSolved": false,
-    "numAttempts": 5
+    "numAttempts": 2,
+    "hints": [
+      "Examine the room carefully, paying attention to the control panel, the scattered contents of the storage lockers, and any other details that might help you initiate an emergency shutdown.",
+      "Listen to the warnings from the speakers; they may provide clues about the shutdown process."
+    ],
+    "successMessage": "The reactor's warning lights change to a steady green, indicating a successful emergency shutdown. \nThe imminent reactor failure is averted, ensuring your survival.",
+    "failureMessage": "The reactor exploded, killing you instantly",
+    "puzzleDrops": [],
+    "killsPlayer": true,
+    "part2ID" : "none",
+    "numAns" : false,
+    "anyOrder" : false
   },
+
+
   {
-    "puzzleID" : "P2",
-    "puzzleQ": "What type of engine has 6 cylinders in a single line?",
-    "puzzleA": "inline 6",
+    "puzzleName": "Access Panel Override",
+    "puzzleID": "P2",
+    "puzzleQ": "To access a secure cabinet in the medical facility, you need to override the lockdown on the door.\nThe access panel to the west is currently locked, and you must find a way to unlock it.\n",
+    "puzzleA": "use keycard",
     "isSolved": false,
-    "numAttempts": 2
+    "numAttempts": -1,
+    "hints" : [
+      "Investigate the rooms for any clues or items that might provide insights into unlocking the access panel.",
+      "Examine the mini haulers and mining equipment; they might have hidden compartments or tools that could be useful.",
+      "Interact with the material processing chambers or outpost laboratory to gather information or items that could help solve the puzzle."
+    ],
+    "successMessage": "The door slides open, revealing the contents: A medkit. Underwhelming, but useful...",
+    "failureMessage": "",
+    "puzzleDrops": ["Med-Kit"],
+    "killsPlayer": false,
+    "part2ID" : "none",
+    "numAns" : false,
+    "anyOrder" : false
   },
+
+
   {
-    "puzzleID" : "P3",
-    "puzzleQ": "What time signature was the song 'My Wave' by Soundgarden played in?",
-    "puzzleA": "5/4",
+    "puzzleName": "Forgotten Alien Script",
+    "puzzleID": "P3",
+    "puzzleQ": "To continue your journey and safely reach the outpost to the north, you need to decipher the meaning of the mysterious alien script that adorns some of the stone structures.\nThis script might hold clues to the history of the area or offer insights into your surroundings.\n",
+    "puzzleA": "look at Alien Structure 1, look at Alien Structure 2",
     "isSolved": false,
-    "numAttempts": 5
+    "numAttempts": -1,
+    "hints" : [
+      "Examine the stone structures closely. Some of them are covered in inscriptions,  while others have less.",
+      "Look around the area for any artifacts, tools, or relics that might help you decipher the script.",
+      "Consider the context of the ruins and their relationship to the path leading to the outpost. The script may provide information about the area's purpose."
+    ],
+    "successMessage": "You can’t be sure the carvings on the other structure were glowing. But what you can be sure of is that, suddenly, somehow,  you’re able to read the alien script. You can’t distinguish any letters or words, but, somehow, you just know what it’s saying. Although it only lasts for a minute, you’re able to read part of the inscriptions.\n\nThey tell of a magical family of royals, and a great storm that felled them.\nOf a lost prince, who lay dormant, and the creatures who found him.\n\nOh yeah, and there’s a very shittily carved arrow that points north, so you should probably go that direction.",
+    "failureMessage": "",
+    "puzzleDrops": [],
+    "killsPlayer": false,
+    "part2ID" : "none",
+    "numAns" : false,
+    "anyOrder" : false
   },
+
+
   {
-    "puzzleID" : "P4",
-    "puzzleQ": "What type of engine has 6 cylinders in a single line?",
-    "puzzleA": "inline 6",
+    "puzzleName": "Identify Verification Part 1",
+    "puzzleID": "P4",
+    "puzzleQ": "The keypad here is special. It has a full QWERTY keyboard, as well as some sort of biometric verification.\nYou certainly can’t “trial-and-error” this time. \n",
+    "puzzleA": "Rosaline",
     "isSolved": false,
-    "numAttempts": 2
+    "numAttempts": -1,
+    "hints" : [
+      "There’s a sticky note beside the keypad. It only has two words, “My Love” written in familiar handwriting.",
+      "“My Love” is definitely their “love.” Perhaps you can figure out their name, there must be a hint somewhere."
+    ],
+    "successMessage": "",
+    "failureMessage": "",
+    "puzzleDrops": [],
+    "killsPlayer": false,
+    "part2ID" : "P4.1",
+    "numAns" : false,
+    "anyOrder" : false
   },
+
   {
-    "puzzleID" : "P5",
-    "puzzleQ": "What time signature was the song 'My Wave' by Soundgarden played in?",
-    "puzzleA": "5/4",
+    "puzzleName": "Identify Verification Part 2",
+    "puzzleID": "P4.1",
+    "puzzleQ": "That worked, now you must complete the biometric verification: \n",
+    "puzzleA": "use biosample",
     "isSolved": false,
-    "numAttempts": 5
+    "numAttempts": -1,
+    "hints" : [
+      "Well, “bio” sounds like “biology,” and that’s probably something to do with Medical.",
+      "Hmm… Where else have you seen the prefix “bio-”?"
+    ],
+    "successMessage": "",
+    "failureMessage": "",
+    "puzzleDrops": [],
+    "killsPlayer": false,
+    "part2ID" : "none",
+    "numAns" : false,
+    "anyOrder" : false
   },
+
+
   {
-    "puzzleID" : "P6",
-    "puzzleQ": "What type of engine has 6 cylinders in a single line?",
-    "puzzleA": "inline 6",
+    "puzzleName": "Security Lockdown Ovrride",
+    "puzzleID": "P5",
+    "puzzleQ": "Toward the back of the bunker, there’s a part that’s closed off. To proceed further into the bunker or access valuable resources stored within, you need to override the security lockdown that has been activated due to the signs of combat.\nTo do this, you must enter the correct sequence of codes by deciphering clues found within the bunker.\n",
+    "puzzleA": "5342",
     "isSolved": false,
-    "numAttempts": 2
+    "numAttempts": -1,
+    "hints" : [
+      "That keypad “looks” promising",
+      "Welp, time to bust out good ol’ trial and error."
+    ],
+    "successMessage": "Toward the back of the bunker, there’s a part that’s closed off. To proceed further into the bunker or access valuable resources stored within, you need to override the security lockdown that has been activated due to the signs of combat.\nTo do this, you must enter the correct sequence of codes by deciphering clues found within the bunker.\n",
+    "failureMessage": "",
+    "puzzleDrops": ["Band aids", "Band aids", "Ammunition", "Armor Plates"],
+    "killsPlayer": false,
+    "part2ID" : "none",
+    "numAns" : false,
+    "anyOrder" : false
   },
+
+
   {
-    "puzzleID" : "P7",
-    "puzzleQ": "What time signature was the song 'My Wave' by Soundgarden played in?",
-    "puzzleA": "5/4",
+    "puzzleName": "Lurker's Guidance",
+    "puzzleID": "P6",
+    "puzzleQ": "A creature watches you from the.edge of the forest. It appears to be observing you from a distance. It does not make any aggressive moves.",
+    "puzzleA": "drop band aids",
     "isSolved": false,
-    "numAttempts": 5
+    "numAttempts": 1,
+    "hints" : [
+      "Explore the Alien Forest and take note of the clear line of travel left by the shuttle's crash. The damaged plant life and the absence of lower brush create a relatively clear path.",
+      "Observe the creature’s actions closely."
+    ],
+    "successMessage": "The Lurker, now less wary of your presence, begins to guide you through the forest. It uses its unique knowledge of the terrain and its skulking abilities to help you avoid potential\nhazards or threats.\n\nFollow the Lurker's guidance as it leads you along the clearest and safest path toward your destination, saving you time and energy that would have been wasted on navigating the underbrush. You’re unable to keep up, and eventually, you lose him.\n",
+    "failureMessage": "",
+    "puzzleDrops": [],
+    "killsPlayer": false,
+    "part2ID" : "none",
+    "numAns" : false,
+    "anyOrder" : false
+  },
+
+
+  {
+    "puzzleName": "The Tenebrous Crystal Chamber",
+    "puzzleID": "P7",
+    "puzzleQ": "In the depths of a derelict space mine, you come across a foreboding cave entrance, its walls glistening with ominous, bioluminescent crystals.\nTo proceed deeper into the mine, you must solve the puzzle of the Tenebrous Crystal Chamber.\n\nTo unlock the cave passage, you need to illuminate the correct sequence of crystals, avoiding the trap of the caliginous crystal chamber.\nEach crystal can be toggled on or off by typing the corresponding number between 1-5.\n\nCrystal Statuses:\nCrystal 1: Glowing\nCrystal 2: Off\nCrystal 3: Off\nCrystal 4: Glowing\nCrystal 5: Off\n",
+    "puzzleA": "14",
+    "isSolved": false,
+    "numAttempts": -1,
+    "hints" : [
+      "The path to darkness is the path to safety."
+    ],
+    "successMessage": "You made it through the Chamber safely.",
+    "failureMessage": "",
+    "puzzleDrops": [],
+    "killsPlayer": false,
+    "part2ID" : "none",
+    "numAns" : true,
+    "anyOrder" : true
   }
+
 ]
+

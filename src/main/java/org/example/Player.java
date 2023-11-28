@@ -286,6 +286,113 @@ public class Player {
         System.out.println("Item: " + currentRoom.getListItem());
     }
 
+    public void solvePuzzle(Scanner scanner, Puzzle puzzle) throws InvalidItemException {
+        if(puzzle!=null) {
+            Integer attempts = puzzle.getNumAttempts();
+            int currentAttempts = 0;
+            String ans = puzzle.getPuzzleA();
+            ArrayList<String> puzzleHints = puzzle.getHints();
+            ArrayList<String> drops = puzzle.getPuzzleDrops();
+            while (attempts != 0 && !puzzle.isSolved()) {
+                System.out.println(puzzle.getPuzzleQ());
+                String user_ans = scanner.nextLine();
+                System.out.println();
+                switch (user_ans) {
+                    case "attack":
+                        System.out.println("You cannot attack while engrossed in this puzzle.");
+                        break;
+                    case "exit room":
+                        System.out.println("You are too engrossed in this puzzle to leave right now.");
+                        break;
+                    case "exit puzzle", "exit":
+                        System.out.println("You have exited the puzzle");
+                        System.out.println();
+                        return;
+                    default:
+                        if (puzzle.checkAnswer(ans)) {
+                            if (checkConditions(ans)) {
+                                System.out.println("Success! " + puzzle.getSuccessMessage());
+                                System.out.println();
+                                if(!"none".equals(puzzle.getPart2ID())){
+                                    solvePuzzle(scanner, map.getPuzzle(puzzle.getPart2ID()));
+                                }
+                                puzzle.setSolved(true);
+                                for (String item : drops) {
+                                    Item puzzleDrop = map.getItem(item);
+                                    getCurrentRoom().getInventory().add(puzzleDrop);
+                                    System.out.println(item + " has been dropped in the room");
+                                }
+                                System.out.println();
+
+                            } else {
+                                System.out.println("That didn't work. Try again.");
+                                if (attempts != -1) {
+                                    currentAttempts++;
+                                    attempts--;
+                                    System.out.println("You have " + attempts + " attempts left.");
+                                    for (int i = 0; i < currentAttempts && i < puzzleHints.size(); i++) {
+                                        System.out.println();
+                                        System.out.println(puzzleHints.get(i));
+                                    }
+
+                                }
+
+                            }
+                            if (attempts == 0) {
+                                System.out.println();
+                                System.out.println("Failed to solve. " + puzzle.getFailureMessage());
+                                if (puzzle.killsPlayer()) {
+                                    System.exit(0);
+
+                                }
+                            }
+                        }
+                }
+            }
+        }
+        else {
+            System.out.println("There is nothing to solve in this room");
+        }
+    }
+
+    public boolean checkConditions(String answer) throws InvalidItemException {
+        String[] conditions = answer.split("\\s+", 2);
+
+        if (conditions.length > 0) {
+            String condition = conditions[0];
+            String itemName = (conditions.length > 1) ? conditions[1] : "";
+//            Item item = map.getItem(itemName);
+
+            switch (condition.toLowerCase()) {
+                case "use":
+                    Item item = map.getItem(itemName);
+                    if(getInventory().contains(item)){
+                        System.out.println("You used the " + itemName);
+                        return true;
+                    }
+                    else {
+                        System.out.println("You are not currently carrying that item.");
+                        return false;
+                    }
+                case "drop":
+                    item = map.getItem(itemName);
+                    if(getInventory().contains(item)){
+                        dropItem(itemName);
+                        return true;
+                    }
+                    else {
+                        System.out.println("You are not currently carrying that item.");
+                        return false;
+                    }
+                default:
+                    return true;
+
+            }
+        }
+
+        return false;
+    }
+
     public String printString() {
         return String.format("Player: %s\n%s", name, currentRoom.toString());
     }
