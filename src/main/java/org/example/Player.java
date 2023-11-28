@@ -3,9 +3,10 @@ package org.example;
 
 import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.io.Serializable;
 import java.util.*;
 
-public class Player {
+public class Player implements Serializable {
     private String name;
     private Room currentRoom;
     private Room previousRoom;

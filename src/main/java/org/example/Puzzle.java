@@ -3,11 +3,12 @@ package org.example;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 import javax.swing.plaf.synth.SynthStyleFactory;
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Set;
 
-public class Puzzle {
+public class Puzzle implements Serializable {
 
     private String puzzleName;
     private String puzzleID;
