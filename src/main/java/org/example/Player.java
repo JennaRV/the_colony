@@ -7,6 +7,7 @@ import java.io.Serializable;
 import java.util.*;
 
 public class Player implements Serializable {
+    private static final long serialVersionUID = 7560846660268210980L;
     private String name;
     private Room currentRoom;
     private Room previousRoom;
