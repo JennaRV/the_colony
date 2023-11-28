@@ -53,7 +53,6 @@ public class Main {
                                 monsterMap.remove(monster.getName());
                                 break;
                             } else {
-                                handlePlayerTurn(p1, monster, scanner, monsterMap);
                                 flee=handlePlayerTurn(p1, monster,scanner, monsterMap);
                                 if(flee==true){
                                     break;
