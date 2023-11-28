@@ -4,33 +4,38 @@ import java.io.*;
 import java.util.*;
 
 public class Main {
+    public static ArrayList<String> savedPlayers = loadSavedPlayers();
+    public static Player p1 = null;
     public static void main(String[] args) throws IOException, InvalidItemException, InvalidRoomException, InvalidPuzzleException {
 
         Game();
 
     }
 
+//    ArrayList<String> savedPlayers = new ArrayList<>();
     public static void Game() throws IOException, InvalidRoomException, InvalidPuzzleException, InvalidItemException {
         Scanner scanner = new Scanner(System.in);
-        System.out.println("Would you like to start a new game or load an existing game?");
-        String answer = scanner.nextLine();
-        Player p1 = null;
-        if (answer.equalsIgnoreCase("new")) {
-            System.out.println("Type your name");
-            String in = scanner.nextLine();
-            p1 = new Player(in);
-        }
-        else if (answer.equalsIgnoreCase("load")){
-            p1 = loadGame();
-            if (p1 == null) {
-                System.out.println("Failed to load the game. Starting a new game instead.");
-                System.out.println("Type your name");
-                String in = scanner.nextLine();
-                p1 = new Player(in);
-            } else {
-                System.out.println("Game loaded successfully.");
-            }
-        }
+
+        p1 = buildPlayer();
+
+//        String answer = scanner.nextLine();
+//
+//        if (answer.equalsIgnoreCase("new")) {
+//            System.out.println("Type your name");
+//            String in = scanner.nextLine();
+//            p1 = new Player(in);
+//        }
+//        else if (answer.equalsIgnoreCase("load")){
+//            p1 = loadGame();
+//            if (p1 == null) {
+//                System.out.println("Failed to load the game. Starting a new game instead.");
+//                System.out.println("Type your name");
+//                String in = scanner.nextLine();
+//                p1 = new Player(in);
+//            } else {
+//                System.out.println("Game loaded successfully.");
+//            }
+//        }
         boolean play=true;
         while(play){
             System.out.println(p1.printString());
@@ -130,7 +135,7 @@ public class Main {
                 System.out.println("AMR: "+ p1.getAmr());
                 System.out.println("ATK: "+ p1.getAtk());
             } else if (parts[0].equalsIgnoreCase("save")){
-                p1.saveGame();
+                saveGame(p1);
             }else if (parts[0].equalsIgnoreCase("commands")) {
                 System.out.println("\n Movement commands: N(North), S(South), E(East), W(West)");
                 System.out.println("\n Inventory: I");
@@ -366,11 +371,40 @@ public class Main {
 //        }
 //    }
 
-    public static Player loadGame() {
-        Scanner scanner = new Scanner(System.in);
-        System.out.print("Enter your username: ");
-        String username = scanner.nextLine();
 
+    public static ArrayList<String> loadSavedPlayers() {
+        try (ObjectInputStream ois = new ObjectInputStream(new FileInputStream("savedPlayers.dat"))) {
+            return (ArrayList<String>) ois.readObject();
+        } catch (FileNotFoundException e) {
+            System.out.println("No savedPlayers file found. Starting with an empty list.");
+        } catch (IOException | ClassNotFoundException e) {
+            e.printStackTrace();
+            throw new RuntimeException(e);
+        }
+        return new ArrayList<>();
+    }
+
+    public static void saveSavedPlayers() {
+        try (ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream("savedPlayers.dat"))) {
+            oos.writeObject(savedPlayers);
+        } catch (IOException e) {
+            e.printStackTrace();
+            throw new RuntimeException(e);
+        }
+    }
+
+    public static void saveGame(Player player) {
+        try (ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream(player.getName() + ".dat"))) {
+            oos.writeObject(player);
+            savedPlayers.add(player.getName());
+            saveSavedPlayers(); // Save the updated list of saved players
+            System.out.println("Game saved successfully.");
+        } catch (IOException e) {
+            e.printStackTrace();
+            throw new RuntimeException(e);
+        }
+    }
+    public static Player loadGame(String username) {
         try (ObjectInputStream ois = new ObjectInputStream(new FileInputStream(username + ".dat"))) {
             Player loadedPlayer = (Player) ois.readObject();
             return loadedPlayer;
@@ -383,6 +417,43 @@ public class Main {
             throw new RuntimeException(e);
         }
         return null;
+    }
+
+    public static Player buildPlayer() throws InvalidItemException, IOException, InvalidRoomException {
+        Scanner input = new Scanner(System.in);
+        System.out.println("Please enter your name:");
+        String playerName = input.nextLine();
+
+        Player player = null;
+
+        // Check if the player name is already saved
+        if (savedPlayers.contains(playerName)) {
+            System.out.println("\nA profile already exists with that name. What would you like to do?");
+            System.out.println("Enter one of the following commands: \n'Load': Load game \n'Overwrite': Overwrite saved game, \n'new': Choose new name");
+            String command = input.nextLine();
+            Boolean validCommand = false;
+
+            while (!validCommand) {
+                if (command.equalsIgnoreCase("load")) {
+                    player = loadGame(playerName);
+                    validCommand = true;
+                } else if (command.equalsIgnoreCase("overwrite")) {
+                    savedPlayers.remove(playerName);
+                    player = new Player(playerName);
+                    validCommand = true;
+                } else if (command.equalsIgnoreCase("new")) {
+                    player = buildPlayer();
+                    validCommand = true;
+                } else {
+                    System.out.println("Please enter a valid command.");
+                }
+            }
+        } else {
+            // If the player name is not saved, create a new player
+            player = new Player(playerName);
+        }
+
+        return player;
     }
 }
 

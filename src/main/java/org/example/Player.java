@@ -31,6 +31,10 @@ public class Player implements Serializable{
         atk = 0;
     }
 
+    public String getName() {
+        return name;
+    }
+
     public Room getCurrentRoom() {
         return this.currentRoom;
     }
@@ -230,16 +234,16 @@ public class Player implements Serializable{
         return String.format("Player: %s\n%s", name, currentRoom.toString());
     }
 
-    public void saveGame() {
-
-        try (ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream(name + ".dat"))) {
-            oos.writeObject(this);
-            System.out.println("Game saved successfully.");
-        } catch (IOException e) {
-            e.printStackTrace();
-            throw new RuntimeException(e);
-        }
-    }
+//    public void saveGame() {
+//
+//        try (ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream(name + ".dat"))) {
+//            oos.writeObject(this);
+//            System.out.println("Game saved successfully.");
+//        } catch (IOException e) {
+//            e.printStackTrace();
+//            throw new RuntimeException(e);
+//        }
+//    }
 
 
 
