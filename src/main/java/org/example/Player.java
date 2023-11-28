@@ -29,7 +29,7 @@ public class Player {
         hp = 10;
         def = 0;
         amr = 0;
-        atk = 0;
+        atk = 30;
     }
 
     public Room getCurrentRoom() {
@@ -267,7 +267,9 @@ public class Player {
     }
 
     public void look() {
+
         System.out.println("Item: " + currentRoom.getListItem());
+        System.out.println("Puzzles: " + currentRoom.getPuzzle().getPuzzleName());
     }
 
     public void solvePuzzle(Scanner scanner, Puzzle puzzle) throws InvalidItemException {
@@ -293,8 +295,8 @@ public class Player {
                         System.out.println();
                         return;
                     default:
-                        if (puzzle.checkAnswer(ans)) {
-                            if (checkConditions(ans)) {
+                        if (puzzle.checkAnswer(user_ans)) {
+                            if (checkConditions(user_ans)) {
                                 System.out.println("Success! " + puzzle.getSuccessMessage());
                                 System.out.println();
                                 if(!"none".equals(puzzle.getPart2ID())){
@@ -310,27 +312,29 @@ public class Player {
                                 if(currentRoom.locked) {
                                     currentRoom.unlock();
                                 }
-                            } else {
-                                System.out.println("That didn't work. Try again.");
-                                if (attempts != -1) {
-                                    currentAttempts++;
-                                    attempts--;
-                                    System.out.println("You have " + attempts + " attempts left.");
-                                    for (int i = 0; i < currentAttempts && i < puzzleHints.size(); i++) {
-                                        System.out.println();
-                                        System.out.println(puzzleHints.get(i));
-                                    }
+                            }
 
+                        }
+                        else {
+                            System.out.println("That didn't work. Try again.");
+                            if (attempts != -1) {
+                                currentAttempts++;
+                                attempts--;
+                                System.out.println("You have " + attempts + " attempts left.");
+                                for (int i = 0; i < currentAttempts && i < puzzleHints.size(); i++) {
+                                    System.out.println();
+                                    System.out.println(puzzleHints.get(i));
                                 }
 
                             }
-                            if (attempts == 0) {
-                                System.out.println();
-                                System.out.println("Failed to solve. " + puzzle.getFailureMessage());
-                                if (puzzle.killsPlayer()) {
-                                    System.exit(0);
 
-                                }
+                        }
+                        if (attempts == 0) {
+                            System.out.println();
+                            System.out.println("Failed to solve. " + puzzle.getFailureMessage());
+                            if (puzzle.killsPlayer()) {
+                                System.exit(0);
+
                             }
                         }
                 }

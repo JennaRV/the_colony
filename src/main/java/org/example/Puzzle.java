@@ -1,6 +1,8 @@
 package org.example;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
+
+import javax.swing.plaf.synth.SynthStyleFactory;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.Set;
@@ -124,11 +126,12 @@ public class Puzzle {
         }
         if (numAns){
             String filteredNumericAnswer = filterNumericAnswer(answer);
-            return filteredNumericAnswer.equals(puzzleA);
+            return filteredNumericAnswer.equalsIgnoreCase(puzzleA);
         }
         else {
             String cleanPuzzleA = puzzleA.replaceAll("\\s*,\\s*", "");
             String cleanAnswer = answer.replaceAll("\\s*,\\s*", "");
+
 
             return cleanAnswer.equalsIgnoreCase(cleanPuzzleA) && !cleanAnswer.matches(".*[\\s,]{2,}.*");
         }
@@ -181,5 +184,10 @@ public class Puzzle {
 //    }
 
 
-
+    @Override
+    public String toString() {
+        return "Puzzle{" +
+                "puzzleName='" + puzzleName + '\'' +
+                '}';
+    }
 }
