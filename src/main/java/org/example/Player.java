@@ -31,7 +31,7 @@ public class Player implements Serializable {
         hp = 10;
         def = 0;
         amr = 0;
-        atk = 30;
+        atk = 0;
     }
 
     public Room getCurrentRoom() {
