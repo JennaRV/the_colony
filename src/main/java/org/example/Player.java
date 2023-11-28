@@ -18,7 +18,6 @@ public class Player {
     private double amr;
     private double atk;
     private ArrayList<Item> inventory;
-
     public Player(String name) throws InvalidRoomException, IOException, InvalidItemException {
         this.name=name;
         map = new Map();
@@ -35,6 +34,10 @@ public class Player {
 
     public Room getCurrentRoom() {
         return this.currentRoom;
+    }
+
+    public void setCurrentRoom(Room currentRoom) {
+        this.currentRoom = currentRoom;
     }
 
     public void moveNorth() throws InvalidRoomException, InvalidPuzzleException {
@@ -80,6 +83,10 @@ public class Player {
         if(previousRoom.isPathless()){
             previousRoom.setEastID("0");
         }
+    }
+
+    public Room getPreviousRoom() {
+        return previousRoom;
     }
 
     public void pickupItem(String itemName) throws InvalidItemException {

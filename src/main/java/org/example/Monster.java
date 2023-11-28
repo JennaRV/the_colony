@@ -5,6 +5,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.LinkedHashMap;
 
 public class Monster {
     private String id;
@@ -13,7 +14,7 @@ public class Monster {
     private boolean isDead;
     private double HP, DEF, ATK;
     private ArrayList<String> drop;
-    private ArrayList<Object> specialEffects;
+    private ArrayList<LinkedHashMap<String, Object>> specialEffects;
     private ArrayList<Double> chance = new ArrayList<>();
     private String effect;
 
@@ -29,7 +30,7 @@ public class Monster {
                    @JsonProperty("effect") String effect,
                    @JsonProperty("drop") ArrayList<String> drop,
                    @JsonProperty("chance") ArrayList<Double> chance,
-                   @JsonProperty("specialEffects") ArrayList<Object> specialEffects) {
+                   @JsonProperty("specialEffects") ArrayList<LinkedHashMap<String, Object>> specialEffects) {
         this.id = id;
         this.roomIDs = roomIDs;
         this.name = name;
@@ -102,7 +103,7 @@ public class Monster {
         return roomIDs;
     }
 
-    public ArrayList<Object> getSpecialEffects() {
+    public ArrayList<LinkedHashMap<String, Object>>  getSpecialEffects() {
         return specialEffects;
     }
 
