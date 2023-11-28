@@ -53,7 +53,7 @@ public class Main {
                 for(Monster i: p1.getCurrentRoom().getMonsters()){
                     if(i!=null){
                         System.out.println(i.getName());
-                        monsterMap.put(i.getName(), i);
+                        monsterMap.put(i.getName(),i);
 
                     }
                 }
@@ -74,7 +74,6 @@ public class Main {
                                 monsterMap.remove(monster.getName());
                                 break;
                             } else {
-                                handlePlayerTurn(p1, monster, scanner, monsterMap);
                                 flee=handlePlayerTurn(p1, monster,scanner, monsterMap);
                                 if(flee==true){
                                     break;
@@ -82,11 +81,12 @@ public class Main {
                             }
 
                         } else {
-                            handleMonsterTurn(p1, monster, scanner);
+                            handleMonsterTurn(p1, monster,scanner);
                         }
                         playerTurn = !playerTurn;
                     }
-                } else {
+                }
+                else{
                     System.out.println("Invalid command. Exiting monster stage");
                     break;
                 }
