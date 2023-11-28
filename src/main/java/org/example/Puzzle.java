@@ -142,46 +142,6 @@ public class Puzzle {
         return answer.replaceAll("[^1-5]", "");
     }
 
-//    public boolean checkConditions(String answer) throws InvalidItemException {
-//        String[] conditions = answer.split("\\s+", 2);
-//
-//        if (conditions.length > 0) {
-//            String condition = conditions[0];
-//            String itemName = (conditions.length > 1) ? conditions[1] : "";
-//            Item item = player.map.getItem(i)
-//            //item.toLowerCase();
-//            System.out.println("DEBUG item: " + item);
-//
-//            switch (condition.toLowerCase()) {
-//                case "use":
-//                    if(player.getInventory().contains()){
-//                        System.out.println("You used the " + item);
-//                        return true;
-//                    }
-//                    else {
-//                        System.out.println("You are not currently carrying that item.");
-//                        return false;
-//                    }
-//                case "look":
-//                    //will implement later
-//                    break;
-//                case "drop":
-//                    if(player.getInventory().contains(item)){
-//                        player.dropItem(item);
-//                        return true;
-//                    }
-//                    else {
-//                        System.out.println("You are not currently carrying that item.");
-//                        return false;
-//                    }
-//                default:
-//                    return true;
-//
-//            }
-//        }
-//
-//        return false;
-//    }
 
 
     @Override

@@ -36,6 +36,10 @@ public class Player {
         return this.currentRoom;
     }
 
+    public String getName() {
+        return name;
+    }
+
     public void setCurrentRoom(Room currentRoom) {
         this.currentRoom = currentRoom;
     }

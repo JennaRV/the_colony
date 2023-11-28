@@ -137,8 +137,12 @@ public class Main {
             System.out.println("\n Restart: Restarts the game if the player loses to the monster.");
         } else if (parts[0].equalsIgnoreCase("restart")) {
             restart();
-        } else if (parts[0].equalsIgnoreCase("exit")) {
-            play = false;
+        }
+        else if (parts[0].equalsIgnoreCase("save")){
+            saveGame(p1);
+        }
+        else if (parts[0].equalsIgnoreCase("exit")) {
+            System.exit(0);
         } else if (parts[0].equalsIgnoreCase("n")) {
             p1.moveNorth();
         } else if (parts[0].equalsIgnoreCase("e")) {
