@@ -195,22 +195,6 @@ public class Player {
 
     public void unequip(String itemName) throws InvalidItemException {
         Item item  = map.getItem(itemName);
-//        if (equippedItems.contains(item)) {
-//            Equipment equipment = (Equipment) item;
-//            if(hp - equipment.getHPModifier() <= 0) {
-//                System.out.println("You will be death after un-equip this item.");
-//                return;
-//            }
-//            hp -= equipment.getHPModifier();
-//            def -= equipment.getDefModifier();
-//            amr -= equipment.getAmrModifier();
-//            atk -= equipment.getAtkModifier();
-//            equippedItems.remove(equipment);
-//            inventory.add(equipment);
-//            System.out.println(itemName + " has been un-equipped successfully to the player inventory");
-//        } else {
-//            System.out.println("You did not equip that item yet.");
-//        }
         Equipment equipment = (Equipment) item;
         if(equipment == weapon) {
             weapon = null;
@@ -323,7 +307,9 @@ public class Player {
                                     System.out.println(item + " has been dropped in the room");
                                 }
                                 System.out.println();
-
+                                if(currentRoom.locked) {
+                                    currentRoom.unlock();
+                                }
                             } else {
                                 System.out.println("That didn't work. Try again.");
                                 if (attempts != -1) {

@@ -10,26 +10,28 @@ public class Room {
 
    private ArrayList<String> room_name;
 
-   private String[] desc;
+   private ArrayList<String> desc;
 
    private boolean visit;
-   private String[] nav_tab;
+   private ArrayList<ArrayList<String>> nav_tab;
    private ArrayList<String> items;
    private ArrayList<Item> inventory = new ArrayList<>();
    private String puzzleID;
    private Puzzle puzzle;
    private ArrayList<Monster> monsters;
    boolean pathless;
+   boolean locked;
 
     public Room(@JsonProperty("room_id")String room_id,
                 @JsonProperty("room_name") ArrayList<String> room_name,
-                @JsonProperty("desc") String[] desc,
+                @JsonProperty("desc") ArrayList<String> desc,
                 @JsonProperty("visit") boolean visit,
                 @JsonProperty("items") ArrayList<String> items,
-                @JsonProperty("nav_tab") String[] nav_tab,
+                @JsonProperty("nav_tab") ArrayList<ArrayList<String>> nav_tab,
                 @JsonProperty("puzzle") String puzzleID,
                 @JsonProperty("monsters") ArrayList<Monster> monsters,
-                @JsonProperty("pathless") boolean isPathless) {
+                @JsonProperty("pathless") boolean pathless,
+                @JsonProperty("locked") boolean locked) {
        this.room_id = room_id;
        this.room_name = room_name;
        this.desc = desc;
@@ -38,7 +40,8 @@ public class Room {
        this.items = items;
        this.puzzleID = puzzleID;
        this.monsters=monsters;
-       this.pathless = isPathless;
+       this.pathless = pathless;
+       this.locked = locked;
     }
 
     public String getRoom_id() {
@@ -54,21 +57,21 @@ public class Room {
     }
 
     public String getNorthID() {
-        return nav_tab[0];
+        return nav_tab.get(0).get(0);
     }
-    public void setNorthID(String id) {nav_tab[0] = id;}
+    public void setNorthID(String id) {nav_tab.get(0).set(0, id);}
     public String getEastID() {
-        return nav_tab[1];
+        return nav_tab.get(0).get(1);
     }
-    public void setEastID(String id) {nav_tab[1] = id;}
+    public void setEastID(String id) {nav_tab.get(0).set(1, id);}
     public String getSouthID() {
-        return nav_tab[2];
+        return nav_tab.get(0).get(2);
     }
-    public void setSouthID(String id) {nav_tab[2] = id;}
+    public void setSouthID(String id) {nav_tab.get(0).set(2, id);}
     public String getWestID() {
-        return nav_tab[3];
+        return nav_tab.get(0).get(3);
     }
-    public void setWestID(String id) {nav_tab[3] = id;}
+    public void setWestID(String id) {nav_tab.get(0).set(3, id);}
     public ArrayList<String> getItems(){
        return items;
     }
@@ -101,11 +104,16 @@ public class Room {
     public boolean isPathless() {
         return pathless;
     }
-
+    public boolean isLocked() {return locked;}
+    public void unlock() {
+        room_name.remove(0);
+        desc.remove(0);
+        nav_tab.remove(0);
+        locked = false;
+    }
     public String toString() {
-
         return String.format("Room Number: %s\nRoom Name: %s\nRoom Description:\n%s",
-                room_id, room_name, String.join("\n", desc));
+                room_id, room_name.get(0), String.join("\n", desc.get(0)));
     }
 
 }
