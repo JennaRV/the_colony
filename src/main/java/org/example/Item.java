@@ -5,6 +5,7 @@ import com.fasterxml.jackson.annotation.JsonSubTypes;
 import com.fasterxml.jackson.annotation.JsonTypeInfo;
 import com.fasterxml.jackson.annotation.JsonCreator;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 @JsonTypeInfo(use = JsonTypeInfo.Id.NAME, property = "type")
 @JsonSubTypes({
@@ -12,7 +13,7 @@ import java.util.ArrayList;
         @JsonSubTypes.Type(value = ConsumableItem.class, name = "Consumable"),
         @JsonSubTypes.Type(value = StaticItem.class, name = "Static")
 })
-public abstract class Item {
+public abstract class Item implements Serializable {
     private String id;
     private String name;
     private String description;

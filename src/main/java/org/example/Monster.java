@@ -3,11 +3,12 @@ package org.example;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 import java.io.IOException;
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.LinkedHashMap;
 
-public class Monster {
+public class Monster implements Serializable {
     private String id;
     private ArrayList<String> roomIDs;
     private String name, desc;
