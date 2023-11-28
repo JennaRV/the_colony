@@ -6,6 +6,7 @@ import java.util.*;
 public class Main {
     public static ArrayList<String> savedPlayers = loadSavedPlayers();
     public static Player p1 = null;
+
     public static void main(String[] args) throws IOException, InvalidItemException, InvalidRoomException, InvalidPuzzleException {
 
         Game();
@@ -17,7 +18,7 @@ public class Main {
         Scanner scanner = new Scanner(System.in);
 
         p1 = buildPlayer();
-
+        View view=new View(p1);
 //        String answer = scanner.nextLine();
 //
 //        if (answer.equalsIgnoreCase("new")) {
@@ -38,14 +39,14 @@ public class Main {
 //        }
         boolean play=true;
         while(play){
-            System.out.println(p1.printString());
+
+            view.playerString();
             if (p1.getCurrentRoom().isVisit()) {
                 System.out.println("You've been in this room before");
             } else {
                 System.out.println("This is your first time in this room");
                 p1.getCurrentRoom().setVisit(true);
             }
-
             //Monster mechs
             while (!p1.getCurrentRoom().getMonsters().isEmpty()) {
                 HashMap<String, Monster> monsterMap= new HashMap<>();
@@ -93,14 +94,14 @@ public class Main {
             }
             //Room Travel
             try {
-                activateNavigation(p1, scanner, play);
+                activateNavigation(p1, scanner, play,view);
             } catch (InvalidRoomException | InvalidItemException | InvalidPuzzleException e) {
                 System.out.println(e.getMessage());
             }
         }
     }
 
-    public static void activateNavigation(Player p1, Scanner scanner, boolean play) throws InvalidRoomException, InvalidPuzzleException, InvalidItemException, IOException {
+    public static void activateNavigation(Player p1, Scanner scanner, boolean play, View view) throws InvalidRoomException, InvalidPuzzleException, InvalidItemException, IOException {
         System.out.println("\nEnter a direction (N,S,E,W) that you want to go. Type 'commands' to view all commands.");
         System.out.println("To view your inventory, press 'I'");
         String command = scanner.nextLine().toLowerCase();
@@ -118,23 +119,9 @@ public class Main {
         } else if (parts[0].equalsIgnoreCase("solve")) {
             p1.solvePuzzle(scanner, p1.getCurrentRoom().getPuzzle());
         } else if (parts[0].equalsIgnoreCase("stats")) {
-            System.out.println("HP: " + p1.getHp());
-            System.out.println("DEF: " + p1.getDef());
-            System.out.println("AMR: " + p1.getAmr());
-            System.out.println("ATK: " + p1.getAtk());
+           view.showStats();
         } else if (parts[0].equalsIgnoreCase("commands")) {
-            System.out.println("\n Movement commands: N(North), S(South), E(East), W(West)");
-            System.out.println("\n Inventory: I");
-            System.out.println("\n Examine monster if there is a monster in the room: Examine Monster");
-            System.out.println("\n Pickup item: Pickup {item}");
-            System.out.println("\n Explore a room: look");
-            System.out.println("\n Explore an item: explore {item} (must be inside inventory)");
-            System.out.println("\n Equip an item: equip {item} (must be inside inventory)");
-            System.out.println("\n Drop an item: drop {item} (must be inside inventory)");
-            System.out.println("\n Attack a monster: attack");
-            System.out.println("\n Ignore a monster: ignore");
-            System.out.println("\n Exit: can be used to exit the inventory or the game");
-            System.out.println("\n Restart: Restarts the game if the player loses to the monster.");
+           view.showCommands();
         } else if (parts[0].equalsIgnoreCase("restart")) {
             restart();
         }
