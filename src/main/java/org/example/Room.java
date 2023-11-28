@@ -2,10 +2,12 @@ package org.example;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 
+import java.awt.*;
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.RandomAccess;
 
-public class Room {
+public class Room implements Serializable {
 
     private String room_id;
 

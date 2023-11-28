@@ -1,6 +1,6 @@
 package org.example;
 
-import java.io.IOException;
+import java.io.*;
 import java.util.*;
 
 public class Main {
@@ -12,9 +12,25 @@ public class Main {
 
     public static void Game() throws IOException, InvalidRoomException, InvalidPuzzleException, InvalidItemException {
         Scanner scanner = new Scanner(System.in);
-        System.out.println("Type your name");
-        String in = scanner.nextLine();
-        Player p1 = new Player(in);
+        System.out.println("Would you like to start a new game or load an existing game?");
+        String answer = scanner.nextLine();
+        Player p1 = null;
+        if (answer.equalsIgnoreCase("new")) {
+            System.out.println("Type your name");
+            String in = scanner.nextLine();
+            p1 = new Player(in);
+        }
+        else if (answer.equalsIgnoreCase("load")){
+            p1 = loadGame();
+            if (p1 == null) {
+                System.out.println("Failed to load the game. Starting a new game instead.");
+                System.out.println("Type your name");
+                String in = scanner.nextLine();
+                p1 = new Player(in);
+            } else {
+                System.out.println("Game loaded successfully.");
+            }
+        }
         boolean play=true;
         while(play){
             System.out.println(p1.printString());
@@ -113,7 +129,9 @@ public class Main {
                 System.out.println("DEF: "+ p1.getDef());
                 System.out.println("AMR: "+ p1.getAmr());
                 System.out.println("ATK: "+ p1.getAtk());
-            } else if (parts[0].equalsIgnoreCase("commands")) {
+            } else if (parts[0].equalsIgnoreCase("save")){
+                p1.saveGame();
+            }else if (parts[0].equalsIgnoreCase("commands")) {
                 System.out.println("\n Movement commands: N(North), S(South), E(East), W(West)");
                 System.out.println("\n Inventory: I");
                 System.out.println("\n Examine monster if there is a monster in the room: Examine Monster");
@@ -335,5 +353,37 @@ public class Main {
         Main game= new Main();
         game.Game();
     }
+
+//    public static void saveGame() {
+//        GameState gameState = new GameState(player, map);  // Replace 'map' with your actual map object
+//
+//        try (ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream(name + ".dat"))) {
+//            oos.writeObject(gameState);
+//            System.out.println("Game saved successfully.");
+//        } catch (IOException e) {
+//            e.printStackTrace();
+//            throw new RuntimeException(e);
+//        }
+//    }
+
+    public static Player loadGame() {
+        Scanner scanner = new Scanner(System.in);
+        System.out.print("Enter your username: ");
+        String username = scanner.nextLine();
+
+        try (ObjectInputStream ois = new ObjectInputStream(new FileInputStream(username + ".dat"))) {
+            Player loadedPlayer = (Player) ois.readObject();
+            return loadedPlayer;
+
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+            System.out.println("Save file not found for username: " + username);
+        } catch (IOException | ClassNotFoundException e) {
+            e.printStackTrace();
+            throw new RuntimeException(e);
+        }
+        return null;
+    }
 }
+
 

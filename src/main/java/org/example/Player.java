@@ -1,11 +1,11 @@
 package org.example;
 
 
-import java.io.FileNotFoundException;
-import java.io.IOException;
+import java.io.*;
 import java.util.*;
 
-public class Player {
+public class Player implements Serializable{
+    private static final long serialVersionUID = 7560846660268210980L;
     private String name;
     private Room currentRoom;
     private Room previousRoom;
@@ -229,6 +229,38 @@ public class Player {
     public String printString() {
         return String.format("Player: %s\n%s", name, currentRoom.toString());
     }
+
+    public void saveGame() {
+
+        try (ObjectOutputStream oos = new ObjectOutputStream(new FileOutputStream(name + ".dat"))) {
+            oos.writeObject(this);
+            System.out.println("Game saved successfully.");
+        } catch (IOException e) {
+            e.printStackTrace();
+            throw new RuntimeException(e);
+        }
+    }
+
+
+
+//    public static Map loadGame() {
+//        Scanner scanner = new Scanner(System.in);
+//        System.out.print("Enter your username: ");
+//        String username = scanner.nextLine();
+//
+//        try (ObjectInputStream ois = new ObjectInputStream(new FileInputStream(username + ".dat"))) {
+//            Map loadedMap = (Map) ois.readObject();
+//            System.out.println("Game loaded successfully.");
+//            return loadedMap;
+//        } catch (FileNotFoundException e) {
+//            e.printStackTrace();  // Add this line to print the stack trace
+//            System.out.println("Save file not found for username: " + username);
+//        } catch (IOException | ClassNotFoundException e) {
+//            e.printStackTrace();  // Add this line to print the stack trace
+//            throw new RuntimeException(e);
+//        }
+//        return null;
+//    }
 
 
 }

@@ -2,7 +2,9 @@ package org.example;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 
-public class Puzzle {
+import java.io.Serializable;
+
+public class Puzzle implements Serializable {
     private String puzzleID;
     private String puzzleQ;
     private String puzzleA;
