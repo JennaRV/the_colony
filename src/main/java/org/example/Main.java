@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.util.*;
 
 public class Main {
+    public static View viewer;
     public static void main(String[] args) throws IOException, InvalidItemException, InvalidRoomException, InvalidPuzzleException {
 
         Game();
@@ -15,9 +16,10 @@ public class Main {
         System.out.println("Type your name");
         String in = scanner.nextLine();
         Player p1 = new Player(in);
+        viewer= new View(p1);
         boolean play = true;
         while (play) {
-            System.out.println(p1.printString());
+            viewer.playerString();
             if (p1.getCurrentRoom().isVisit()) {
                 System.out.println("You've been in this room before");
             } else {
@@ -87,24 +89,22 @@ public class Main {
                     }
                 }
                 else{
-                    System.out.println("Invalid command. Exiting monster stage");
+                    viewer.invalidCommand();
                     break;
                 }
             }
             //Room Travel
             try {
-                activateNavigation(p1, scanner, play);
+                activateNavigation(p1, scanner, viewer);
             } catch (InvalidRoomException | InvalidItemException | InvalidPuzzleException e) {
                 System.out.println(e.getMessage());
             }
         }
     }
 
-    public static void activateNavigation(Player p1, Scanner scanner, boolean play) throws InvalidRoomException, InvalidPuzzleException, InvalidItemException, IOException {
+    public static void activateNavigation(Player p1, Scanner scanner, View viewer) throws InvalidRoomException, InvalidPuzzleException, InvalidItemException, IOException {
         System.out.println("\nEnter a direction (N,S,E,W) that you want to go. Type 'commands' to view all commands.");
-        System.out.println("To view your inventory, press 'I'");
         String command = scanner.nextLine().toLowerCase();
-
         String[] parts = command.split(" ");
 
         if (parts[0].equalsIgnoreCase("pickup") && parts.length > 1) {
@@ -116,27 +116,13 @@ public class Main {
         } else if (parts[0].equalsIgnoreCase("look")) {
             p1.look();
         } else if (parts[0].equalsIgnoreCase("stats")) {
-            System.out.println("HP: " + p1.getHp());
-            System.out.println("DEF: " + p1.getDef());
-            System.out.println("AMR: " + p1.getAmr());
-            System.out.println("ATK: " + p1.getAtk());
+            viewer.showStats();
         } else if (parts[0].equalsIgnoreCase("commands")) {
-            System.out.println("\n Movement commands: N(North), S(South), E(East), W(West)");
-            System.out.println("\n Inventory: I");
-            System.out.println("\n Examine monster if there is a monster in the room: Examine Monster");
-            System.out.println("\n Pickup item: Pickup {item}");
-            System.out.println("\n Explore a room: look");
-            System.out.println("\n Explore an item: explore {item} (must be inside inventory)");
-            System.out.println("\n Equip an item: equip {item} (must be inside inventory)");
-            System.out.println("\n Drop an item: drop {item} (must be inside inventory)");
-            System.out.println("\n Attack a monster: attack");
-            System.out.println("\n Ignore a monster: ignore");
-            System.out.println("\n Exit: can be used to exit the inventory or the game");
-            System.out.println("\n Restart: Restarts the game if the player loses to the monster.");
+           viewer.showCommands();
         } else if (parts[0].equalsIgnoreCase("restart")) {
             restart();
         } else if (parts[0].equalsIgnoreCase("exit")) {
-            play = false;
+            System.exit(0);
         } else if (parts[0].equalsIgnoreCase("n")) {
             p1.moveNorth();
         } else if (parts[0].equalsIgnoreCase("e")) {
@@ -306,9 +292,7 @@ public class Main {
 
         while (inInventory) {
             p1.printInventory();
-            System.out.println("Enter 'explore' + item name to get information of item, " +
-                    "'drop' + item name to take item out of inventory, 'equip' + item name to equip item, " +
-                    "'un-equip to un-equip item, 'consume' + item name to use consumable item, 'exit' to exit inventory view.");
+            viewer.invInstructions();
             String command = scanner.nextLine().toLowerCase();
             String[] parts = command.split(" ");
             if (parts[0].equalsIgnoreCase("explore") && parts.length > 1) {
@@ -331,7 +315,7 @@ public class Main {
                 System.out.println("Exiting inventory");
                 inInventory = false;
             } else {
-                System.out.println("Invalid command!");
+                viewer.invalidCommand();
             }
         }
     }
