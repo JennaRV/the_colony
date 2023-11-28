@@ -263,10 +263,7 @@ public class Player implements Serializable {
     public void exploreItem(String itemName) throws InvalidItemException {
         Item item = map.getItem(itemName);
         if (inventory.contains(item) || currentRoom.getInventory().contains(item)) {
-            item.getInformation();
-            if(item.getType().equalsIgnoreCase("Equipment")){
-
-            }
+            System.out.println(item.getInformation());
         } else {
             System.out.println("You can't inspect this item now.");
         }
