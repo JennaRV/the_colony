@@ -25,27 +25,6 @@ public class Main {
                 p1.getCurrentRoom().setVisit(true);
             }
 
-            //Puzzle mechs
-//            if(p1.getCurrentRoom().getPuzzle()!=null){
-//                int attempts=p1.getCurrentRoom().getPuzzle().getNumAttempts();
-//                String ans= p1.getCurrentRoom().getPuzzle().getPuzzleA();
-//                while(attempts!=0 && !p1.getCurrentRoom().getPuzzle().isSolved()){
-//                    System.out.println(p1.getCurrentRoom().getPuzzle().getPuzzleQ());
-//                    String user_ans= scanner.nextLine();
-//                    if(ans.equalsIgnoreCase(user_ans)){
-//                        System.out.println("Correct");
-//                        p1.getCurrentRoom().getPuzzle().setSolved(true);
-//                    }
-//                    else{
-//                        attempts--;
-//                        System.out.println("Incorrect. Attempts remaining: " + attempts);
-//                    }
-//                    if(attempts==0){
-//                        System.out.println("Failed to solve.");
-//                    }
-//                }
-//            }
-
             //Monster mechs
             while (!p1.getCurrentRoom().getMonsters().isEmpty()) {
                 HashMap<String, Monster> monsterMap= new HashMap<>();
@@ -115,6 +94,8 @@ public class Main {
             handleInventory(p1, scanner);
         } else if (parts[0].equalsIgnoreCase("look")) {
             p1.look();
+        } else if (parts[0].equalsIgnoreCase("solve")) {
+            p1.solvePuzzle(scanner, p1.getCurrentRoom().getPuzzle());
         } else if (parts[0].equalsIgnoreCase("stats")) {
             System.out.println("HP: " + p1.getHp());
             System.out.println("DEF: " + p1.getDef());
